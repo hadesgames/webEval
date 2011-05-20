@@ -1,0 +1,33 @@
+{% extends "webEval_base.html" %}
+
+{% block title %}
+	New ticket
+{% endblock %}
+
+{% block wiki_page %}
+	<h1>New ticket</h1>
+	<form method="post" action="{% url webEval.web_eval__core.utils__controller.new_ticket %}">
+        {% csrf_token %}
+			<ul class="form">
+				<li>
+					<label for="form_title">Title</label>
+					<input type="text" name="title" id="form_title" value="{{ form.data.title }}" />
+				</li>
+				<li>
+					<label for="form_content">Content</label>
+					<textarea rows="10" cols="50" name="content" id="form_text">{{ form.data.content }}</textarea>
+				</li>
+				<li>
+					<label for="form_type">Type</label>
+					<select name="type" id="form_ticket_type">
+					{% for option in ticket_types %}
+						<option value="{{ option }}">{{ option }}</option>
+					{% endfor %} 
+					</select>
+				</li>
+				<li>
+					<input type="submit" value="Submit" title="Submit" />
+				</li>
+			</ul> 
+	</form>
+{% endblock %}

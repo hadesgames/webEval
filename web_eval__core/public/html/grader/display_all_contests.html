@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load util_tags %}
+
+{% block title %}
+    Contests
+{% endblock %}
+{% block content %}
+	<h1>Contests</h1>
+	
+	<h2>Current or upcoming contests</h2>
+	
+	<table class='fill-screen rounds'>
+		<thead>
+			<tr>
+				<th class="round">Name</th>
+				<th class="start_time">Start time</th>
+				<th class="duration">Duration</th>
+				<th class="start_time_countdown"></th>
+				<th class="register_time_countdown"></th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for contest in active_or_upcoming_contests %}
+			<tr class="odd">
+				<td class="round"><span><a href="{% url webEval.web_eval__core.grader__controller.display_contest contest_code=contest.code %}">{{ contest.name }}</a></span></td>
+				<td class="start_time"><a href="http://timeanddate.com/worldclock/fixedtime.html?{{ contest.start_time|timeanddate_template|safe }}">{{ contest.start_time }}</a></td>
+				<td class="duration">{{ contest.duration }}</td>
+				<td class="start_time_countdown">{% if contest.started %}Before contest ends: {{ contest.end_time|timedelta }}{% else %}Before start {{ contest.start_time|timedelta }}{% endif %}</td>
+				<td class="register_time_countdown">
+					{% if contest.started %}
+						{{ contest.registered_users_count }} users registered 
+					{% else %}
+						{% if contest.registration_started %}
+							{% if contest.registration_ended %}
+								Registration ended. {{ contest.registered_users_count }} users registered
+							{% else %}
+								{{ contest.registration_end_time|timedelta }} until registration ends.
+							{% endif %}
+						{% else %}
+							Before registration {{ contest.registration_start_time|timedelta }}
+						{% endif %}
+					{% endif %}
+				</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}

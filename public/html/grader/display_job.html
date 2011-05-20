@@ -1,0 +1,70 @@
+{% extends "webEval_base.html" %}
+{% load util_tags %}
+
+{% block title %}
+    Job #{{ job.id }}
+{% endblock %}
+
+{% block wiki_page %}
+     <h1>Source code(job <a href="{% url webEval.web_eval__core.grader__controller.display_job job_id=job.id %}">#{{ job.id }}</a>)</h1> 
+     
+    <table class="job"> 
+    <tr> 
+        <th class="user-id">User</th> 
+        <td class="user-id">{% with job.user as tiny_user %}{% include "include_tiny_user.html" %}{% endwith %}</td> 
+        <th class="submit-time">Date</th> 
+        <td class="submit-time">{{ job.date }}</td> 
+    </tr> 
+    <tr> 
+        <th class="task-id">Problem</th> 
+        <td class="task-id"><a href="{% url webEval.web_eval__core.grader__controller.display_problem problem_code=job.problem.code %}">{{ job.problem.name }}</a></td> 
+        <th class="score">Score</th> 
+        <td class="score">{{ job.score }}</td> 
+    </tr> 
+    </tr> 
+    <tr> 
+        <th class="compiler-id">Compiler</th> 
+        <td class="compiler-id">{{ job.language }} | <a href="{% url webEval.web_eval__core.grader__controller.display_job_source_code job_id=job.id %}">View source code</a></td> 
+        <th class="status">Status</th> 
+        <td class="status"><strong>{% if job.processing %}Processing{% else %}{% ifequal job.percent_completed 0 %}Waiting{% else %}Done{% endifequal %}{% endif %}</strong></td> 
+    </tr> 
+    <tr> 
+        <th class="round-id">Contest</th> 
+        <td class="round-id" colspan="1"> 
+        <a href="{% url webEval.web_eval__core.grader__controller.display_contest contest_code=job.contest.code %}">{{ job.contest.name }}</a></td> 
+     
+        <th class="size">Size</th> 
+        <td class="size">{{ job.source_size_in_kbytes|floatformat:2 }} kb</td> 
+    </tr> 
+    </table>
+    <br>
+        
+    <h2>Judge report</h2> 
+ 
+    <div class="job-eval-log"> 
+    </div> 
+ 
+ 	{% if tests.count %}
+    <table class="job-eval-tests"> 
+        <thead> 
+            <tr> 
+                <th width="10px">Test</th> 
+                <th width="20%">CPU time</th> 
+                <th width="20%">Memory usage</th> 
+                <th>Message</th> 
+                <th width="20px">Points</th> 
+            </tr> 
+        </thead> 
+        <tbody>
+            {% for test in tests %}
+            <tr class="{% if forloop.counter|even %}even{% else %}odd{% endif %}">
+                <td class="number" style="text-align: right">{{ test.no }}</td>
+                <td class="number" style="text-align: right">{{ test.time }}ms</td>
+                <td class="number" style="text-align: right;">{{ test.memory }}kb</td>
+                <td style="padding-left: 10px;">{{ test.message }}</td>
+                <td class="number" style="text-align: right">{{ test.score }}</td>
+            </tr>
+            {% endfor %}
+    </table> 
+    {% endif %}
+{% endblock %}

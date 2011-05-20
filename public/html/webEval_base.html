@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>
+      {% block title %} The webEval Project {% endblock %}
+    </title>
+    
+    <link rel="stylesheet" href="{{ MEDIA_URL }}/css/webeval.css" type="text/css"/>
+    <link rel="stylesheet" href="{{ MEDIA_URL }}/css/ui-lightness/jquery-ui-1.8.13.custom.css" type="text/css"/>
+    <link rel="stylesheet" href="{{ MEDIA_URL }}/css/form_popup.css" type="text/css"/> 
+    {% block extra_css %}{% endblock %}
+    <script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery.js"></script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery-ui-1.8.13.custom.min.js"></script>
+  </head>
+  <body>
+    <div id="form-login" title="Login" style="display: none;">
+      {% include "auth/login_popup.html" %}
+    </div>
+    
+    <div id="form-register" title="Register" style="display: none;">
+      {% include "auth/register_popup.html" %}
+    </div>
+          
+	          
+    <div id="wrapper">
+      <div id="topbar">
+        <a id="home-link" href="/">webEval</a>
+      </div>
+      <div id="ew-header">
+        <div id="topnav">
+       		<ul>
+		         <li {% if navigation.main == "judge" %}class="active"{% endif %}>
+		           <a href="{% url webEval.web_eval__core.grader__controller.display_all_contests %}">Judge</a>
+		         </li>
+
+		         <li {% if navigation.main == "blog" %}class="active"{% endif %}>
+		           <a href="{% url webEval.web_eval__core.blog__controller.index %}">Blog</a>
+		         </li>  <script type="text/javascript" src="{{ MEDIA_URL }}/js/auth_menu.js"></script>
+
+		         <li {% if navigation.main == "forum" %}class="active"{% endif %}>
+		           <a href="{% url webEval.web_eval__core.forum__controller.display_board board_id=1 %}">Forum</a>
+		         </li>
+
+		         <li {% if navigation.main == "wiki" %}class="active"{% endif %}>
+		           <a href="{% url webEval.web_eval__core.wiki__controller.wiki_index %}">Wiki</a>
+		         </li>
+		         {% if request.user.is_superuser %}
+		         	<li {% if navigation.main == "admin" %}class="active"{% endif %}>
+		         		<a href="{% url webEval.web_eval__core.grader__controller.admin_page %}">Admin</a>
+		         	</li>
+		         {% endif %}
+         	</ul>
+        </div>
+       </div>
+     <div id="ew-main">
+       <div id="ew-content">
+         <div>
+			<div id="left">
+			  <div class="block">
+			  	<ul>
+			  		{% include "utils/navigation_left.html" %}
+			  	</ul>
+			  </div>
+			</div>
+		</div>
+    	<div id="banner">
+	      <div id="header">
+	        <a id="logo" href="/"><img src="{{ MEDIA_URL }}/images/logo.png" alt="webEval" height="61" width="350"></a>
+	      </div>
+	      <form id="search" action="" method="get">
+	        <div>
+	          <label for="proj-search">Search:</label>
+	          <input type="text" id="proj-search" name="q" size="18" value="">
+	          <input type="submit" value="Search">
+	        </div>
+	      </form>
+      	  <div id="metanav" class="nav">
+    		<ul>
+		    	{% if request.user.is_authenticated %}
+		    		<li class="first">
+		    			<a href="{% url webEval.web_eval__core.user__controller.display_user user_name=request.user.username %}">
+		    				{{ request.user.first_name }} {{ request.user.last_name }}
+		    			</a>
+		    		</li>
+		    		<li>
+		    			<a href="{% url webEval.web_eval__core.user__controller.private_messages %}">
+		    				Private messages
+		    			</a>
+		    		</li>
+		    		<li class="last">
+		    			<a href="{% url webEval.web_eval__core.auth__controller.logout %}">
+		    				Logout
+		    			</a>
+		    		</li>
+		    	{% else %}
+					  <li class="first"><a id="login" href="#">Login</a></li>
+  					<li class="last"><a id="register" href="#">Register</a></li>
+			    {% endif %}
+    		</ul>
+  		  </div>
+    	</div>
+	    <div id="mainnav" class="nav">
+		    <ul>
+		    {% if navigation.main == "admin" %}
+		    	{% include "utils/navigation_admin.html" %}
+		    {% endif %}
+		    
+		    {% if navigation.main == "forum" %}
+		    {% endif %}
+		    
+		    {% if navigation.main == "blog" %}
+		    	{% include "utils/navigation_blog.html" %}
+		    {% endif %}
+		    {% block navigation %}
+		    {% endblock %}
+		    </ul>
+	  	</div>
+    	<div id="main">
+      		
+      		<div id="ctxtnav" class="nav">
+		        <h2>Context Navigation</h2>
+		          <ul>
+		          	 {% block wiki_navigator %}
+		             {% endblock %}
+		          </ul>
+		    </div>
+		    <div id="content" class="wiki">
+		      <div class="wikipage searchable">
+		        <div id="wikipage">
+	          	{% if request.GET.error_message %}
+	          		{% with message=request.GET.error_message error=1 %}
+	          			{% include "include_template.html" %}
+	          		{% endwith %}
+	          	{% endif %}
+				      {% block wiki_page %}
+				      {% endblock %}
+					  </div>    
+		      </div>
+      
+		      <div id="attachments">
+		      </div>
+    		</div>
+    	</div>
+    </div><!-- #ew-content -->
+ </div>
+   </div>
+    <div id="ew-footer">
+      <p><a href="mailto:info@webeval.org">info@webeval.org</a></p>
+      <p>Copyright © 2008-2011 webEval. All rights reserved.</p>
+    </div>
+    <div id="right" style="margin-left: 0px;">
+      <div class="block">
+	  	{% include "utils/navigation_right.html" %}
+	  </div>
+    </div>
+  <script type="text/javascript" src="{{ MEDIA_URL }}/js/config.js"></script>
+  <script type="text/javascript" src="{{ MEDIA_URL }}/js/tags.js"></script> 
+  <script type="text/javascript" src="{{ MEDIA_URL }}/js/roundtimer.js"></script> 
+  <script type="text/javascript" src="{{ MEDIA_URL }}/js/sorttable.js"></script>  
+  <script type="text/javascript" src="{{ MEDIA_URL }}/js/foreach.js"></script> 
+  <script type="text/javascript" src="{{ MEDIA_URL }}/js/submit_form.js"></script>
+  <script type="text/javascript" src="{{ MEDIA_URL }}/js/highcharts/js/highcharts.js"></script>  
+  <script type="text/javascript" src="{{ MEDIA_URL }}/js/auth_menu.js"></script>
+  <script type="text/javascript" src="{{ MEDIA_URL }}/js/registration.js"></script>
+	{% block extra_js %}{% endblock %}
+  
+</body></html>

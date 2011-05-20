@@ -1,0 +1,86 @@
+{% extends "webEval_base.html" %}
+{% block title %}
+    Login
+{% endblock %}
+
+{% block wiki_page %}
+    <h1>Login</h1>
+    
+    
+	
+	<p>If you are not registered yet, you can register
+	<a href="{% url webEval.web_eval__core.auth__controller.register %}">here</a>;
+	if you forgot your password, you can reset it <a href="/resetpass">here</a>.</p> 
+	 
+		 
+	
+    <form method="post" action="{% url webEval.web_eval__core.auth__controller.login %}">
+        {% csrf_token %}
+		<fieldset class="login_fieldset"> 
+	    	<legend><img src="{{ MEDIA_URL }}/images/icons/login.png" alt="!" /> Authentication</legend> 
+	    	<ul class="form"> 
+				<li id="field_username"> 
+        			<label for="feed">USERNAME</label>
+    			    <input type="text" name="username" id="form_username" value="{{ form.data.username }}" />
+    			    <span class="form_error">{{ form.errors.username|safe }}</span>
+        		</li>
+        		<li>
+        			<label for="feed">PASSWORD</label>
+        			<input type="password" name="password" id="form_password" value="{{ form.data.password }}" />
+        			<span class="form_error">{{ form.errors.password }}</span>
+        		</li>
+        	</ul>
+        	<input type="submit" class="submit get_it" title="get it" value="Login">
+        </fieldset>
+        
+        <fieldset class="login_fieldset">
+        	<legend>Alternate login</legend>
+    {% if error %}
+      	{% if error == 'AUTH_FAILED' %}
+        	<p>Authentication failed</p>
+  		{% else %}{% if error == 'AUTH_DISABLED' %}
+	        <p>Your account is disabled</p>
+  		{% else %}{% if error == 'AUTH_DENIED' %}
+      		<p>You did not allow access</p>
+    	{% endif %}{% endif %}{% endif %}
+    {% endif %}
+	    	<div class="alternate-login">
+		    	<span class="alternate-login-fb">
+		    		<a href="https://graph.facebook.com/oauth/authorize?client_id={{ settings.FACEBOOK_APP_ID }}&redirect_uri={{ settings.FACEBOOK_REDIRECT_URI }}&scope=publish_stream,email&display=popup">
+		  				<img src="http://images.wordpressapi.com/facebook_32.png"/>
+					</a>
+				</span>
+				
+				<span class="alternate-login-openid">
+					<a href="{% url django_openid_auth.views.login_begin %}">
+						<img src="http://images.wordpressapi.com/google_32.png">
+					</a>
+				</span>
+				
+				<span class="alternate-login-twitter">
+					<a href="{% url webEval.web_eval__core.auth__controller.twitter_login %}">
+						<img src="http://images.wordpressapi.com/twitter_32.png">
+					</a>
+				</span>
+				
+				<span class="alternate-login-linkedin">
+					<a href="">
+						<img src="http://images.wordpressapi.com/linkedin_32.png">
+					</a>
+				</span>
+			</div>
+        </fieldset>
+    </form>
+    
+     
+	<div class="wiki_text_block"><h2>Something isn't working?</h2> 
+	 
+	 
+	<ul> 
+	<li>First, read the page <a href="http://infoarena.ro/documentatie/probleme-frecvente-la-autentificare"><strong>frequent login problems</strong></a>.</li> 
+	<li>If the problem persists, <a href="http://infoarena.ro/forum?board=33.0">contact us</a>!</li> 
+	</ul> 
+	 
+	</div> 
+    
+{% endblock %}

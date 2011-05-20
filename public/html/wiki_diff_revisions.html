@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}
+History of page: {{ page.url }}
+{% endblock %}
+
+{% block content %}
+    <h1>Diff revisions 
+    	<a href="{% url webEval.web_eval__core.wiki__controller.display_page page_url=r1.wiki_page.url revision_id=r1.revision_id %}">{{ r1.revision_id }}</a>
+    	and
+    	<a href="{% url webEval.web_eval__core.wiki__controller.display_page page_url=r1.wiki_page.url revision_id=r2.revision_id %}">{{ r2.revision_id }}</a>
+    </h1>
+	{{ diff|safe }}
+{% endblock %}

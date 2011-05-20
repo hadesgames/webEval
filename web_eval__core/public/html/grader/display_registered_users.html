@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}
+	Registered users at contest {{ contest.code }}
+{% endblock %}
+
+{% block content %}
+	<h1>Users registered to <a href="{% url webEval.web_eval__core.grader__controller.display_contest contest_code=contest.code %}">{{ contest.name }}</a></h1>
+	{% with contest.registered_users.all as users %}
+		{% include "grader/display_users.html" %}
+	{% endwith %}
+{% endblock %}

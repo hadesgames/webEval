@@ -1,0 +1,142 @@
+{% extends "webEval_base.html" %}
+{% load wiki_extras %}
+{% block title %}
+    {% if edit %}
+	{% if widgets.is_problem %}
+	    Edit problem {{ widgets.problem.code }}
+	{% else %}
+	{% if widgets.is_contest %}
+		Edit contest {{ widgets.contest.code }}
+	{% else %}
+	{% if widgets.is_user %}
+		Edit user {{ widgets.user.username }}
+	{% else %}
+	    Edit Page: {{ wiki_page.url }}
+	{% endif %}
+	{% endif %}
+	{% endif %}
+    {% else %}
+        Create page: {{ page_url }}
+    {% endif %}
+{% endblock %}
+
+{% block navigation %}
+	<ul>
+	{% if edit %}
+		<li class="first"><a accesskey="e" href="{% url webEval.web_eval__core.wiki__controller.display_page page_url=revision.wiki_page.url %}"><span class="access-key">V</span>iew</a></li>
+	    {% if can_edit %}
+	        <li class="active"><a accesskey="e" href="{% url webEval.web_eval__core.wiki__controller.edit_page page_url=revision.wiki_page.url %}"><span class="access-key">E</span>dit</a></li>
+	        <li><a accesskey="c" href="{% url webEval.web_eval__core.wiki__controller.copy_page page_url=revision.wiki_page.url %}"><span class="access-key">C</span>opy</a></li>
+	        <li><a accesskey="m" href="{% url webEval.web_eval__core.wiki__controller.move_page page_url=revision.wiki_page.url %}"><span class="access-key">M</span>ove</a></li>
+	    {% endif %}
+	    {% if can_attach %}
+	        <li><a accesskey="a" href="{% url webEval.web_eval__core.wiki__controller.attach page_url=revision.wiki_page.url  %}"><span class="access-key">A</span>ttach</a></li>
+	    {% endif %}   
+	        <li><a accesskey="h" href="{% url webEval.web_eval__core.wiki__controller.history page_url=revision.wiki_page.url %}"><span class="access-key">H</span>istory</a></li>
+	        <li class="last"><a accesskey="v" href="{% url webEval.web_eval__core.wiki__controller.attachments page_url=revision.wiki_page.url %}"><span class="access-key">V</span>iew attachments</a></li>
+	{% endif %}
+	</ul>
+{% endblock %}
+
+{% block wiki_page %}
+    {% if message %}
+        {% include "include_template.html" %}
+        <br>
+    {% endif %}
+    {% if widgets.is_problem %}
+	    <ul class="htabs"> 
+			<li class="active">
+			    <a href="{% url webEval.web_eval__core.grader__controller.edit_problem_statement problem_code=widgets.problem.code %}">Statement</a>
+			</li>
+			<li >
+			    <a href="{% url webEval.web_eval__core.grader__controller.configure_problem problem_code=widgets.problem.code %}">Configure</a>
+			</li>
+			<li >
+			    <a href="{% url webEval.web_eval__core.grader__controller.edit_problem_tags problem_code=widgets.problem.code %}">Tags</a>
+			</li>
+	    </ul>
+    {% endif %}
+    {% if widgets.is_contest %}
+	    <ul class="htabs"> 
+			<li class="active">
+			    <a href="{% url webEval.web_eval__core.grader__controller.edit_contest_statement contest_code=widgets.contest.code %}">Statement</a>
+			</li>
+			<li >
+			    <a href="{% url webEval.web_eval__core.grader__controller.configure_contest contest_code=widgets.contest.code %}">Configure</a>
+			</li>
+	    </ul>
+    {% endif %}
+    
+    {% if widgets.is_user %}
+	    <ul class="htabs">
+	 		<li {% if widgets %}class="active"{% endif %}>
+				<a href="{% url webEval.web_eval__core.user__controller.edit_user_description user_name=user.username %}">Description</a>
+			</li>
+			<li {% if not widgets %}class="active"{% endif %}>
+				<a href="{% url webEval.web_eval__core.user__controller.edit_user_account user_name=user.username %}">Account</a>
+			</li>
+		</ul>
+    {% endif %}
+    
+    {% if edit %}
+ 	<h1>Edit page <a href="{% url webEval.web_eval__core.wiki__controller.display_page page_url=page.url %}">{{ page.url }}</a></h1>
+ 	{% else %}
+ 	<h1>Create page <a href="{% url webEval.web_eval__core.wiki__controller.display_page page_url=page_url %}">{{ page_url }}</a></h1>
+	{% endif %}
+	
+    <form accept-charset="utf-8" 
+    	action="{% if edit %}
+    				{% url webEval.web_eval__core.wiki__controller.edit_page page_url=page.url %}
+    			{% else %}
+    				{% url webEval.web_eval__core.wiki__controller.create_wiki_page %}
+    			{% endif %}" method="post" id="form_wikiedit">
+    	<input type="hidden" name="url" value="{{ page_url}}">
+        <ul class="form">        
+            <li id="field_title">
+                <label for="form_title">Title</label>
+                {{ form.errors.title }}
+                <input name="title" type="text"
+                {% if edit %}
+                    value="{{ form.data.title }}"
+                {% endif  %} id="form_title">
+            </li>
+	    
+            <li id="field_content">
+                <label for="form_content">Content</label>
+                <textarea id="form_text" name="content" rows="10" cols="50"type="text">{% if edit %}{{ form.data.content|safe }}{% else %}Write here about {{ page_url }}{% endif %}</textarea>
+            </li>
+	    
+            <li id="field_forum_topic">
+                {{ form.errors.topic }}
+                <label for="form_forum_topic">Forum topic</label>
+                <input name="topic" type="text" size="16"
+                {% if edit %}
+                    value="{{ form.data.forum_topic }}"
+                {%endif%} id="form_forum_topic">
+            </li>
+            
+            <li id="markup_type">
+                {{ form.errors.markup_type }}
+                <label for="markup_type">Markup type</label>
+                <select id="markup_type" name="markup_type">
+                    {% for option in revision|markup_types %}
+                        <option value="{{ option|first_characters:1 }}" {% ifequal form.data.markup_type option|first_characters:1 %}selected {% endifequal %}> {{ option }} </option>
+                    {% endfor %}
+                </select>
+            </li>
+            
+            <li id="security">
+                {{ form.errors.security }}
+                <label for="security">Security</label>
+                <select id="security" name="security">
+                    {% for option in revision|security_types %}
+                        <option value="{{ option }}" {% ifequal form.data.security option %}selected {% endifequal %}> {{ option }} </option>
+                    {% endfor %}
+                </select>
+            </li>
+            
+            <input name="submit" value="{% if edit %} Update {% else %} Create {% endif %}" class="button" type="submit" size="30">
+        </ul>
+    </form>
+
+{% endblock %}

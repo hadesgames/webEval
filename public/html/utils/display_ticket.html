@@ -1,0 +1,149 @@
+{% extends "webEval_base.html" %}
+{% load comments %}
+{% load util_tags %}
+{% load wiki_extras %}
+
+{% block title %}
+	Ticket #{{ ticket.id }}
+{% endblock %}
+
+{% block extra_js %}
+	<script type="text/javascript">
+		function displayEditForm (comment_id) {
+			if (element = document.getElementById('editComment' + comment_id).style.display == "none") {
+				document.getElementById('editComment' + comment_id).style.display = "block";
+			} else {
+				document.getElementById('editComment' + comment_id).style.display = "none";
+			}
+		}
+	</script>
+{% endblock %}
+
+{% block wiki_page %}
+	
+	<div class="ticket">
+		<div class="ticket_header">
+			<img class="ticket_avatar" src="{{ MEDIA_URL }}/images/avatar/{{ ticket.author.username }}_small.jpeg">
+		
+			<h1 class="ticket_header_title">#{{ ticket.id }} {{ ticket.title }}</h1>
+			
+			<p class="ticket_reported_by">
+				Reported by <a href="{% url webEval.web_eval__core.user__controller.display_user user_name=ticket.author.username %}">{{ ticket.author.first_name }} {{ ticket.author.last_name }}</a> / <a href="{% url webEval.web_eval__core.user__controller.display_user user_name=ticket.author.username %}">{{ ticket.author.username }}</a>, created {{ ticket.date_posted|timedelta }} ago	
+			</p>
+		</div>
+		<div class="ticket_content">
+			<p>
+				{{ ticket.content|creole|safe }}
+			</p>
+		</div>
+		{% if request.user.userprofile.developer %}
+		<div class="ticket_header_edit_delete">
+			<a href="{% url webEval.web_eval__core.utils__controller.edit_ticket ticket_id=ticket.id %}">Edit</a>
+		</div>
+		{% endif %}
+	</div>
+	
+	<div class="ticket_details">
+		<table class="ticket_details_table" style="width: 100%">
+			<tr>
+				<td><b>Type</b>: {{ ticket.type }}</td>
+				<td><b>Severity</b>: {{ ticket.severity }}</td>
+				<td><b>Status</b>: {{ ticket.status }}</td>
+				<td><b>Milestone</b>: {% if ticket.milestone %}{{ ticket.milestone.name }}{% else %}none{% endif %}</td>
+				<td>
+					<b>Assignee</b>: 
+					{% if ticket.assignee %}
+						<a href="{% url webEval.web_eval__core.user__controller.display_user user_name=ticket.assignee.username %}">
+							{{ ticket.assignee.first_name }} {{ ticket.assignee.last_name }}
+						</a>
+					{% else %}
+						none
+					{% endif %}
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+		</table>
+	</div>
+	
+	<div id="comments">
+    	<h2> {{ ticket.ticketcomment_set.all.count }} Comment(s)</h2>
+    	<div id="remotebox">
+		    <form action="{% url webEval.web_eval__core.utils__controller.delete_comment ticket_id=ticket.pk %}" method="POST">
+		    {% csrf_token %}
+		    {% for comment in ticket.ticketcomment_set.all %}
+		        <div class="comment" id="comment{{ comment.id }}"> 
+		            <div class="header"> 
+		                <span class="timestamp">
+		                    {{ comment.date_posted }}
+		                </span> 
+		                <span class="tiny-user">
+		                    {% with comment.author as tiny_user %}
+		                    	{% include "include_tiny_user.html" %}
+		                    {% endwith %}
+		                </span> 
+		            </div>
+		            
+		            <span style="float: right;">
+		            	{% if request.user.is_staff %}
+	            			<a href="{% url webEval.web_eval__core.utils__controller.delete_comment ticket_id=ticket.pk comment_id=comment.id %}">Delete</a>
+							<input type="checkbox" name="delete" value="{{ comment.pk }}">
+	            			<br>
+            			{% endif %}
+            			{% if comment.can_be_edited %}
+	            			<a href="javascript: displayEditForm({{ comment.id }});">Edit</a>
+	            		{% endif %}
+            		</span>
+        			 
+		             <div class="ticket_comment_body"> 
+		                {{ comment.content|creole|safe }}
+		            </div> 
+		        </div> 
+		        <div id="editComment{{ comment.id }}" style="display: none" class="form_comment">
+		        	<form action="" method="POST" id="editCommentForm{{ comment.id }}">
+		        		{% csrf_token %}
+					    <ul class="form">
+					    	<li class="field_content">
+					    		<input type="hidden" name="comment_id" value="{{ comment.id }}" />
+					    		<textarea id="editCommentFormTextarea{{ comment.id }}" name="content" rows="10" cols="50">{{ comment.content }}
+					    		</textarea></li>
+					    	<li>
+					    		<input class="submit" name="post" type="submit" value="Submit" />
+					    	</li>
+					    </ul>
+		        	</form>
+		        </div> 
+		    {% endfor %}
+		    
+		    {% if request.user.is_staff and ticket.ticketcomment_set.all.count %}
+    			<p style="float: right">
+    				<input type="submit" value="Delete all selected" class="button">
+    			</p>
+			{% endif %}
+		    </form>
+    	</div>
+    </div>
+    
+    {% if request.user.is_authenticated %}
+    <h2>Comment</h2>
+	<div class="form_comment">
+		<form action="{% url webEval.web_eval__core.utils__controller.display_ticket ticket_id=ticket.id %}" method="post">
+		{% csrf_token %}
+	    <ul class="form">
+	    	<input type="hidden" name="comment_id" value="" />
+	    	<li class="field_content">
+	    		<textarea name="content" rows="10" cols="50">{{ form.data.content }}</textarea>
+	    	</li>
+	    	<li>
+	    		<input class="submit" name="post" type="submit" value="Submit" />
+	    	</li>
+	    </ul>
+	   </form>
+   </div>
+   {% endif %}
+{% endblock %}

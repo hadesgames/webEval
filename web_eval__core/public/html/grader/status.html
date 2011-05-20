@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}
+    Status online
+{% endblock %}
+{% block content %}
+<h1>Status online</h1>
+ 
+<div id="monitor-table">
+    {% include "include_pager.html" %}
+    <table class='monitor'>
+        <thead>
+            <tr>
+                <th >ID</th>
+                <th >User</th>
+                <th >Problem</th>
+                <th >Contest</th>
+                <th >Size</th>
+                <th >Date</th>
+                <th >Message</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for job in page %}
+            <tr class="even">
+                <td >
+                    <a href="{% url webEval.web_eval__core.grader__controller.display_job job_id=job.id %}">
+                        #{{ job.id }}
+                    </a>
+                </td>
+                <td>
+                    {% with job.user as tiny_user %}
+                        {% include "include_tiny_user.html" %}
+                    {% endwith %}
+                </td>
+                <td >
+                    <a href="{% url webEval.web_eval__core.grader__controller.display_problem problem_code=job.problem.code %}">
+                        {{ job.problem.name }}
+                    </a>
+                </td>
+                <td >
+                    <a href="{% url webEval.web_eval__core.grader__controller.display_contest contest_code=job.contest.code %}">
+                        {{ job.contest.name }}
+                    </a>
+                </td>
+                <td >
+                    <a href="{% url webEval.web_eval__core.grader__controller.display_job_source_code job_id=job.id %}">
+                        {{ job.source_size_in_kbytes|floatformat:2 }} kb
+                    </a>
+                </td>
+                <td >
+                    {{ job.date }}
+                </td>
+                <td >
+                    <a href="{% url webEval.web_eval__core.grader__controller.display_job job_id=job.id %}">
+                        <span class="job-status-done">
+                            {{ job.message }}
+                        </span>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% include "include_pager.html" %}
+</div>
+{% endblock %}

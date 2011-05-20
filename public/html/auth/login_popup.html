@@ -1,0 +1,57 @@
+<form method="post" action="{% url webEval.web_eval__core.auth__controller.login %}">
+  {% csrf_token %}
+  <fieldset class="login_fieldset_popup"> 
+    	<legend>Classic</legend> 
+    	<ul class="form"> 
+		  <li id="field_username"> 
+      			<label for="feed">USERNAME</label>
+			      <input type="text" name="username" id="form_username" value="{{ form.data.username }}" />
+			      <span class="form_error">{{ form.errors.username|safe }}</span>
+      		</li>
+      		<li>
+      			<label for="feed">PASSWORD</label>
+      			<input type="password" name="password" id="form_password" value="{{ form.data.password }}" />
+      			<span class="form_error">{{ form.errors.password }}</span>
+      		</li>
+      	</ul>
+      	<input type="submit" class="submit get_it" title="get it" value="Login">
+      </fieldset>
+      
+      <fieldset class="login_fieldset">
+      	<legend>Alternate login</legend>
+  {% if error %}
+    	{% if error == 'AUTH_FAILED' %}
+      	<p>Authentication failed</p>
+	  {% else %}{% if error == 'AUTH_DISABLED' %}
+        <p>Your account is disabled</p>
+	  {% else %}{% if error == 'AUTH_DENIED' %}
+    		<p>You did not allow access</p>
+	  {% endif %}{% endif %}{% endif %}
+  {% endif %}
+    	<div class="alternate-login">
+      	<span class="alternate-login-fb">
+      		<a href="https://graph.facebook.com/oauth/authorize?client_id={{ settings.FACEBOOK_APP_ID }}&redirect_uri={{ settings.FACEBOOK_REDIRECT_URI }}&scope=publish_stream,email&display=popup">
+    				<img src="http://images.wordpressapi.com/facebook_32.png"/>
+			  </a>
+		  </span>
+		
+		  <span class="alternate-login-openid">
+			  <a href="{% url django_openid_auth.views.login_begin %}">
+				  <img src="http://images.wordpressapi.com/google_32.png">
+			  </a>
+		  </span>
+		
+		  <span class="alternate-login-twitter">
+			  <a href="{% url webEval.web_eval__core.auth__controller.twitter_login %}">
+				  <img src="http://images.wordpressapi.com/twitter_32.png">
+			  </a>
+		  </span>
+		
+		  <span class="alternate-login-linkedin">
+			  <a href="">
+				  <img src="http://images.wordpressapi.com/linkedin_32.png">
+			  </a>
+		  </span>
+	  </div>
+  </fieldset>
+</form>

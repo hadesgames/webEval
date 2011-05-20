@@ -1,0 +1,33 @@
+<div class="post box new-post "> 
+ 
+  <div class="subject"> 
+    <h3><a name="{{ post.id }}" href="#{{ post.id }}">{{ post.title }}</a></h3> 
+  </div> 
+ 
+  <div class="info"> 
+    <div class="author"> 
+      Posted by {% with post.author as tiny_user %}{% include "include_tiny_user.html" %}{% endwith %} on {{ post.date }} 
+    </div> 
+   </div> 
+  <br />
+  
+  <div class="text"> 
+    <pre>{{ post.content|safe }}</pre> 
+  </div> 
+  <br />
+  
+  <div class="foot"> 
+    <span class="menuitem postmenuitem-edit">
+    	<a href="{% url webEval.web_eval__core.forum__controller.edit_post post_id=post.id %}" class="nav" rel="nofollow">Edit</a> |
+    </span> 
+    <span class="menuitem postmenuitem-move">
+    	<a href="{% url webEval.web_eval__core.forum__controller.move_post post_id=post.id %}" class="nav" rel="nofollow">Move</a> |</span>
+    <span class="menuitem postmenuitem-delete">
+    	<a href="{% url webEval.web_eval__core.forum__controller.delete_post post_id=post.id %}" class="nav" data-confirm="Are you sure to delete this post?" rel="nofollow">Delete</a> |
+    </span> 
+    <span class="menuitem postmenuitem-replyto">
+    	<a href="{% url webEval.web_eval__core.forum__controller.reply topic_id=post.topic.id %}?reply_to=968903" class="nav" rel="nofollow">Reply with quote</a> 
+    </span> 
+  </div> 
+ 
+</div> 

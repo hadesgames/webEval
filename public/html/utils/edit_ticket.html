@@ -1,0 +1,79 @@
+{% extends "webEval_base.html" %}
+
+{% block title %}
+	Edit ticket #{{ ticket.id }}
+{% endblock %}
+
+{% block wiki_page %}
+	<h1>Edit ticket <a href="{% url webEval.web_eval__core.utils__controller.display_ticket ticket_id=ticket.id %}">#{{ ticket.id }}</a></h1>
+	{{ form.errors }}
+	<form method="post" action="{% url webEval.web_eval__core.utils__controller.edit_ticket ticket_id=ticket.id%}">
+        {% csrf_token %}
+			<ul class="form">
+				<li>
+					<label for="form_title">Title</label>
+					<input type="text" name="title" id="form_title" value="{{ form.data.title }}" />
+				</li>
+				<li>
+					<label for="form_content">Content</label>
+					<textarea rows="10" cols="50" name="content" id="form_text">{{ form.data.content }}</textarea>
+				</li>
+				<li>
+					<table class="ticket_details_table">
+						<tr>
+							<td>
+								<label for="form_type">Type</label>
+								<select name="type" id="form_ticket_type">
+								{% for option in ticket_types %}
+								{{ form.data.type}}
+									<option value="{{ option }}" {% if form.data.type == option %}selected{% endif %}>{{ option }}</option>
+								{% endfor %}
+								</select>
+							</td> 
+							
+							<td>
+								<label for="form_severity">Severity</label>
+								<select name="severity" id="form_ticket_severity">
+								{% for option in ticket_severities %}
+									<option value="{{ option }}" {% if form.data.severity == option %}selected{% endif %}>{{ option }}</option>
+								{% endfor %}
+								</select>
+							</td> 
+							
+							<td>
+								<label for="form_status">Status</label>
+								<select name="status" id="form_ticket_status">
+								{% for option in ticket_states %}
+									<option value="{{ option }}" {% if form.data.status == option %}selected{% endif %}>{{ option }}</option>
+								{% endfor %}
+								</select>
+							</td>
+							
+							<td>
+								<label for="form_milestone">Milestone</label>
+								<select name="milestone" id="form_ticket_milestone">
+								{% for milestone in ticket_milestones %}
+									<option value="{{ milestone.id }}" {% if form.data.milestone == milestone %}selected{% endif %}>{{ milestone.name }}</option> 
+								{% endfor %}
+								</select>
+							</td>
+							
+							<td>
+								<label for="form_assignee">Assignee</label>
+								<select name="assignee" id="form_ticket_assignee" style="width: auto">
+									<option value="" {% if not form.data.assignee %}selected{% endif %}>None</option>
+								{% for developer in developers %}
+									<option value="{{ developer.id }}" {% if form.data.assignee == developer %}selected{% endif %}>{{ developer.first_name }} {{ developer.last_name }}</option>
+								{% endfor %}
+								</select>
+							</td> 
+						</tr>
+					</table>
+				</li>
+				<li>
+					<div class="clear"></div>
+					<input type="submit" value="Submit" title="Submit" />
+				</li>
+			</ul> 
+	</form>
+{% endblock %}

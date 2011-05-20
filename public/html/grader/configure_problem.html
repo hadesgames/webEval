@@ -1,0 +1,145 @@
+{% extends "webEval_base.html" %}
+{% block title %}
+	Edit problem {{ problem.code }}
+{% endblock %}
+    
+{% block wiki_page %}
+    <ul class="htabs"> 
+		<li >
+		    <a href="{% url webEval.web_eval__core.grader__controller.edit_problem_statement problem_code=problem.code %}">Statement</a>
+		</li>
+		<li class="active">
+		    <a href="{% url webEval.web_eval__core.grader__controller.configure_problem problem_code=problem.code %}">Configure</a>
+		</li>
+		<li >
+		    <a href="{% url webEval.web_eval__core.grader__controller.edit_problem_tags problem_code=problem.code %}">Tags</a>
+		</li>
+    </ul>
+    {% include "include_template.html" %}
+	<h1> Edit problem <a href="{% url webEval.web_eval__core.grader__controller.display_problem problem_code=problem.code %}">{{ problem.name }}</a></h1>
+	<form method="post" action="{% url webEval.web_eval__core.grader__controller.configure_problem problem_code=problem.code %}">{% csrf_token %}
+		<fieldset> 
+    		<legend>About</legend> 
+			<ul class="form">        
+	            <li id="field_title">
+	            	<label for="form_title">Problem name</label>
+	            	{{ form.errors.name }}
+	                <input type="text" name="name" id="form_short_title" value="{{ form.data.name }}" />  
+	            </li>
+	            <li id="field_code">
+					<label for="form_code">Problem code</label>
+					{{ form.errors.code }}
+					<input type="text" name="code" id="form_code" value="{{ form.data.code }}">
+					<span class="hint">Maximum 8 characters, only letters and digits.</span>
+				</li>
+				<li id="field_resource">
+					<label for="form_resource">Source contest</label>
+					{{ form.errors.resource }}
+					<select id="form_resource" name="resource">
+						{% for contest in contests %}
+							<option value="{{ contest.id }}" {% if contest.id == form.data.resource.id %} selected {% endif %}>{{ contest.name }}</option>
+						{% endfor %}
+					</select>
+				</li>
+			</ul>
+		</fieldset>
+		
+		<fieldset>
+			<legend>Limits</legend>
+			<ul class="form">
+				<li id="field_time_limit">
+					<label for="form_time_limit">Time limit</label>
+					{{ form.errors.time_limit }}
+					<input type="text" name="time_limit" id="form_time_limit" value="{{ form.data.time_limit }}" />
+					<span class="hint">In miliseconds</span>
+				</li>
+				<li id="field_memory_limit">
+					<label for="form_memory_limit">Memory limit</label>
+					{{ form.errors.memory_limit }}
+					<input type="text" name="memory_limit" id="form_memory_limit" value="{{ form.data.memory_limit }}" />
+					<span class="hint">In kbytes</span>
+				</li>
+				<li id="field_source_limit">
+					<label for="form_source_limit">Source limit</label>
+					{{ form.errors.source_limit }}
+					<input type="text" name="source_limit" id="form_source_limit" value="{{ form.data.source_limit }}" />
+					<span class="hint">In bytes</span>
+				</li>
+			</ul>
+		</fieldset>
+		
+		<input name="submit" value="Save" class="button" type="submit" size="30">
+	</form>
+	
+	<form enctype="multipart/form-data" method="post" action="{% url webEval.web_eval__core.grader__controller.configure_problem problem_code=problem.code %}">{% csrf_token %}
+		<fieldset>
+			<legend>Tests</legend>
+			
+			<h3>Current tests:</h3>
+			{% if tests %}
+			<table id="form_tests_table">
+				<thead>
+					<tr>
+						<th width="20px">Id</th>
+						<th>Input size</th>
+						<th>Output size</th>
+						<th width="60">Feedback</th>
+					</tr>
+				</thead>
+				<tbody>
+				{% for test in tests %}
+					<tr>
+						<td class="form_test_id">
+							<input type="hidden" name="test1id" value="1"/>
+							{{ test.no }}
+						</td>
+						<td class="form_test_input_size">
+							{{ test.input_size }} bytes
+						</td>
+						<td class="form_test_output_size">
+							{{ test.output_size }} bytes
+						</td>
+						<td class="form_test_feedback">
+							<input type="checkbox" value="false">
+						</td>
+					</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+			{% else %}
+			<div class="box">
+				No tests yet.
+			</div>
+			{% endif %}
+			<h3>Upload test</h3>
+			
+			<div id="test-upload">
+				<ul class="form">
+					<li id="test-id">
+						Id:
+						<input type="text" id="testid" name="testid" / size="3">
+					</li>
+					<li id="input-upload">
+						Input:
+						<input type="file" id="inputfile" name="inputfile" value=""/>
+					</li>
+					
+					<li id="output-upload">
+						Output:
+						<input type="file" id="outputfile" name="outputfile" value=""/>
+					</li>
+					<li style="height: 20px"></li>
+					<li id="archive-upload">
+						Archive:
+						<input type="file" id="archivefile" name="archivefile" value=""/>
+						<span class="hint">Zipped archive of test files in format: 1-{{ problem.code }}.in, 1-{{ problem.code }}.ok</span>
+					</li>
+				</ul>
+				<input type="submit" name="submit" id="test-submit" class="button" value="Submit"/>
+			</div>
+		</fieldset>
+		
+		
+		<div class="clear"></div>
+	
+{% endblock %}

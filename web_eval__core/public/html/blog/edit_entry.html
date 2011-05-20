@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Edit {{ form.data.title }}
+{% endblock %}
+
+{% block content %}
+{% endblock %}
+
+{% block extra_js %}
+	<script type="text/javascript" src="/static/js/jquery-1.4.3.js"></script>
+	<script type="text/javascript">
+	$( document ).ready( function() {
+		$( '#searchSubmit' ).click( function() {
+			q = $( '#new-tag' ).val();
+			$( '#results' ).html( '&nbsp;' ).load( '{% url webEval.web_eval__core.blog__controller.get_tags_ajax %}?q=' + q );
+		});
+	});
+	
+	$( document ).ajaxStart( function() {
+		$( '#spinner' ).show();
+	}).ajaxStop( function() {
+		$( '#spinner' ).hide();
+	});
+	</script>
+{% endblock %}
+
+
+{% block other_content %}
+	<h1> Edit <a href="{% url webEval.web_eval__core.blog__controller.display_entry username=blog_entry.author.username permalink=blog_entry.permalink %}">{{ blog_entry.title }}</a> </h1>
+    <form accept-charset="utf-8" method="post" action="{% url webEval.web_eval__core.blog__controller.edit_entry username=blog_entry.author.username permalink=blog_entry.permalink %}" id="form_wikiedit">
+        <ul class="form">        
+            <li id="field_title">
+                <label for="form_title">Title</label>
+                {{ form.errors.title }}
+                <input name="title" type="text" value="{{ form.data.title }}" id="form_title">
+            </li>
+	    
+            <li id="field_content">
+                <label for="form_content">Content</label>
+                <textarea id="form_text" name="content" rows="10" cols="50"type="text">{{ form.data.content|safe}}</textarea><br>
+            </li>
+        </ul>
+        
+        <input name="submit" value="Edit" class="button" type="submit" size="30">
+        <div class="clear"></div>
+    </form>
+    
+    <input id="new-tag" type="text"/>
+	<input id="searchSubmit" name="searchSubmit" class="button" type="submit" value="search" size="30">
+	<span class="hint">Type in a query string to search tag</span>
+	<div class="margin">
+		<span id="spinner"><img src="/static/images/spinner.gif"/></span>
+		<div id="results"></div>
+	</div>
+{% endblock %}

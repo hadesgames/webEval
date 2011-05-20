@@ -1,0 +1,7 @@
+<div class="strap">
+	<strong>Tags: </strong>
+		{% for tag in blog_entry.get_tags %}
+  			<a href="/blog/tag/{{tag}}" alt="{{tag}}" title="{{tag}}">{{tag}}</a>
+	{% endfor %}<br>
+	Created on {{ blog_entry.date }} by <a href="{% url webEval.web_eval__core.user__controller.display_user user_name=blog_entry.author.username %}">{{ blog_entry.author.first_name }} {{ blog_entry.author.last_name }}</a>
+</div>

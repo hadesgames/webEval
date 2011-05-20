@@ -1,0 +1,127 @@
+body { background: #4b4d4d url(../images/bkgnd_pattern.png); margin: 0; padding: 0; }
+
+h1 { color: #555; font-size: 26px; margin: 1em 0 .5em 0; }
+.admin h1 { font-size: 19px; margin-top: 0; }
+h1 :link, h1 :visited, h2 :link, h2 :visited, h3 :link, h3 :visited {
+  border: none;
+}
+h2 { margin-top: 2em; font-style: normal; }
+
+#wrapper { background: #4b4d4d url(../images/shadow.gif) 100% 0 repeat-y;
+  padding: 0 145px 0 0; margin-left: 100px;
+}
+#topbar { background: #c00; border-left: 1px solid #000; font-size: xx-small; height: 1.2em;}
+#topbar ul { font-size: xx-small; margin: 0; padding: 0; list-style: none; }
+#topbar li { display: inline; padding: 0; }
+#topbar li a { background: #c00; border: none; border-left: 1px solid;
+  color: #fff; margin: 0; padding: 0 20px;
+}
+#topbar li.active a { font-weight: bold; }
+#topbar li a:hover { background-color: #fff !important; color: #b00; }
+#home-link { color: #fff; border: none; font-size: xx-small; }
+#home-link:hover { background: #fff; color: #b00; }
+
+#topnav { background: #fff url(../images/whtgrad.png) repeat-x;
+  border-bottom: 12px solid #000; clear: both;
+  float: left; margin: 96px 0 0; padding: 0; position: relative;
+  width: 100%;
+}
+#topnav ul { margin: 0 auto; padding: 0; list-style: none; }
+#topnav li { float: left; margin: 0; padding: 0; }
+#topnav li.active { color: #fb0; font-weight: bold; }
+#topnav a { border-bottom: none; border-right: 1px solid #ddd; color: #555;
+  float: left; font-size: 13px; letter-spacing: -1px; margin: 0;
+  padding: 4px 15px; text-decoration: none;
+}
+#topnav a.trac { color: #800;}
+#topnav a.blog { color: #760;}
+#topnav li.active a { background: #000 url(../images/blkgrad.png) repeat-x; color: #eee; }
+#topnav li a:hover { background: #999; color: #eee; }
+#topnav li.active a:hover { color: #eee; }
+
+#ew-header { background: #fff url(../images/shredder.png) 100% 0 no-repeat;
+  border-left: 1px solid #000; clear: both; font-size: x-small; margin: 0;
+  height: 96px;
+}
+#ew-main { margin-left: -100px; }
+#ew-content { background: #fff; border-bottom: 12px solid #000;
+  border-left: 1px solid #000; margin-left: 100px; min-height: 560px;
+}
+* html #ew-content { height: 560px; }
+#ew-footer { clear: both; color: #999; font-size: 9px; text-align: center; }
+#ew-footer :link, #ew-footer :visited { border: none; color: #c6c6c6; }
+#ew-footer :link:hover, #ew-footer :visited:hover { background: transparent;
+  text-decoration: underline;
+}
+#left { position: absolute; top: 205px; left: 0; z-index: 1; width: 100px;
+ font-size: x-small; text-align: right;
+}
+#left ul { list-style: none; margin: 0; padding: 0; }
+#left ul li { margin: 5px 0; padding: 0; }
+#left :link, #left :visited { color: #c6c6c6; border: none; display: block;
+  padding: 3px 10px 3px 5px;
+}
+#left :link:hover, #left :visited:hover { background: #000; color: #fff; }
+
+#right { position: absolute; top: 205px; right: 0; z-index: 1; width: 100px;
+ font-size: x-small; text-align: left;
+ margin-left: 0px;
+}
+#right ul { list-style: none; margin: 0; padding: 0; }
+#right ul li { margin: 5px 0; padding: 0; }
+#right :link, #right :visited { color: #c6c6c6; border: none; display: block;
+  padding: 3px 5px 3px 10px;
+}
+#right :link:hover, #right :visited:hover { background: #000; color: #fff; }
+
+#ohloh-badge { margin-bottom: 20px; text-align: center; }
+#ohloh-badge :link, #ohloh-badge :visited { border: none; }
+#ohloh-badge :link:hover, #ohloh-badge :visited:hover { background: transparent; border: none; }
+
+/* Trac overrides */
+#header { clear: both; border-top: 1px solid #000; background: #fff; }
+#logo { position: absolute; left: 130px; top: 20px; }
+#logo img { position: relative; }
+#search { position: absolute; top: 45px; right: 180px; }
+#metanav { background: transparent; margin: 0; padding: 0 0 .3em;
+  position: absolute; top: 90px; right: 166px; width: 100%;
+}
+#metanav li { border-color: #999; }
+#metanav :link, #metanav :visited { color: #c6c6c6; border: none; }
+#metanav a:hover { color: #fff; background: #999; }
+#mainnav { border-width: 0 0 1px; height: 1.2em; margin: 0; padding-top: 1px; }
+*+html #mainnav { margin-top: 35px; }
+#mainnav :link, #mainnav :visited { padding: .1em 20px .2em !important; }
+#mainnav :link.active, #mainnav :visited.active { background: #000 !important;
+  border-left: 1px solid #666; color: #fff;
+}
+#pagepath { padding: .5em .5em 0; }
+#ctxtnav { margin: 0 -16px; padding: .5em .5em 0; }
+#main { background: url(../images/vertbars.png) repeat-x; padding-left: 16px; padding-right: 16px;
+}
+#footer { display: none; }
+#newticketguide { background: #fdc; border: 2px solid #d00; font-style: italic;
+  margin: 1em 0; padding: 0 .5em;
+}
+
+/* Documentation */
+div.document img.logo { display: none; }
+dl.pydoc h2 code { font-size: 95%; }
+dl.pydoc table.field-list th { color: #999; font-size: 90%; font-weight: bold; line-height: 1.4em; padding-right: .5em; text-align: right; }
+dl.pydoc pre.doctest-block { background: #f7f7f7; border: 1px solid #d7d7d7; margin: 1em 1.7em; padding: .25em; }
+
+@media print {
+ body { background: #fff; }
+ body,p,table,td { font-size: 10pt !important; }
+ h1 { font-size: 16pt !important; }
+ #topbar, #topnav, #left, #right { display: none; margin: 0;}
+ #ew-header { display: none; }
+ #ew-content { border-left: none; }
+ #ew-footer { background: transparent; border: none; }
+ #wrapper { background: transparent; margin: 0; padding: 0; }
+ #main { background: transparent; width: 100%; margin: 0; padding: 0;
+   border-top: 9px solid #b00; border-left: none;
+ }
+ input[type=submit] { display: none; }
+}
+	

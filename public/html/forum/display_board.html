@@ -1,0 +1,125 @@
+{% extends "webEval_base.html" %}
+{% load util_tags %}
+
+{% block title %}
+    Forum
+{% endblock %}
+ 
+{% block extra_css %}
+	<link type="text/css" rel="stylesheet" href="{{ MEDIA_URL }}/css/forum_style.css"> 
+{% endblock %}
+
+{% block wiki_page %}
+
+<div id="content">
+	{% include "forum/include_stack.html" %}
+   
+	<div class="forum_history_clear"></div>
+	
+	{% if board_sons %}   
+    	<div class="forum">
+            <table class="forum_boards" width="100%" align="center">
+                <tbody>
+                                        
+                    {% for board_now in board_sons %}
+                        <tr class="forum_boards_tr">
+                            <td class="board_display_description" width="70%">
+                                <div class="board_name_description">
+                                    <a href="{% url webEval.web_eval__core.forum__controller.display_board board_id=board_now.id %}">
+                                        {{ board_now.name }}
+                                    </a>
+                                </div>
+                                <span class="board_description">
+                                    {{ board_now.description }}
+                                </span>
+                            </td>
+                            <td class="topics_posts_num" width="10%">
+                            	{{ board_now.topics }} topics<br>
+                            	{{ board_now.posts }} posts
+                            </td>            
+                            <td class="lastpost">
+                                {% if board_now.topics %}
+                                    <a href="{% url webEval.web_eval__core.forum__controller.display_topic topic_id=board_now.last_post.topic.id %}">
+                                        {{ board_now.last_post.date }}
+                                    </a>
+                                    <br>
+                                    by {% with board_now.last_post.author as tiny_user %}{% include "include_tiny_user.html" %}{% endwith %}
+                                {% else %}
+                                	None
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% if board_now.forumboard_set.all %}
+                        <tr>
+                        	<td colspan="3" class="display_sections">
+                        		<b>Sections:</b>
+                        		{% for section in board_now.forumboard_set.all %}{% if forloop.counter0 %}, {% endif %}<a href="{% url webEval.web_eval__core.forum__controller.display_board board_id=section.id %}">{{ section.name }}</a>{% endfor %}
+                        	</td>
+                        </tr>
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+
+	{% if board_sons and topic_sons %}
+		<div class="board_clear"></div>
+	{% endif %}
+	
+	{% ifnotequal board.id 1 %}
+	<div class="forum_new_topic">
+		<a href="{% url webEval.web_eval__core.forum__controller.new_topic board_id=board.id %}">New topic</a>
+	</div>
+	{% endifnotequal %}
+	
+    {% if topic_sons %}
+        <div class="forum">
+            <table class="board" width="100%" align="center">
+                <tr class="forum_topics_thead">
+                    <th class="topic_subject_head" width="50%">Subject</th>
+                    <th class="topic_author_head" width="16%">Author</th>
+                    <th class="topic_replies_num_head" width="7%">Replies</th>
+                    <th class="topic_views_num_head" width="7%">Views</th>
+                    <th class="lastpost_head" width="20%">Last post</th>
+                </tr>
+           
+                {% for topic_now in topic_sons %}
+                    <tr>
+                        <td class="topic_subject">
+                            <a href="{% url webEval.web_eval__core.forum__controller.display_topic topic_id=topic_now.id %}">{{ topic_now.first_post.title }}</a>
+                        </td>
+                        <td class="topic_author"><a href="{% url webEval.web_eval__core.user__controller.display_user user_name=topic_now.author.username }}">{{ topic_now.author.first_name }} {{ topic_now.author.last_name }}</td>
+                        <td class="topic_replies_num">{{ topic_now.posts }}</td>
+                        <td class="topic_views_num">{{ topic_now.views }}</td>
+                        <td class="lastpost"> 
+                        	{{ topic_now.last_post.date }} <br/>
+                         	by {% with topic_now.last_post.author as tiny_user %}{% include "include_tiny_user.html" %}{% endwith %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+        {% ifnotequal board.id 1 %}
+			<div class="forum_new_topic">
+				<a href="{% url webEval.web_eval__core.forum__controller.new_topic board_id=board.id %}">New topic</a>
+			</div>
+		{% endifnotequal %}
+	{% endif %}
+
+    {% if not board_sons and not topic_sons%}
+        <div class="box">
+            This board is empty
+        </div>
+    {% endif %}
+    
+    
+	 	
+    
+    <div class="forum_history_clear"></div>
+
+	{% include "forum/include_stack.html" %}
+	
+	
+</div>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}
+	Edit problem {{ problem.code }}
+{% endblock %}
+    
+{% block content %}
+    <ul class="htabs"> 
+		<li >
+		    <a href="{% url webEval.web_eval__core.grader__controller.edit_problem_statement problem_code=problem.code %}">Statement</a>
+		</li>
+		<li class>
+		    <a href="{% url webEval.web_eval__core.grader__controller.configure_problem problem_code=problem.code %}">Configure</a>
+		</li>
+		<li class="active">
+		    <a href="{% url webEval.web_eval__core.grader__controller.edit_problem_tags problem_code=problem.code %}">Tags</a>
+		</li>
+    </ul>
+	<h1> Edit problem <a href="{% url webEval.web_eval__core.grader__controller.display_problem problem_code=problem.code %}">{{ problem.name }}</a></h1>
+{% endblock %}

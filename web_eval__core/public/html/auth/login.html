@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}
+    Login
+{% endblock %}
+
+{% block header_wiki_page %}
+{% endblock %}
+
+{% block other_content %}
+    <h1>Login</h1>
+    
+    
+	
+	<p>If you are not registered yet, you can register
+	<a href="{% url webEval.web_eval__core.auth__controller.register">here</a>;
+	if you forgot your password, you can reset it <a href="/resetpass">here</a>.</p> 
+	 
+		 
+	
+    <form method="post" action="{% url webEval.web_eval__core.auth__controller.login %}">
+        {% csrf_token %}
+		<fieldset> 
+	    	<legend><img src="/static/images/icons/login.png" alt="!" /> Autentificare</legend> 
+	    	<ul class="form"> 
+				<li id="field_username"> 
+        			<label for="feed">USERNAME</label>
+        			{{ form.errors.username|safe }}
+    			    <input type="txt" class="txt feed" name="username" id="username" value="{{ form.data.username }}" />
+        		</li>
+        		<li>
+        			<label for="feed">PASSWORD</label>
+            		{{ form.errors.password }}
+        			<input type="password" class="txt feed" name="password" id="password" value="{{ form.data.password }}" />
+        		</li>
+        	</ul>
+        	<input type="submit" class="submit get_it" title="get it" value="Login">
+        </fieldset>
+        
+        <fieldset>
+        	<legend>Alternate login</legend>
+        	{% if error %}
+      	{% if error == 'AUTH_FAILED' %}
+        	<p>Authentication failed</p>
+  		{% else %}{% if error == 'AUTH_DISABLED' %}
+	        <p>Your account is disabled</p>
+  		{% else %}{% if error == 'AUTH_DENIED' %}
+      		<p>You did not allow access</p>
+    	{% endif %}{% endif %}{% endif %}
+  	{% else %}
+    	<a href="https://graph.facebook.com/oauth/authorize?client_id={{ settings.FACEBOOK_APP_ID }}&redirect_uri={{ settings.FACEBOOK_REDIRECT_URI }}&scope=publish_stream,email&display=popup">
+  			<img src="/static/images/facebook.jpg"/>
+		</a>
+	{% endif %}
+	
+			<a href="{% url django_openid_auth.views.login_begin %}">
+				<img src="/static/images/google.png">
+			</a>
+			<a href="{% url webEval.web_eval__core.auth__controller.twitter_login %}">
+				<img src="/static/images/twitter.jpg">
+			</a>
+        </fieldset>
+    </form>
+    
+     
+	<div class="wiki_text_block"><h2>Something isn't working?</h2> 
+	 
+	 
+	<ul> 
+	<li>First, read the page <a href="http://infoarena.ro/documentatie/probleme-frecvente-la-autentificare"><strong>frequent login problems</strong></a>.</li> 
+	<li>If the problem persists, <a href="http://infoarena.ro/forum?board=33.0">contact us</a>!</li> 
+	</ul> 
+	 
+	</div> 
+    
+{% endblock %}

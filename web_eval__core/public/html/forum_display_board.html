@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Forum
+{% endblock %}
+ 
+{% block content %}
+
+    <div class="forum_history">
+        {% for board_now in stack reversed %}
+            {% if forloop.counter0  %}
+                >
+            {% endif %}
+            <a href = "{% url webEval.web_eval__core.forum__controller.display_board board_id=board_now.id %}">{{ board_now.name }}</a>
+        {% endfor %}
+   </div>
+
+ 
+       <div id="content">
+            <div class="forum">
+                <div class="list">
+                    <table class="list">
+                        <tbody>
+                            {% if board_sons %}
+                                <tr>
+                                    <th class="name-description">Forum</th>
+                                    <th class="lastpost"> Last post</th>
+                                    <th class="topics_num">Topics</th>
+                                    <th class="posts_num">Posts</th>
+                                </tr>
+                            {% endif %}
+                            
+                            {% for board_now in board_sons %}
+                                <tr>
+                                    <td>
+                                        <div class="forum_name_description">
+                                            <a href="{% url webEval.web_eval__core.forum__controller.display_board board_id=board_now.id %}">
+                                                {{ board_now.name }}
+                                            </a>
+                                        </div>
+                                        <span class="forum_description">
+                                            {{ board_now.description }}
+                                        </span>
+                                    </td>
+                                    <td class="lastpost">
+                                        {% if board_now.posts %}
+                                            <a href="{% url webEval.web_eval__core.forum__controller.display_topic topic_id=board_now.last_post.topic.id %}">
+                                                1 minutes ago
+                                            </a>
+                                            <br>
+                                            by {{ board_now.last_post.topic.author.username }}
+                                        {% endif %}
+                                    </td>
+                                    <td class="topics_num">{{ board_now.topics }}</td>            
+                                    <td class="posts_num">{{ board_now.posts }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <p>
+
+        {% if topic_sons %}
+            <table class="topics list">
+                <tr>
+                    <th class="subject">Subject</th>
+                    <th class="author">Author</th>
+                    <th class="replies">Replies</th>
+                    <th class="last-post">Last post</th>
+                </tr>
+           
+                {% for topic_now in topic_sons %}
+                    <tr>
+                        <td class="subject">
+                            <a href="{% url webEval.web_eval__core.forum__controller.display_topic topic_id=topic_now.id %}">{{ topic_now.title }}</a>
+                        </td>
+                        <td class="author">{{ topic_now.author.username }}</td>
+                        <td class="replies">{{ topic_now.posts }}</td>
+                        <td class="last-post"> x minutes ago by {{ topic_now.last_post.author.name }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+
+        {% if board_sons %}
+        {% else %}
+            {% if topic_sons %}
+            {% else %}
+                <div class="empty-board">
+                    This board is empty
+                </div>
+            {% endif %}
+        {% endif %}
+
+     <div class="forum_history">
+        {% for board_now in stack reversed %}
+            {% if forloop.counter0  %}
+                >
+            {% endif %}
+            <a href = "{% url webEval.web_eval__core.forum__controller.display_board board_id=board_now.id %}">{{ board_now.name }}</a>
+        {% endfor %}
+     </div>
+ 
+{% endblock %}

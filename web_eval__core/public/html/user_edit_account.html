@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}
+	Edit user {{ user.username }}
+{% endblock %}
+
+{% block other_content %}
+	<h1>Contul meu</h1> 
+ 
+<form enctype="multipart/form-data" action="{% url webEval.web_eval__core.user__controller.edit_user_account user_name=user.username %}" method="post" class="profile clear" onsubmit="return checkForm();"> 
+ 
+<fieldset> 
+    <legend><img src="/static/images/icons/key.gif" alt="!" /> Security info </legend> 
+    <ul class="form"> 
+        <li> 
+            <label for='form_passwordold'>Current password</label> 
+                        <input type="password" name='passwordold' id="form_passwordold" /> 
+            <span class="fieldHelp">Only if you want to change password or mail address.</span> 
+        </li> 
+        <li> 
+            <label for='form_password'>New password</label> 
+                        <input type="password" name='password' id="form_password" /> 
+            <span class="fieldHelp">At least 6 characters</span> 
+        </li> 
+        <li> 
+            <label for='form_password2'>Confirm password</label> 
+                        <input type="password" name='password2' id="form_password2" /> 
+        </li> 
+ 
+    </ul> 
+</fieldset> 
+ 
+<fieldset> 
+    <legend>Change personal info.</legend> 
+    <ul class="form"> 
+        <li> 
+            <label for="form_name">First name</label> 
+                        <input type="text" name="first_name" value="{{ user.first_name }}" id="form_name" /> 
+            <span class="fieldHelp">Accounts with fake names will be deleted.</span> 
+        </li>
+        <li> 
+            <label for="form_name">Last name</label> 
+                        <input type="text" name="last_name" value="{{ user.last_name }}" id="form_name" />  
+        </li> 
+        <li> 
+            <label for="form_email">E-mail address</label> 
+                        <input type="text" name="email" value="{{ user.email }}" id="form_email" /> 
+            <span class="fieldHelp">We will send you notifications to this mail address.</span> 
+        </li>
+    </ul> 
+</fieldset> 
+ 
+<fieldset> 
+    <legend>Change profile picture</legend> 
+    <ul class="form"> 
+        <li> 
+            <img class="avatar" src="{{ MEDIA_URL }}/images/avatar/{{ user.username }}_medium.jpeg" alt="avatar"/>        </li> 
+        <li> 
+            <label for="form_avatar">New avatar</label> 
+                        <input type="file" name="avatar" id="form_avatar" /> 
+            <span class="fieldHelp">A picture in JPEG, PNG or GIF format, max. 400KB</span> 
+        </li> 
+    </ul> 
+</fieldset> 
+ 
+<ul class="form clear"> 
+    <li> 
+        <input type="checkbox" checked="checked" name="newsletter" id="form_newsletter"/> 
+        <label for="form_newsletter" class="checkbox">I want to receive newsletter.</label> 
+    </li> 
+    <li> 
+        <input type="submit" value="Save" id="form_submit" class="button important" /> 
+    </li> 
+</ul> 
+</form> 
+{% endblock %}

@@ -1,0 +1,51 @@
+<div class="blog-sidebar">
+	<div class="wiki_text_block">
+		<p class="center" style="text-align:center">
+			<a href="http://infoarena.ro/blog?action=rss">
+				<img src="http://infoarena.ro/blog-sidebar?action=download&amp;file=icon.rss.gif&amp;safe_only=true" alt="" />
+			</a>
+		</p> 
+	 
+		<p class="center" style="text-align:center">
+			<a href="http://infoarena.ro/despre-blog">
+				<strong>Despre Blog</strong>
+			</a>
+		</p> 
+	 
+		<h2>Ultimele insemnari</h2> 
+	 
+		<ul class="blog-list">
+			<li>
+				<a href="/blog/google-code-in-2010-11">Google Code-in 2010-2011</a>
+			</li>
+		</ul> 
+	 
+		<h2>Categorii</h2> 
+	 
+		<ul class="blog-list">
+			<li>
+				<a href="/blog?tag=algoritmiada">algoritmiada</a> (7)
+			</li>
+		</ul> 
+	 
+		<h2>Blogroll</h2> 
+	 
+		<ul class="blog-list"> 
+			<li><a href="http://www.vivi.ro/blog" class="wiki_link_external">Vivi's blog</a></li> 
+			<li><a href="http://infoweekly.blogspot.com/" class="wiki_link_external">WebDiarios de Motocicleta</a></li> 
+			<li><a href="http://catalinfrancu.blogspot.com/" class="wiki_link_external">Catalin Francu</a></li> 
+			<li><a href="http://flmanea.blogspot.com" class="wiki_link_external">Florin Manea</a></li> 
+			<li><a href="http://steve-yegge.blogspot.com/" class="wiki_link_external">Stevey's Blog Rants</a></li> 
+			<li><a href="http://www.joelonsoftware.com" class="wiki_link_external">Joel on Software</a></li> 
+			<li><a href="http://blogs.msdn.com/devdev/" class="wiki_link_external">Developing for developers</a></li> 
+		</ul> 
+		
+		{% if request.user.is_authenticated %}
+		<h2>Panel</h2>
+		<ul class="blog-list">
+			<li><a href="{% url webEval.web_eval__core.blog__controller.new_entry %}">Post new blog entry</a></li>
+			<li><a href="{% url webEval.web_eval__core.blog__controller.index username=request.user.username %}">My blog</a></li>
+		</ul>
+		{% endif %}
+	</div>
+</div>

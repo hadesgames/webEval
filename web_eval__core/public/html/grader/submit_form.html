@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load util_tags %}
+{% block title %}
+    Submit
+{% endblock %}
+
+{% block content %}
+<h1>Submit</h1> 
+ 
+<div id="sidebar2"> 
+<div class="section"> 
+<h3> What happens with my source file? </h3> 
+<ul> 
+    <li>Sursa ta se evalueaza <a href="/documentatie/evaluator">automat</a>, iar rezultatul evaluarii se poate vedea in <a href="/monitor">monitor</a></li> 
+</ul> 
+</div> 
+</div> 
+ 
+<form enctype="multipart/form-data" action="{% url webEval.web_eval__core.grader__controller.submit %}" method="post" class="submit" id="task_submit"> 
+ 
+<ul class="form"> 
+    <li id="field_task"> 
+        <label for="form_task">Problem</label> 
+        <select name="problem" id="form_task"> 
+            <option value="">[ Choose problem ]</option>
+            {% for problem in problems %}
+            <option value="{{ problem.id }}">{{ problem.name }}</option>
+            {% endfor %} 
+        </select> 
+    </li> 
+    <li id="field_round"> 
+        <div id="field_round_warning"></div> 
+        <label for="form_round">Contest</label> 
+        <select name="contest" id="form_round"> 
+        </select> 
+    </li> 
+    <li id="field_solution"> 
+        <label for="form_solution">File</label> 
+        <input type="file" name="solution" id="form_solution" /> 
+    </li> 
+    <li id="field_compiler"> 
+        <label for="form_compiler">Compilator</label> 
+        <select name="language" id="form_compiler"> 
+        	<option value="">Select compiler</option>
+            {% for extension,compiler in compilers|sorted_dict %}
+            	<option value="{{ extension }}">{{ compiler.0 }} ({{ compiler.1 }})</option>
+            {% endfor %}
+	    </select> 
+    </li> 	
+    <li id="field_submit"> 
+        <input type="submit" class="button" value="Submit" id="form_submit" /> 
+    </li> 
+</ul> 
+</form> 
+{% endblock %}

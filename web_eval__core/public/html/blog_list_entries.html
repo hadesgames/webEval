@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}
+    List blog entries
+{% endblock %}
+
+{% block header_wiki_page %}
+{% endblock %}
+
+{% block content %}
+    {% for entry in blog_entries %}
+        <div>
+            <a href="{% url webEval.web_eval__core.blog__controller.display_entry username=entry.author.username permalink=entry.permalink %}">
+                <h3>{{ entry.title }}</h3>
+            </a>
+            by <b>{{ entry.author.username}}</b> on <b>{{ entry.date }}</b>
+            <br><br>
+            {{ entry.content}}
+            <br><br><br>
+        </div>
+    {% endfor %}
+{% endblock %}

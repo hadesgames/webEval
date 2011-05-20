@@ -1,0 +1,10 @@
+.code .keyword { font-family: monospace; color: #8B0000; }
+.code .constant, .code .attribute, .code .global, .code .class, .code .module { color: black; }
+.code .string { color: #00008B; }
+.code .ident, .code .method { color: #006400; }
+.code .number, .code .char { color: #888800; }
+.code .comment { color: purple; }
+.code .symbol { color: #884400; }
+.code .regex { color: #808080; }
+.code .punct { color: black; }
+.code .escape, .code .interp, .code .expr { color: black; background-color: #dddddd; }

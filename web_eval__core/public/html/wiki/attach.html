@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %} Attach a file to page {{ wiki_page.url }} {% endblock %}
+
+{% block other_content %}
+
+{% if message %}
+	{% include "include_template.html" %}
+{% endif %}
+
+<h1>Attach file to page <a href="{% url webEval.web_eval__core.wiki__controller.display_page page_url=wiki_page.url %}">{{ wiki_page.url }}</a></h1>
+
+<form enctype="multipart/form-data"
+      action="{% url webEval.web_eval__core.wiki__controller.attach page_url=wiki_page.url %}"
+      method="post"
+      class="clear">
+      {% csrf_token %}
+<fieldset>
+    <legend>Choose a file </legend>
+    <ul class="form">
+        <li>
+            <label for="form_file_name">File</label>
+                                    <input type="hidden" name="MAX_FILE_SIZE" value="73400320" />
+            <input type="file" name="file_name" value="" id="form_file_name" size="50"/>
+
+            <span class="fieldHelp">Maximum allowed size is 70MB.</span>
+            <span class="fieldHelp">Name of the file can't contain whitespaces.</span>
+        </li>
+
+        <br/>
+        <li>
+            <input type="checkbox" name="autoextract" value="1"  id="form_autoextract" class="checkbox" />
+            <label class="checkbox" for="form_autoextract">Extract .zip</label>
+            <span class="fieldHelp">Send a ZIP archive with one or more files.</span>
+        </li>
+
+        <br/>
+        <li>
+            <span class="fieldHelp"><a href="{% url webEval.web_eval__core.wiki__controller.attachments page_url=wiki_page.url %}">List other attachments...</a></span>
+        </li>
+    </ul>
+</fieldset>
+
+<ul class="form clear">
+    <li>
+        <input type="submit" class="button important" value="Send" id="form_submit" />
+    </li>
+</ul>
+
+</form>
+
+{% endblock %}

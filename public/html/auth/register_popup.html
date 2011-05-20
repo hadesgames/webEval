@@ -1,0 +1,108 @@
+<div class="pop-up">
+  <div class="pop-up-container">
+    <span class="hint">
+        If you are already registered you can login <a href="{% url webEval.web_eval__core.auth__controller.login %}">here</a>; 
+        if you forgot your password you can reset it <a href="{% url webEval.web_eval__core.auth__controller.register %}">here</a>.
+    </span>
+
+    <form method="post" id="formElem" action="{% url webEval.web_eval__core.auth__controller.register %}">
+      <fieldset id="step1" class="step"> 
+          <legend>User</legend> 
+          <ul class="form"> 
+              <li> 
+                  <label for='form_username'>Username</label>
+                  {{ form.errors.username }}
+                  <input type="text" name="username" value="{{ form.data.username }}" id="form_username" onblur="validateUsername();" autocomplete="off"/> 
+                  <span class="hint" id="form_username_hint">Only letters, digits, _ and . allowed</span> 
+              </li> 
+              <li> 
+                  <label for='form_password'>Password</label>
+                  {{ form.errors.password|safe }} 
+                  <input type="password" name="password" id="form_password" autocomplete="off"/> 
+                  <span class="hint" id="form_password_hint">At least 6 characters</span> 
+              </li> 
+              <li> 
+                  <label for='form_password2'>Confirm password</label>
+                  <input type="password" name="password2" id="form_password2" autocomplete="off" onblur="validatePassword();"/> 
+              </li> 
+          </ul> 
+      </fieldset> 
+      
+      <fieldset id="step2" class="step"> 
+          <legend>Personal information</legend> 
+          <ul class="form"> 
+              <li> 
+                  <label for="form_full_name">First name</label>
+                  {{ form.errors.first_name }} 
+                  <input type="text" name="first_name" value="{{ form.data.first_name }}" id="form_first_name" /> 
+                  <span class="hint">The accounts with fake names will be deleted.</span> 
+              </li>
+              <li> 
+                  <label for="form_full_name">Last name</label>
+                  {{ form.errors.last_name }} 
+                  <input type="text" name="last_name" value="{{ form.data.last_name }}" id="form_last_name" />
+              </li> 
+              <li> 
+                  <label for="form_email">Email</label>
+                  {{ form.errors.email|safe }}
+                  <input type="text" name="email" value="{{ form.data.email }}" id="form_email" onblur="validateEmail();" /> 
+                  <span class="hint" id="form_email_hint">Needed for sending confirmation code.</span> 
+              </li>
+        </ul>
+      </fieldset>
+      <fieldset id="step3" class="step">
+        <legend>Location</legend>
+        <ul class="form">
+        	<li>
+        		<label for="channel">COUNTRY</label>
+          		{{ form.errors.country }}
+          		<select name="country" id="form_country">
+              	{% for country in COUNTRIES %}
+                  	<option value="{{ country.0 }}"{% ifequal country.0 form.data.country %} selected {% endifequal %}>{{ country.1 }}</option>
+              	{% endfor %}
+              	</select>
+              </li>
+              <li>
+              	<label for="city">CITY</label>
+          		{{ form.errors.city }}
+          		<input type="txt" name="city" id="form_city" value="{{ form.data.city }}">
+            	</li>
+          </ul> 
+      </fieldset>    
+      <fieldset id="step4" class="step">
+      	<legend>Security code</legend>   
+          <ul class="form">
+          	<li>
+          		<label for="captcha">Write the words below</label>
+          		{{ form.errors.captcha }}
+          		{{ form.captcha }}
+          	</li>
+          </ul>
+      </fieldset>
+      
+      <fieldset id="step5" class="step">
+        <legend>Confirm</legend>
+        <ul class="form">
+          <li>
+            <input type="submit" class="submit get_it" title="Register" value="Register">
+          </li>
+        </ul>
+      </fieldset>
+    </form>
+  </div>
+
+  <a id="prevSlide" class="prevSlideButton" href="#">Prev</a>
+  <a id="nextSlide" class="nextSlideButton" href="#">Next</a>
+
+</div>
+
+  <div class="clear"></div>
+
+  <ul class="popup-navigator">
+    <li class="changeStep" id="stepMoveTo1">User</li>
+    <li class="changeStep" id="stepMoveTo2">Personal Information</li>
+    <li class="changeStep" id="stepMoveTo3">Location</li>
+    <li class="changeStep" id="stepMoveTo4">Security code</li>
+    <li class="changeStep" id="stepMoveTo5">Confirm</li>
+  </ul>
+

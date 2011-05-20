@@ -1,0 +1,113 @@
+{% extends "webEval_base.html" %}
+
+{% block title %}
+	Profile: {{ user.username }}
+{% endblock %}
+
+{% block wiki_page %}
+ 	{% include "wiki/user_header.html" %}
+ 	
+<script type="text/javascript">
+var chart;
+$(document).ready(function() {
+   
+   // define the options
+   var options = {
+
+      chart: {
+         renderTo: 'chart_div',
+      },
+      
+      title: {
+         text: 'Rating of user {{ user.username }}'
+      },
+      
+      subtitle: {
+      },
+      
+      xAxis: {
+         type: 'datetime',
+         tickInterval: 7 * 24 * 3600 * 1000 * 16, // 4 months
+         tickWidth: 0,
+         gridLineWidth: 1,
+         minPadding: 0.07,
+         labels: {
+            align: 'left',
+            x: 3,
+            y: -3 
+         }
+      },
+      
+      yAxis: { // left y axis
+      	 tickInterval: 100,
+         title: {
+            text: "Rating"
+         },	
+         labels: {
+            align: 'left',
+            x: 3,
+            y: 16,
+            formatter: function() {
+               return Highcharts.numberFormat(this.value, 0);
+            }
+         },
+         showFirstLabel: false
+      },
+      
+      legend: {
+         align: 'left',
+         verticalAlign: 'top',
+         y: 20,
+         floating: true,
+         borderWidth: 0
+      },
+      
+      tooltip: {
+         shared: true,
+         crosshairs: true
+      },
+      
+      plotOptions: {
+         series: {
+            cursor: 'pointer',
+            point: {
+               events: {
+                  click: function() {
+                     hs.htmlExpand(null, {
+                        pageOrigin: {
+                           x: this.pageX, 
+                           y: this.pageY
+                        },
+                        headingText: this.series.name,
+                        width: 200
+                     });
+                  }
+               }
+            },
+            marker: {
+               lineWidth: 1
+            }
+         }
+      },
+      
+      series: [{
+         name: 'Rating',
+         lineWidth: 1,
+         marker: {
+            radius: 4
+         }
+      }]
+   }
+   
+   // Load data asynchronously using jQuery. On success, add the data
+   // to the options and initiate the chart.
+   // This data is obtained by exporting a GA custom report to TSV.
+   // http://api.jquery.com/jQuery.get/
+   options.series[0].data = [{% for rating_it in rating_list %}{% if forloop.counter0 %},{% endif %}[Date.parse("{{ rating_it.date|date:"F d, Y" }}"), {{ rating_it.rating }}]{% endfor %}];
+      
+   chart = new Highcharts.Chart(options);
+});
+</script>
+<div id="chart_div" style="width: 60%; height: 300px">
+</div>
+{% endblock %}

@@ -1,0 +1,156 @@
+{% extends "webEval_base.html" %}
+{% block title %}
+	Edit contest {{ contest.code }}
+{% endblock %}
+
+{% block extra_js %}
+	<script type="text/javascript">
+		function addProblems() {
+			var ob = document.getElementById('form_available_problems');
+			var ot = document.getElementById('form_selected_problems');
+			var selectedId = new Array();
+			var selectedName = new Array();
+			while (ob.selectedIndex != -1) {
+        		selectedId.push(ob.options[ob.selectedIndex].value);
+        		selectedName.push(ob.options[ob.selectedIndex].text);
+        		ob.options[ob.selectedIndex].selected = false;
+    		}
+    		
+    		for (var i = 0; i < selectedId.length; ++ i) {
+    			var ok = false;
+    			for (var j = 0; j < ot.options.length && ok == false; ++ j)
+    				if (ot.options[j].value == selectedId[i])
+    					ok = true;
+    			if (ok == false)
+    				ot.options[ot.options.length] = new Option(selectedName[i], selectedId[i]);
+    			console.log(selectedId[i]);
+    			console.log(selectedName[i]);
+    		}
+		}
+		function removeProblems() {
+			var ob = document.getElementById('form_selected_problems');
+			
+			while (ob.selectedIndex != -1) {     		
+       			var ind = ob.selectedIndex;
+       			ob.options[ob.selectedIndex].selected = false;
+       			ob.remove(ind);
+    		}
+		}
+		function selectProblems() {
+			var ob = document.getElementById('form_selected_problems');
+			for (var i = 0; i < ob.options.length; ++ i)
+				ob.options[i].selected = true;
+		}
+	</script>
+{% endblock %}
+    
+{% block wiki_page %}
+    <ul class="htabs"> 
+		<li >
+		    <a href="{% url webEval.web_eval__core.grader__controller.edit_contest_statement contest_code=contest.code %}">Statement</a>
+		</li>
+		<li class="active">
+		    <a href="{% url webEval.web_eval__core.grader__controller.configure_contest contest_code=contest.code %}">Configure</a>
+		</li>
+    </ul>
+    {% include "include_template.html" %}
+	<h1> Edit contest <a href="{% url webEval.web_eval__core.grader__controller.display_contest contest_code=contest.code %}">{{ contest.name }}</a></h1>
+	<form method="post" action="{% url webEval.web_eval__core.grader__controller.configure_contest contest_code=contest.code %}" onSubmit="selectProblems();">{% csrf_token %}
+	{{ form.errors }}
+		<fieldset> 
+    		<legend>About</legend> 
+			<ul class="form">        
+	            <li id="field_title">
+	            	<label for="form_title">Contest name</label>
+	            	{{ form.errors.name }} 
+	                <input type="text" name="name" id="form_short_title" value="{{ form.data.name }}" />  
+	            </li>
+	            <li id="field_code">
+					<label for="form_code">Contest code</label>
+					{{ form.errors.code }}
+					<input type="text" name="code" id="form_code" value="{{ form.data.code }}">
+					<span class="hint">Maximum 8 characters, only letters and digits.</span>
+				</li>
+			</ul>
+		</fieldset>
+		<fieldset>
+			<legend>Date</legend>
+			<ul class="form">
+				<li id="field_start_time">
+					<label for="form_start_time">Start time</label>
+					{{ form.errors.start_time }}
+					<input type="text" name="start_time" id="form_start_time" value="{{ form.data.start_time|date:"Y-m-d H:i:s" }}" />
+				</li>
+				<li id="field_end_time">
+					<label for="form_end_time">end time</label>
+					{{ form.errors.end_time }}
+					<input type="text" name="end_time" id="form_end_time" value="{{ form.data.end_time|date:"Y-m-d H:i:s" }}" />
+				</li>
+			</ul>
+		</fieldset>
+		<fieldset>
+			<legend>Grading details</legend>
+			<ul class="form">
+				<li id="field_with_open_eval">
+					<label for="form_with_open_eval">With open eval</label>
+					{{ form.errors.with_open_eval }}
+					<select name="with_open_eval" class="form_select">
+						<option value="0" {% if form.data.with_open_eval %}{% else %}selected{% endif %}>False</option>
+						<option value="1" {% if form.data.with_open_eval %}selected{% endif %}>True</option>
+					</select>
+				</li>
+				<li id="field_with_rating">
+					<label for="form_with_rating">With rating</label>
+					{{ form.errors.with_rating }}
+					<select name="with_rating" class="form_select">
+						<option value="0" {% if form.data.with_rating %}{% else %}selected{% endif %}>False</option>
+						<option value="1" {% if form.data.with_rating %}selected{% endif %}>True</option>
+					</select>
+				</li>
+				<li id="field_type">
+					<label for="form_type">Type</label>
+					{{ form.errors.type }}
+					<select name="type" class="form_select">
+						<option value="O" {% ifequal form.data.type "O" %}selected{% endifequal %}>Olympiad</option>
+						<option value="A" {% ifequal form.data.type "A" %}selected{% endifequal %}>A.C.M.</option>
+						<option value="C" {% ifequal form.data.type "C" %}selected{% endifequal %}>Custom</option>
+					</select>
+				</li>
+			</ul>
+		</fieldset>
+		
+		<fieldset>
+			<legend>Problems</legend>
+
+				<div id="field_available_problems">
+					<label for="form_problems">Available problems:</label>
+					<select multiple="multiple" name="available_problems" id="form_available_problems">
+					{% for problem in all_problems %}
+						<option value="{{ problem.id }}" selected>{{ problem.name }}</option>
+					{% endfor %}
+					</select>
+				</div>
+				<div class="select_arrows">
+					<ul class="selector_chooser">
+						<li>
+							<a href='javascript: (function(){ addProblems();})()' class="selector_add">Add</a>
+						</li>
+						<li>
+							<a href='javascript: (function(){ removeProblems();})()' class="selector_remove">Remove</a>
+						</li>
+					</ul>
+				</div>
+				<div id="field_selected_problems">
+					<label for="form_problems">Selected problems:</label>
+					<select multiple="multiple" name="selected_problems" id="form_selected_problems">
+					{% for problem in contest.problems.all %}
+						<option value="{{ problem.id }}" selected>{{ problem.name }}</option>
+					{% endfor %}
+					</select>
+				</div>
+		</fieldset>
+		
+		<input name="submit" value="Save" class="button" type="submit" size="30">
+		<div class="clear"></div>
+	</form>
+{% endblock %}

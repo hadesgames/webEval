@@ -1,0 +1,87 @@
+{% extends "webEval_base.html" %}
+
+{% block title %}
+	Private messages
+{% endblock %}
+
+{% block extra_css %}
+	<link type="text/css" rel="stylesheet" href="{{ MEDIA_URL }}/css/forum_style.css"> 
+{% endblock %}
+
+{% block wiki_page %}
+	<h2> Private messages </h2>
+	
+	<h3>Inbox</h3>
+	{% if inbox %}
+	
+	<table id="inbox" class="private_messages_table">
+		<thead>
+			<th width="30%">Date</th>
+			<th width="40%">Title</th>
+			<th width="30%">From</th>
+		</thead>
+		<tbody>
+		{% for pm in inbox %}
+			<tr>
+				<td>{{ pm.date }}</td>
+				<td><a href="#post{{ pm.id }}">{{ pm.title }}</a></td>
+				<td>{% with pm.user_from as tiny_user %}{% include "include_tiny_user.html" %}{% endwith %}</td>
+			</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+	{% else %}
+	<div class="box">
+		No private messages in inbox.
+	</div>
+	{% endif %}
+	
+	<div class="clear"></div>
+	
+	<h3>Outbox</h3>
+	{% if outbox %}
+	<table id="outbox" class="private_messages_table">
+		<thead>
+			<th width="30%">Date</th>
+			<th width="40%">Title</th>
+			<th width="30%">To</th>
+		</thead>
+		<tbody>
+		{% for pm in outbox %}
+			<tr>
+				<td>{{ pm.date }}</td>
+				<td><a href="#post{{ pm.id }}">{{ pm.title }}</a></td>
+				<td>{% with pm.user_to as tiny_user %}{% include "include_tiny_user.html" %}{% endwith %}</td>
+			</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+	{% else %}
+	<div class="box">
+		No private messages in outbox.
+	</div>
+	{% endif %}
+	
+	
+	{% if inbox %}
+	<div class="clear"></div>
+	
+	<h3>Inbox messages</h3>
+	
+	{% for post in inbox %}
+		{% include "forum/render_private_message_inbox.html" %}
+	{% endfor %}
+	
+	{% endif %}
+	
+	{% if outbox %}
+	<div class="clear"></div>
+	
+	<h3>Outbox messages</h3>
+	
+	{% for post in outbox %}
+		{% include "forum/render_private_message_outbox.html" %}
+	{% endfor %}
+	
+	{% endif %}
+{% endblock %}

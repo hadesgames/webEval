@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block title %}
+    Status online
+{% endblock %}
+{% block content %}
+<h1>Status online</h1>
+<ul class="htabs"> 
+    <li class="active">
+        <a href="{% url webEval.web_eval__core.grader__controller.status %}?user={{ request.user.username }}">My submissions</a>
+    </li>
+    <li >
+        <a href="{% url webEval.web_eval__core.grader__controller.status %}">All submissions</a>
+    </li>
+</ul> 
+<div id="monitor-table">
+    <div class="pager">
+        <div class="standard-pager">Page: <span class="selected">
+            <strong>1</strong></span>
+            <a accesskey="2" href="/monitor?user=toni2007&amp;display_entries=25&amp;first_entry=25">2</a>
+            <a accesskey="3" href="/monitor?user=toni2007&amp;display_entries=25&amp;first_entry=50">3</a>
+            <a accesskey="4" href="/monitor?user=toni2007&amp;display_entries=25&amp;first_entry=75">4</a>
+            ...
+            <a href="/monitor?user=toni2007&amp;display_entries=25&amp;first_entry=3050">123</a>
+            <a href="/monitor?user=toni2007&amp;display_entries=25&amp;first_entry=3075">124</a>
+            <a href="/monitor?user=toni2007&amp;display_entries=25&amp;first_entry=3100">125</a>
+            <span class="count">&nbsp;(3101 rezultate)</span>
+        </div>
+    </div>
+    <table class='monitor'>
+        <thead>
+            <tr>
+                <th >ID</th>
+                <th >User</th>
+                <th >Problem</th>
+                <th >Contest</th>
+                <th >Size</th>
+                <th >Date</th>
+                <th >Message</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for job in page %}
+            <tr class="even">
+                <td >
+                    <a href="{% url webEval.web_eval__core.grader__controller.display_job job_id=job.id %}">
+                        #{{ job.id }}
+                    </a>
+                </td>
+                <td>
+                    {% with job.user as tiny_user %}
+                        {% include "include_tiny_user.html" %}
+                    {% endwith %}
+                </td>
+                <td >
+                    <a href="{% url webEval.web_eval__core.grader__controller.display_problem problem_code=job.problem.code %}">
+                        {{ job.problem.name }}
+                    </a>
+                </td>
+                <td >
+                    <a href="{% url webEval.web_eval__core.grader__controller.display_contest contest_code=job.contest.code %}">
+                        {{ job.contest.name }}
+                    </a>
+                </td>
+                <td >
+                    <a href="{% url webEval.web_eval__core.grader__controller.display_job_source_code job_id=job.id %}">
+                        {{ job.source_size_in_kbytes|floatformat:2 }} kb
+                    </a>
+                </td>
+                <td >
+                    {{ job.date }}
+                </td>
+                <td >
+                    <a href="{% url webEval.web_eval__core.grader__controller.display_job job_id=job.id %}">
+                        <span class="job-status-done">
+                            {{ job.message }}
+                        </span>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

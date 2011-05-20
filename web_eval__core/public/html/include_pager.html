@@ -1,0 +1,14 @@
+{% load util_tags %}
+
+<div class="pager">
+    <div class="standard-pager">Page: <span class="selected">
+    {% for page_it in paginator.num_pages|xrange1 %}
+    	{% ifequal page_ind page_it %}
+    		<strong>{{ page_it }}</strong></span>
+    	{% else %}
+    		<a accesskey="{{ page_it }}" href="{{ url|status_urllize:page_it }}">{{ page_it }}</a>
+    	{% endifequal %}
+    {% endfor %}
+        <span class="count">&nbsp;({{ paginator.count }} results)</span>
+    </div>
+</div>

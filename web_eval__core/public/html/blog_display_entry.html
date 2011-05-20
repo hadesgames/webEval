@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load comments %}
+
+{% block title %}
+    {{ blog_entry.title }}
+{% endblock %}
+
+{% block header_wiki_page %}
+{% endblock %}
+
+{% block content %}
+    <div class="post" style="width:70%">
+        <br><br>
+        <h2>{{ blog_entry.title }}</h2>
+        by <b>{{ blog_entry.author.username }}</b> on <b>{{ blog_entry.date}}</b>
+        <br><br>
+        {{ blog_entry.content }}
+        <br><br>
+        {% get_comment_count for blog_entry as comment_count %}
+        <h3> {{ comment_count }} Comment(s)</h3>
+        <br>
+    </div>
+    {% get_comment_list for blog_entry as comment_list%}
+    {% for comment in comment_list %}
+        <div class="comment" style="width:70%"> 
+            <div class="header"> 
+                <span class="timestamp">
+                    {{ comment.submit_date }}
+                </span> 
+                <span class="tiny-user">
+                    <a href="#########TODO###########">
+                    </a>
+                    <a title="Rating mariusdrg: 753" class="rating-badge-1" href="http://infoarena.ro/utilizator/mariusdrg?action=rating">
+                        &bull;
+                    </a>
+                    <span class="username">
+                        <a href="http://infoarena.ro/utilizator/mariusdrg">
+                            {{ comment.user.first_name }} {{ comment.user.last_name }}
+                        </a>
+                    </span>
+                </span> 
+            </div> 
+            <div class="body"> 
+                {{ comment.comment }}
+            </div> 
+        </div> 
+    {% endfor %}
+    
+    <b>Comment</b>
+    {% render_comment_form for blog_entry %}
+{% endblock %}
+

@@ -1,0 +1,27 @@
+{% extends "webEval_base.html" %}
+
+{% block title %}
+	Standings for {{ contest.name }}
+{% endblock %}
+
+{% block wiki_page %}
+	<h2>Standings for {{ contest.name }}</h2>
+	
+	<table width="60%">
+		<thead>
+			<tr>
+				<th class="number rank" width: 15px>#</th>
+				<th >Name</th>
+				<th class="number rating">Score</th>
+			</tr>
+		</thead>
+		<tbody>
+		{% for sc in score_caches %}
+		<tr class="{% cycle 'odd' 'even' %}">
+			<td class="number rank" style="text-align: right;">{{ forloop.counter }}</td>
+			<td style="padding-left: 16px;">{% with sc.user as tiny_user %}{% include "include_tiny_user.html" %}{% endwith %}</td>
+			<td class="number rating">{{ sc.score }}</td>
+		</tr>
+		{% endfor %}
+	</table>
+{% endblock %}

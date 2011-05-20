@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load comments %}
+{% load wiki_extras %}
+
+{% block title %}
+    {{ blog_title }}
+{% endblock %}
+
+{% block header_wiki_page %}
+{% endblock %}
+
+{% block content %}
+{% include "blog/sidebar.html" %}
+
+<div class="blog">
+	<h1>{{ blog_title }} </h1>
+	{% for entry in blog_entries %}
+	<div class="item">
+		<span class="date">
+			<a href="{% url webEval.web_eval__core.user__controller.display_user user_name=entry.author.username %}">{{ entry.author.first_name }} {{ entry.author.last_name }}</a> &#8226; {{ entry.date }}</span>
+			<h1><a href="{% url webEval.web_eval__core.blog__controller.display_entry username=entry.author.username permalink=entry.permalink %}">{{ entry.title }}</a></h1>
+			<div class="wiki_text_block">
+				{{ entry.content|creole|safe }}
+			</div>
+			<p style="text-align: right;">
+				<img style="vertical-align: middle;" src="/static/images/comment.png"/>&nbsp;
+				<a href="{% url webEval.web_eval__core.blog__controller.display_entry username=entry.author.username permalink=entry.permalink %}#comments">Comments ({% get_comment_count for entry as comment_count %}{{ comment_count }})</a>
+			</p>
+			<div class="strap">
+				<strong>Tags: </strong>
+				{% for tag in entry.get_tags %}
+  					<a href="/blog/tag/{{tag}}" alt="{{tag}}" title="{{tag}}">{{tag}}</a>
+				{% endfor %}
+			</div>
+		</span>
+	</div>
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}
+    Register
+{% endblock %}
+
+{% block header_wiki_page %}
+{% endblock %}
+
+{% block content %}
+
+    <h1>New Username</h1>
+      
+    <form method="post" action="{% url webEval.web_eval__core.auth__controller.register %}">
+            <label for="username">USERNAME</label>
+            {{ form.errors.username }}
+            <input type="txt" name="username" id="username" autocomplete="off" value="{{ form.data.username }}">
+            <br/><br/>
+            
+            <label for="email">EMAIL</label>
+            {{ form.errors.email }}
+            <input type="txt" name="email" id="email" autocomplete="off" value="{{ form.data.email }}" />
+            <br/><br/>
+            
+            <label for="username">FIRST NAME</label>
+            {{ form.errors.first_name }}
+            <input type="txt" name="first_name" id="first_name" autocomplete="off" value="{{ form.data.first_name }}">
+            <br/><br/>
+            
+            <label for="username">LAST NAME</label>
+            {{ form.errors.last_name }}
+            <input type="txt" name="last_name" id="last_name" autocomplete="off" value="{{ form.data.last_name }}">
+            <br/><br/>
+            
+            <label for="password">PASSWORD</label>
+            {{ form.errors.password }}
+            <input type="password" name="password" id="password" autocomplete="off" value="{{ form.data.password }}">
+            <br/><br/>
+            
+            <label for="repeat_password">REPEAT PASSWORD</label>
+            <input type="password" class="txt feed" name="password2" id="password2" autocomplete="off" value="{{ form.data.password2 }}">
+            <br/><br/>
+            
+            <label for="channel">COUNTRY</label>
+            {{ form.errors.country }}
+            <select name="country" id="country">
+                {% for country in COUNTRIES %}
+                    <option value="{{ country.0 }}"{% ifequal country.0 form.data.country %} selected {% endifequal %}>{{ country.1 }}</option>
+                {% endfor %}
+            </select>
+            <br><br>
+            <label for="city">CITY</label>
+            {{ form.errors.city }}
+            <input type="txt" name="city" id="city" value="{{ form.data.city }}">
+            <br/><br/>
+
+            {{ form.captcha.label_tag }}
+            {{ form.errors.captcha }}
+            {{ form.captcha }}
+            <br/><br/>
+            
+            <input type="submit" class="submit get_it" title="Register" value="REGISTER">
+            <div class="clear"></div>
+    </form>
+{% endblock %}

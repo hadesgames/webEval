@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}
+	Edit problem {{ problem.code }}
+{% endblock %}
+    
+{% block content %}
+    <ul class="htabs"> 
+		<li >
+		    <a href="{% url webEval.web_eval__core.grader__controller.edit_problem_statement problem_code=problem.code %}">Statement</a>
+		</li>
+		<li class="active">
+		    <a href="{% url webEval.web_eval__core.grader__controller.configure_problem problem_code=problem.code %}">Configure</a>
+		</li>
+		<li >
+		    <a href="{% url webEval.web_eval__core.grader__controller.edit_problem_tags problem_code=problem.code %}">Tags</a>
+		</li>
+    </ul>
+    {% include "include_template.html" %}
+	<h1> Edit problem <a href="{% url webEval.web_eval__core.grader__controller.display_problem problem_code=problem.code %}">{{ problem.name }}</a></h1>
+	<form method="post" action="{% url webEval.web_eval__core.grader__controller.configure_problem problem_code=problem.code %}">{% csrf_token %}
+	{{ form.errors }}
+		<fieldset> 
+    		<legend>About</legend> 
+			<ul class="form">        
+	            <li id="field_title">
+	            	<label for="form_title">Problem name</label>
+	            	{{ form.errors.name }} 
+	                <input type="text" name="name" id="form_title" value="{{ form.data.name }}" />  
+	            </li>
+	            <li id="field_code">
+					<label for="form_code">Problem code</label>
+					{{ form.errors.code }}
+					<input type="text" name="code" id="form_code" value="{{ form.data.code }}">
+					<span class="fieldHelp">Maximum 8 characters, only letters and digits.</span>
+				</li>
+				<li id="field_resource">
+					<label for="form_resource">Source contest</label>
+					{{ form.errors.resource }}
+					<select id="resource" name="resource">
+						{% for contest in contests %}
+							<option value="{{ contest.id }}" {% ifequal contest.id form.data.resource.id %} selected {% endifequal %}>{{ contest.name }}</option>
+						{% endfor %}
+					</select>
+				</li>
+			</ul>
+		</fieldset>
+		<fieldset>
+			<legend>Limits</legend>
+			<ul class="form">
+				<li id="field_time_limit">
+					<label for="form_time_limit">Time limit</label>
+					{{ form.errors.time_limit }}
+					<input type="text" name="time_limit" id="form_time_limit" value="{{ form.data.time_limit }}" />
+				</li>
+				<li id="field_memory_limit">
+					<label for="form_memory_limit">Memory limit</label>
+					{{ form.errors.memory_limit }}
+					<input type="text" name="memory_limit" id="form_memory_limit" value="{{ form.data.memory_limit }}" />
+				</li>
+				<li id="field_source_limit">
+					<label for="form_source_limit">Source limit</label>
+					{{ form.errors.source_limit }}
+					<input type="text" name="source_limit" id="form_source_limit" value="{{ form.data.source_limit }}" />
+				</li>
+			</ul>
+		</fieldset>
+		
+		<input name="submit" value="Save" class="button" type="submit" size="30">
+		<div class="clear"></div>
+	</form>
+{% endblock %}

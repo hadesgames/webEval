@@ -1,0 +1,46 @@
+{% load util_tags %}
+
+<div class="problem_header wiki_page"> 
+
+<h3 style="text-align:center">Details</h3>
+
+<table style="margin-left:auto;margin-right:auto;" cellspacing="0">
+    <tr>
+        <td class="problem_header_left"><strong>Input file:</strong></td><td class="problem_header_right">{{ problem.code }}.in</td>
+    </tr>
+    <tr>
+        <td class="problem_header_left"><strong>Output file:</strong></td><td class="problem_header_right">{{ problem.code }}.out</td>
+    </tr>
+    <tr>
+        <td class="problem_header_left"><strong>Source</strong></td><td class="problem_header_right"><a href="{% url webEval.web_eval__core.grader__controller.display_contest contest_code=problem.resource.code %}">{{ problem.resource }}</a> </td>
+    </tr>
+    <tr>
+        <td class="problem_header_left"><strong>Author</strong></td><td class="problem_header_right"><a href="{% url webEval.web_eval__core.grader__controller.display_problems_by_author author_code=problem.author.code %}"> {{ problem.author.name }}</a></td>
+    </tr>
+    <tr>
+        <td class="problem_header_left"><a href=""><strong>Added by</strong></a></td><td class="problem_header_right"><a href="{% url webEval.web_eval__core.user__controller.display_user user_name=problem.owner.username %}">{{ problem.owner.first_name }} {{ problem.owner.last_name }}</a></td>
+    </tr>
+    <tr>
+        <td class="problem_header_left"><strong>Time limit</strong></td><td class="problem_header_right">{{ problem.time_limit }} ms</td>
+    </tr>
+    <tr>
+        <td class="problem_header_left"><strong>Memory limit</strong></td><td class="problem_header_right">{{ problem.memory_limit }} kbytes</td>
+    </tr>
+    <tr>
+        <td class="problem_header_left"><strong>Source limit</strong></td><td class="problem_header_right">{{ problem.source_limit }} bytes</td>
+    </tr>
+    <tr>
+        <td class="problem_header_left"><strong>Difficulty</strong></td><td class="problem_header_right">1.5 / 5</td>
+    </tr>
+    <tr>
+        <td class="problem_header_left"><strong>Your score:</strong></td><td class="problem_header_right" id="your_score"></td>
+    </tr>
+    
+    <script type="text/javascript">
+    	function getYourScore() {
+    		$('#your_score').html( '&nbsp;' ).load('{% url webEval.api.views.get_your_score %}?problem_id={{ problem.id }}&contest_id={{ problem.resource.id }}');
+    	}
+    	window.onload = getYourScore();
+    </script>
+</table> 
+</div>

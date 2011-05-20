@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}
+History of page: {{ page.url }}
+{% endblock %}
+
+{% block content %}
+    <h1>History of page <a href="{% url webEval.web_eval__core.wiki__controller.display_page page_url=page.url %}">{{ page.url }}</a></h1>
+    <form  action = "{% url webEval.web_eval__core.wiki__controller.diff page_url=page.url %}" method = "get">
+        <input type = "hidden" name = "action" value = "diff" />
+            <div class="compare-button-container">
+                <input type = "submit" value = "Compare selected versions" class = "button compare-button"/>
+            </div>
+            <div class="pager"><div class="standard-pager">
+                <span class="entries-per-page">View page: <span class="selected"><strong>1</strong></span> 
+                <span class="count">&nbsp;({{ revisions.count }} results)</span> 
+            </div>
+            <br>
+            <table class='fill-screen'>
+                <thead>
+                    <tr>
+                        <th>Revision</th>
+                        <th>Title</th>
+                        <th>User</th>
+                        <th>Date</th>
+                        <th>IP</th>
+                        <th>Operations</th>
+                        <th class="compare-radio">Compare</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for revision in revisions %}
+                    <tr class="odd">
+                        <td >#{{ revision.revision_id }}</td>
+                        <td >{{ revision.title }}</td>
+                        <td >
+                        	{% with page.author as tiny_user %}
+                        		{% include "include_tiny_user.html" %}
+                        	{% endwith %}
+                        </td>
+                        <td >{{ revision.date }}</td>
+                        <td >{{ revision.ip }}</td>
+                        <td >
+                            {% ifequal revision page.last_revision %}
+                                <strong>Last version</strong>
+                            {% else %}
+                            <a href="{% url webEval.web_eval__core.wiki__controller.diff page_url=page.url %}?r1={{ page.last_revision.revision_id }}&r2={{ revision.revision_id }}">[Compare with last revision]</a>
+                            {% endifequal %}
+                            <a href="{% url webEval.web_eval__core.wiki__controller.restore page_url=page.url revision_id=revision.revision_id %}">[Restore this revision]</a>
+                            <a href="{% url webEval.web_eval__core.wiki__controller.display_page page_url=page.url revision_id=revision.revision_id %}">[View this revision]</a>
+                        </td>
+                        <td class="compare-radio">
+                            <input type="radio" name="rev_from" value="{{ revision.revision_id }}" {% ifequal revision page.last_revision %}checked="checked"{% endifequal %}/>
+                            <input type="radio" name="rev_to" value="{{ revision.revision_id }}" {% ifnotequal revision page.last_revision %}checked="checked"{% endifnotequal %} />
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div class="compare-button-container">
+                <input type = "submit" value = "Compare selected versions" class = "button compare-button"/>
+            </div>
+    </form>
+{% endblock %}

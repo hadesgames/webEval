@@ -1,0 +1,25 @@
+{% if navigation.other == 'edit-contest' %}
+	<li class="first active">
+		<a href="{% url webEval.web_eval__core.grader__controller.configure_contest contest_code=contest.code %}">
+			Edit contest
+		</a>
+	</li>
+{% endif %}
+
+<li class="first {% if navigation.other == 'admin_page' %}active{% endif %}">
+	<a href="{% url webEval.web_eval__core.grader__controller.admin_page %}">
+		Admin page
+	</a>
+</li>
+
+<li class="{% if navigation.other == "create-problem" %}active{% endif %}">
+	<a href="{% url webEval.web_eval__core.grader__controller.create_problem %}">
+		Create problem
+	</a>
+</li>
+
+<li class="last {% if navigation.other == "create-contest" %}active{% endif %}">
+	<a href="{% url webEval.web_eval__core.grader__controller.create_contest %}">
+		Create contest
+	</a>
+</li>

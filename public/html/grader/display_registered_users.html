@@ -1,0 +1,17 @@
+{% extends "webEval_base.html" %}
+{% block title %}
+	Registered users at contest {{ contest.code }}
+{% endblock %}
+
+{% block wiki_page %}
+	<h1>Users registered to <a href="{% url webEval.web_eval__core.grader__controller.display_contest contest_code=contest.code %}">{{ contest.name }}</a></h1>
+	{% if contest.registered_users_all.cont %}
+		{% with contest.registered_users_all as users %}
+			{% include "grader/display_users.html" %}
+		{% endwith %}
+	{% else %}
+		<div class="box">
+			Nobody registered to this contest.
+		</div>
+	{% endif %}
+{% endblock %}

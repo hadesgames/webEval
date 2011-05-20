@@ -1,0 +1,199 @@
+/* infoarena body */
+body#infoarena {
+    padding: 0;
+    margin: 0;
+}
+
+#infoarena #bodyarea {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+/* site header */
+
+#header {
+    height: 64px;
+    border-bottom: 1px solid #333;
+    background: url('../images/logo_bg.jpg') repeat-x top left;
+    position: relative;
+}
+
+#header h1 a {
+    background:url('../images/logo.jpg') no-repeat left top;
+    height:60px;
+    width:300px;
+    text-indent:-9999px;
+    display: block;
+}
+
+/* search box in site header */
+#search {
+    float:right;
+    padding: 12px 15px;
+    background:#5C880B url(../images/search.jpg) no-repeat bottom left;
+}
+
+#search input {
+    vertical-align:middle;
+    padding: 0;
+    font-size: 10pt;
+}
+
+#search #inputbox {
+    width:120px;
+}
+
+/* userbox in site header */
+#userbox {
+    float: right;
+    background:#5C880B url(../images/search.jpg) no-repeat bottom left;
+    width: 250px;
+    font-size: 8pt;
+    line-height: 1.5em;
+}
+
+#userbox img {
+    float: right;
+    padding: 1px;
+    margin: 1px;
+    /* background:#fff; */
+    display:block;
+}
+
+#userbox .user {
+    display: block;
+    margin: 2px 3px 3px 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 180px;
+}
+
+#userbox, #userbox a {
+    color: #eee;
+}
+
+#userbox a.logout {
+    background: url('../images/icons/key.gif') no-repeat center left;
+    padding-left: 22px;
+}
+
+/* site footer */
+#footer {
+    border-top:1px solid #B7D285;
+    background:url(../images/footer.jpg) repeat-x top;
+    margin-top:1px;
+    padding:10px 20px;
+    font-size:11px;
+    color:#999;
+}
+
+#footer ul {
+}
+
+#footer li {
+    display:block;
+    float:left;
+    margin-right:15px;
+}
+
+#footer li.top {
+    float:right;
+}
+
+#footer li.separate {
+    border-left: 1px solid silver;
+    padding-left: 15px;
+}
+
+#footer .cc {
+    font-size:10px;
+    margin-top:6px;
+    text-align: left;
+}
+
+#footer a.badge {
+    float: left;
+    margin-right: 6px;
+}
+/* top navigation bar */
+#topnav {
+    float: left;
+    width: auto;
+    line-height: normal;
+    margin: 0 0 .5em 1em;
+    padding: 0 6px 0 0;
+    background: url('../images/tab/end.gif') right bottom no-repeat;
+}
+
+#topnav ul {
+    float: left;
+    margin: 0;
+    padding: 0 0 0 6px;
+    background: url('../images/tab/begin.gif') left bottom no-repeat;
+}
+
+#topnav li {
+    float: left;
+    padding: 0;
+    margin: 0 .4em 0 .4em;
+    display: inline;
+    list-style-type: none;
+}
+
+#topnav a {
+    display: block;
+    color: white;
+    font-size: 8pt;
+    padding: .1em 0 .5em 0;
+}
+
+#topnav a:hover {
+    text-decoration: underline;
+}
+
+#topnav strong {
+    display: block;
+    background: url('../images/tab/a_end.gif') right bottom no-repeat;
+    padding-right: 4px;
+}
+
+#topnav strong a {
+    background: url('../images/tab/a_begin.gif') left bottom no-repeat;
+    padding-left: 12px;
+    padding-right: 6px;
+}
+ 
+
+/* tables */
+table th .sort-field a {
+    color: black;
+    font-weight: normal;
+    padding: 0 .3em 0 .3em;
+    text-decoration: none;
+}
+
+table th .sort-field a:hover {
+    color: white;
+    background-color: #006699;
+}
+
+table th .sort-field-active a {
+    color: white;
+    background-color: #006699;
+}
+
+table th .sort-field-active a:hover {
+    color: #006699;
+    background-color: white;
+}
+
+table.fill-screen, table.fill-screen tr {
+    width: 99%;         /* Internet Explorer 6 doesn't like it when it's 100% */
+    margin: 0.5px auto;
+}
+
+/* datagrids */
+
+td.number, th.number, td.date, th.date {
+    text-align: right;
+}
+

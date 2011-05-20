@@ -1,0 +1,137 @@
+{% extends "webEval_base.html" %}
+{% load comments %}
+{% load wiki_extras %}
+
+{% block title %}
+    {{ blog_entry.title }}
+{% endblock %}
+
+{% block extra_css %}
+	<link type="text/css" rel="stylesheet" href="{{ MEDIA_URL }}/css/blog.css"/>
+{% endblock %}
+
+{% block extra_js %}
+	<script type="text/javascript">
+		var switchTo5x=true;
+	</script>
+	<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+	<script type="text/javascript">
+		stLight.options({publisher:'77b65036-9b02-44c5-a7bc-4f0fac499c73'});
+	</script>
+{% endblock %}
+
+{% block wiki_page %}
+	
+
+	{% with is_blog_entry=1 %}{% include "blog/sidebar.html" %}{% endwith %}
+		
+<div class="blog">
+
+	<div class="item">
+		<span class="blog_entry_date">
+			{{ blog_entry.date|date:"d M Y" }}
+		</span>
+		
+		<h1 style="padding: 15px 0px 15px 0px;">{{ blog_entry.title }}</h1>
+			
+		<div class="wiki_text_block blog_entry_content">
+			{{ blog_entry.content|creole|webEval_markup|safe }}
+		</div>
+		
+		<div style="padding: 15px 0px 15px 0px">
+			<span class='st_twitter_button' displayText='Tweet'></span>
+			<span class='st_facebook_button' displayText='Facebook'></span>
+			<span class='st_linkedin_button' displayText='LinkedIn'></span>
+			<span class='st_gbuzz_button' displayText='Google Buzz'></span>
+			<span class='st_email_button' displayText='Email'></span>
+			<span class='st_sharethis_button' displayText='ShareThis'></span>
+		</div>
+	</div>
+	<div class="blog_strap">
+		<strong>Tags: </strong>
+		<span id="tags">
+			{% for tag in blog_entry.tags.all %}
+				<a style="padding-right: 3px;" href=""alt="{{ tag.name }}" title="{{ tag.name }}">{{ tag.name }}</a>
+			{% endfor %}
+		</span>
+		<br>
+		
+		<div>
+			Posted on {{ blog_entry.date }} by <a href="{% url webEval.web_eval__core.blog__controller.index username=blog_entry.author.username %}">{{ blog_entry.author.first_name }} {{ blog_entry.author.last_name }}</a>
+		</div>
+		
+		<span>
+		{% if can_edit %}
+			<a href="{% url webEval.web_eval__core.blog__controller.edit_entry username=blog_entry.author.username permalink=blog_entry.permalink %}">Edit</a>
+		{% endif %}
+		{% if can_delete %}
+			| <a href="{% url webEval.web_eval__core.blog__controller.delete_entry username=blog_entry.author.username permalink=blog_entry.permalink %}">Delete</a>
+		{% endif %}
+		{% if can_manage_dashboard %}
+			| <a href="{% url webEval.web_eval__core.blog__controller.toogle_dashboard username=blog_entry.author.username permalink=blog_entry.permalink %}">{% if is_dashboard_entry %}Remove from dashboard {% else %}Add to dashboard {% endif %}</a>
+		{% endif %}
+		</span>
+		
+		
+	</div>
+	
+    
+    <div id="comments">
+    	{% get_comment_count for blog_entry as comment_count %}
+    	<h3> {{ comment_count }} Comment(s)</h3>
+    	<div id="remotebox">
+		    {% get_comment_list for blog_entry as comment_list %}
+		    <form action="{% url webEval.web_eval__core.blog__controller.delete_comment blog_entry.pk %}" method="POST">
+		    {% csrf_token %}
+		    {% for comment in comment_list %}
+		        <div class="comment" id="comment{{ comment.id }}"> 
+		            <div class="header"> 
+		                <span class="timestamp">
+		                    {{ comment.submit_date }}
+		                </span> 
+		                <span class="tiny-user">
+		                    {% with comment.user as tiny_user %}
+		                    	{% include "include_tiny_user.html" %}
+		                    {% endwith %}
+		                </span> 
+		            </div>
+		            {% if request.user.is_staff %}
+		            <span style="float: right">
+            			<input type="checkbox" name="delete" value="{{ comment.pk }}">
+            			<a href="{% url webEval.web_eval__core.blog__controller.delete_comment blog_entry.pk comment.id %}">delete</a>
+            		</span>
+        			{% endif %} 
+		             <div class="blog_comment_body"> 
+		                {{ comment.comment|creole|safe }}
+		            </div> 
+		            
+		        </div> 
+		    {% endfor %}
+		    
+		    {% if request.user.is_staff and comment_list %}
+    			<p style="float: right">
+    				<input type="submit" value="Delete all selected" class="button">
+    			</p>
+			{% endif %}
+		    </form>
+    	</div>
+    </div>
+    <h3>Comment</h3>
+    {% get_comment_form for blog_entry as form %}
+	<form action="{% comment_form_target %}" method="post">{% csrf_token %}
+        {% for field in form %}
+            {% if field.is_hidden %}
+                {{ field }}
+            {% else %}
+                {% if field.name != "name" and field.name != "email" and field.name != "url" and field.name != "honeypot" %}
+                    {{ field.errors }}
+                    {{ field }}
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+        <br>
+        <input class="submit" name="post" type="submit" value="submit" />
+   </form>
+</div>        
+{% endblock %}
+

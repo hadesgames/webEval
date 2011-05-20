@@ -1,0 +1,11 @@
+<span class="tiny-user">
+    <a href="{% url webEval.web_eval__core.user__controller.display_user user_name=tiny_user.username %}">
+        <img src="{{ MEDIA_URL }}/images/avatar/{{ tiny_user.username }}_tiny.jpeg" alt="{{ tiny_user.username }}" width="16px" height="16px"/>
+        {{ tiny_user.first_name }} {{ tiny_user.last_name }}
+    </a>
+    <span class="username">
+        <a href="{% url webEval.web_eval__core.user__controller.display_user user_name=tiny_user.username %}">
+            {{ tiny_user.username }}
+        </a>
+    </span>
+</span>

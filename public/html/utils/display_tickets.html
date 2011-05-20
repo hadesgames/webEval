@@ -1,0 +1,74 @@
+{% extends "webEval_base.html" %}
+
+{% block title %}
+	Tickets
+{% endblock %}
+
+{% block wiki_page %}
+
+<div class="display_tickets">
+	<span style="float: right"><a href="{% url webEval.web_eval__core.utils__controller.new_ticket %}">Add ticket</a></span>
+
+<h2>Open Tickets</h2>
+{% if tickets %}
+	<table id="tickets_table" class="sortable">
+		<thead>
+			<th id="ticket_id_th">Id</th>
+			<th>Title</th>
+			<th id="ticket_type_td">Status</th>
+			<th id="ticket_type_td">Type</th>
+			<th id="ticket_type_td">Severity</th>
+			<th id="ticket_type_td">Milestone</th>
+		</thead>
+		
+		<tbody>
+		{% for ticket in tickets %}
+			<tr class="ticket_severity_{{ ticket.severity }}">
+				<td id="ticket_id_td"><a href="{% url webEval.web_eval__core.utils__controller.display_ticket ticket_id=ticket.id %}">#{{ ticket.id }}</a></td>
+				<td id="ticket_title_td"><a href="{% url webEval.web_eval__core.utils__controller.display_ticket ticket_id=ticket.id %}">{{ ticket.title }}</a></td>
+				<td>{{ ticket.status }}</td>
+				<td>{{ ticket.type }}</td>
+				<td>{{ ticket.severity }}</td>
+				<td>{% if ticket.milestone %}{{ ticket.milestone.name }}{% else %}None{% endif %}</td>
+			</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+{% else %}
+	<div class="box">
+		There are no reported tickets.
+	</div>
+{% endif %}
+
+<h2>Closed Tickets</h2>
+{% if closed_tickets %}
+	<table id="tickets_table" class="sortable">
+		<thead>
+			<th id="ticket_id_th">Id</th>
+			<th>Title</th>
+			<th id="ticket_type_td">Status</th>
+			<th id="ticket_type_td">Type</th>
+			<th id="ticket_type_td">Severity</th>
+			<th id="ticket_type_td">Milestone</th>
+		</thead>
+		
+		<tbody>
+		{% for ticket in closed_tickets %}
+			<tr class="ticket_severity_{{ ticket.severity }}">
+				<td id="ticket_id_td"><a href="{% url webEval.web_eval__core.utils__controller.display_ticket ticket_id=ticket.id %}">#{{ ticket.id }}</a></td>
+				<td id="ticket_title_td"><a href="{% url webEval.web_eval__core.utils__controller.display_ticket ticket_id=ticket.id %}">{{ ticket.title }}</a></td>
+				<td>{{ ticket.status }}</td>
+				<td>{{ ticket.type }}</td>
+				<td>{{ ticket.severity }}</td>
+				<td>{% if ticket.milestone %}{{ ticket.milestone.name }}{% else %}None{% endif %}</td>
+			</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+{% else %}
+	<div class="box">
+		There are no reported tickets.
+	</div>
+{% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "webEval_base.html" %}
+
+{% block title %}
+	Wiki index
+{% endblock %}
+
+{% block wiki_page %}
+
+	<h2>Latest changes:</h2>
+	
+	<table id="changes" class="wiki_changes" width="100%">
+		<thead>
+			<th>User</th>
+			<th>Action</th>
+			<th>Page</th>
+			<th>Date</th>
+			<th>IP</th>
+		</thead>
+		<tbody>	
+		{% for revision in last_revisions %}
+			<tr>
+				<td>{% with revision.author as tiny_user %}{% include "include_tiny_user.html" %}{% endwith %}</td>
+				<td>{% if revision.revision_id == 1%}Created{% else %}Edited{% endif %}</td>
+				<td><a href="{% url webEval.web_eval__core.wiki__controller.display_page page_url=revision.wiki_page.url revision_id=revision.revision_id %}">{{ revision.wiki_page.url }}</a></td>
+				<td>{{ revision.date }}</td>
+				<td>{{ revision.ip }}</td>
+			</tr> 				
+		{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}

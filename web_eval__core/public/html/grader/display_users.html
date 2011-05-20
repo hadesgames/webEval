@@ -1,0 +1,17 @@
+<table>
+	<thead>
+		<tr>
+			<th class="number rank">#</th>
+			<th >Name</th>
+			<th class="number rating">Rating</th>
+		</tr>
+	</thead>
+	<tbody>
+	{% for user in users %}
+	<tr class="{% cycle 'odd' 'even' %}">
+		<td class="number rank">{{ forloop.counter }}</td>
+		<td >{% with user as tiny_user %}{% include "include_tiny_user.html" %}{% endwith %}</td>
+		<td class="number rating">{{ user.rating }}</td>
+	</tr>
+	{% endfor %}
+</table>

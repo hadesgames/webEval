@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Forum
+{% endblock %}
+
+{% block extra_css %}
+<link type="text/css" rel="stylesheet" href="/static/css/forum_style.css"> 
+{% endblock %}
+ 
+{% block content %}
+	{% include "forum/include_stack.html" %}
+	{% for post in posts %}
+		{% include "forum/render_post.html" %}
+	{% endfor %}
+	{% include "forum/include_stack.html" %}
+{% endblock %}

@@ -1,0 +1,307 @@
+.clear { clear: both; }
+
+body
+{
+  padding: 0 2ex 0 2ex;
+  margin: 0;
+  text-align: center;
+}
+
+a img { border-width: 0; }
+
+
+.history {
+  text-align: left;
+  font-size: 13px;
+  color: #444;
+  font-weight : bold;
+}
+
+/* <Sidebar> */
+
+#sidebar {
+  text-align: left;
+  width: 20ex;
+  float: left;
+  padding-right: 5px;
+  margin-right: 10px;
+  border-right: 1px solid #EEE;
+}
+
+#sidebar ul li {
+  margin-top: 1px;
+}
+
+#sidebar {
+  font-size: 0.93em;
+}
+
+#sidebar ul.nav-first {
+  list-style-type: none; padding: 0; margin: 0;
+}
+
+#sidebar ul.nav-first ul { 
+  list-style-type: square; margin-left: 0; padding-left: 3ex;
+}
+
+/* </Sidebar> */
+                    
+/* <Attention> */
+
+#attention {
+}
+
+/* </Attention> */
+
+#container {
+  width: 80%;
+  float: right;
+  text-align: left;
+  margin: 0 auto 0 auto;
+}
+
+div.navbar {
+  text-align: center;
+  width: 75%;
+  margin-top: 1.5ex;
+  margin-bottom: 1.5ex;
+}
+
+div.box {
+  background-color: #F8F8F8;
+  padding: 1ex;
+  margin-top: 0.8ex;
+  margin-bottom: 0.8ex;
+  border: 1px solid #777;
+}
+
+div.box h3 {
+  padding: 0px;
+  margin-top: 0.5ex;
+  margin-bottom: 0.5ex;
+}
+
+.formError { color: red; }
+.fieldWithErrors input { border: 1px solid red; }
+.fieldWithErrors { display: inline; }
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+div.captcha {
+  border: 1px solid gray;
+  background-color: white;
+  width: 50ex;
+  text-align: center;
+  padding: 2ex;
+}
+
+form label {
+  margin-right: 1ex;
+}
+
+form .error {
+  color: red;
+}
+
+.empty-board {
+  width : 75%;
+}
+
+table.list {
+  width: 75%;
+  border-collapse: collapse;
+}
+
+.user div.show .user_message textarea {
+  width: 80ex;
+  height: 15em;
+}
+
+/* Forum list view */
+.forum div.list .name {
+  font-weight: bold;
+} 
+
+.forum div.list .description {
+  font-size: 0.8em;
+}
+
+.forum div.list .edit {
+  font-size: smaller;
+  font-weight: normal;
+}
+
+/* Forum view */
+.forum div.forum td.subject {
+  width: 50%;
+}
+
+table.list th,td {
+  padding: 2px;
+  margin: 0;
+  text-align: left
+}
+
+/* <borders> */
+table.list {
+  border: 1px solid #CCC;
+}
+
+table.list th {
+  border-bottom: 1px solid #CCC;
+  background-color: #F8F8F8;
+}
+
+table.list td {
+  border-bottom: 1px solid #EEE;
+}
+
+.forum .forum table.topics td.subject {
+  border-left: 1px solid #EEE;
+}
+
+.forum .forum table.topics td.last-post {
+  border-right: 1px solid #EEE;
+}
+/* </borders> */
+
+
+.forum .forum table.topics .last-post {
+  padding-left: 15px;
+  font-size: smaller;
+}
+
+.forum .forum table.topics .new-posts .last-post {
+  background-color: #DDD;
+}
+
+.forum .forum table.topics td.replies {
+  text-align: center;
+}
+
+.forum .forum table.topics .new-posts .subject {
+  /*font-weight: bold;*/
+}
+
+.forum .forum table.topics .deleted-topic * {
+  color: #D0D0D0 ! important;
+}
+
+/* Topic view */
+.forum .post {
+  margin-bottom: 1.5ex;
+  padding-bottom: 0.4ex;
+}
+
+.forum .new-post .subject {
+  text-decoration: underline;
+}
+
+.forum .deleted-post * {
+  color: #D0D0D0 ! important;
+}
+
+.forum .post .subject {
+/*  background-color: orange; */
+  color: #101010;
+  margin-bottom: 5px;
+  font-size: 1.1em;
+}
+
+.forum .post .subject a {
+  color: inherit ! important;
+}
+
+.forum .post .info {
+  font-size: 0.9em;
+}
+
+.forum .post .info div {
+  display: inline;
+}
+
+.forum .post .info div.attachment {
+  display: block;
+}
+
+.forum .post .text {
+  font-size: 1.0em;
+}
+
+.forum .post .foot {
+  margin: 0;
+  text-align: right;
+  padding: 3px;
+  font-size: 0.8em;
+}
+
+.forum .topic .foot a {
+/*  border: 1px solid grey;*/
+  padding-left: 3px;
+  padding-right: 3px;
+  padding-bottom: 1px;
+  padding-top: 1px;
+  text-decoration: none;
+}
+
+
+
+
+
+/* Styles for simple quote coloring */
+.forum .post span.quoting-level-1 { color: #007000; }
+.forum .post span.quoting-level-2 { color: #000070; }
+.forum .post span.quoting-level-3 { color: #700000; }
+.forum .post span.quoting-level-5 { color: #800080; }
+.forum .post span.quoting-level-4 { color: #006060; }
+.forum .post span.quoting-level-6 { color: #606000; }
+
+
+
+
+
+/* Styles for new quote formatting */
+.forum .post .quoting {
+  margin-left: 2px;
+  padding-left: 5px;
+  margin-bottom: 8px;
+  margin-top: 8px;
+  text-align: justify;
+}
+
+.forum .post div.level-0 { margin: 0; padding: 0; }
+.forum .post div.level-1 { border-left: 2px solid #007000; }
+.forum .post div.level-2 { border-left: 2px solid #000070; }
+.forum .post div.level-3 { border-left: 2px solid #700000; }
+.forum .post div.level-4 { border-left: 2px solid #006060; }
+.forum .post div.level-5 { border-left: 2px solid #800080; }
+.forum .post div.level-6 { border-left: 2px solid #606000; }
+
+
+
+
+.forum .post .text {
+  font-size: 12px;
+}
+
+
+
+
+
+.forum .searchresults td.subject {
+  width: 50%;
+}
+
+.forum .searchresults td.text {
+  font-size: smaller;
+}
+
+.forum .searchresults td.text em {
+  color: red;
+}

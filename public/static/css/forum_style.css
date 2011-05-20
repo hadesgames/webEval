@@ -1,0 +1,191 @@
+.board {
+	align: center;
+	padding-left: 20 px;
+	padding-right: 0px;
+}
+
+.forum_history {
+
+}
+
+.board_clear {
+	height: 26px;
+}
+
+.forum_history_clear {
+	height: 15px;
+}
+
+/* board display sons */
+ 
+.topics_posts_num {
+	padding: 5px 5px 5px 15px;
+	text-align: center;
+}
+
+.board_display_description {
+	padding: 5px 5px 5px 15px;
+}
+
+.board_name_description {
+	font-weight: bold;
+	font-size: medium;
+}
+
+.board_description {
+	font-size: small;
+}
+
+.lastpost {
+	padding: 5px 5px 5px 5px;
+	text-align: center;
+	font-size: smaller;
+}
+
+.display_sections {
+	padding: 2px 0px 2px 15px;
+	font-size: smaller;
+}
+
+.forum_boards_tr {
+	margin-bottom: 20px;
+}
+
+/* end */
+
+.forum_boards {
+	margin-top:5px;
+}
+
+
+/* display topic */
+.forum_post {
+	/*padding: 5px 5px 5px 15px;*/
+	margin: 5px 0px 5px 0px;
+}
+
+.forum_post_title_bar {
+	font-size: smaller;
+	padding: 5px 5px 5px 5px;
+}
+
+.forum_post_sidebar {
+	vertical-align: top;
+}
+
+.forum_post_content {
+	padding: 5px 5px 5px 5px;
+}
+
+.forum_post_author {
+	text-align: center;
+}
+.forum_post_author a{
+	font-size: smaller;
+	font-weight: bold;
+	color: #000000;
+}
+
+.forum_post_display_avatar {
+	padding: 5px 5px 5px 5px;
+}
+
+.forum_post_display_user_details {
+	padding: 5px 5px 5px 5px;
+	font-size: smaller;
+}
+
+.forum_post_content {
+	padding: 10px 5px 5px 5px;
+	vertical-align: top;	
+}
+
+.forum_post_display_content {
+	font-size: 12px;
+}
+
+.forum_post_link_top {
+	padding: 5px 5px 5px 5px;
+	font-size: smaller;
+}
+
+.forum_post_display_panel {
+	padding: 5px 5px 5px 5px;
+	font-size: smaller;
+}
+/* end */
+
+.display_left {
+	float: left;
+}
+
+.display_right {
+	float: right;
+}
+ 
+.forum_history {
+	font-size: smaller;
+	float: left;
+}
+
+.forum_new_topic {
+	text-align: right;
+	margin: 10px 0px 10px 0px;
+}
+
+.topic_replies_num {
+	text-align: center;
+}
+
+.topic_views_num {
+	text-align: center;
+}
+
+.topic_author {
+	text-align: center
+}
+
+.topic_subject {
+	padding: 5px 5px 5px 15px;
+}
+
+.forum_topics_thead {
+	color: #FFFFFF;
+}
+
+
+.topic_replies_num_head {
+	text-align: center;
+	background-color: #000000;
+	font-weight: bold;
+}
+
+.topic_views_num_head {
+	text-align: center;
+	background-color: #000000;
+	font-weight: bold;
+}
+
+.topic_author_head {
+	text-align: center;
+	background-color: #000000;
+	font-weight: bold;
+}
+
+.lastpost_head {
+	text-align: center;
+	background-color: #000000;
+	font-weight: bold;
+}
+
+.topic_subject_head {
+	background-color: #000000;
+	font-weight: bold;
+}
+
+.private_messages_table {
+	width: 100%;
+
+.private_messages_table td, .private_messages_table th{
+	width: 33%;
+}

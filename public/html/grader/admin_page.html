@@ -1,0 +1,88 @@
+{% extends "webEval_base.html" %}
+
+{% block title %}
+	Admin
+{% endblock %}
+
+{% block extra_js %}
+{% endblock %}
+
+{% block wiki_page %}
+	<h2>Create</h2>
+	<ul>
+		<li>
+			<a href="{% url webEval.web_eval__core.grader__controller.create_contest %}">Create contest</a>
+		</li>
+		<li>
+			<a href="{% url webEval.web_eval__core.grader__controller.create_problem %}">Create problem</a>
+		</li>
+	</ul>
+	
+	<h2>Last created users</h2>
+	<table width="100%" id="last_created_users">
+		<thead>
+			<th>Id</th>
+			<th>Name</th>
+			<th>Username</th>
+			<th>Ip</th>
+			<th>Date joined</th>
+		</thead>
+		<tbody>
+			{% for user in last_users %}
+				<tr>
+					<td class="admin_user_id">#{{ user.id }}</td>
+					<td class="admin_user_name"><a href="{% url webEval.web_eval__core.user__controller.display_user user_name=user.username %}">{{ user.first_name }} {{ user.last_name }}</a></td>
+					<td class="admin_user_username"><a href="{% url webEval.web_eval__core.user__controller.display_user user_name=user.username %}">{{ user.username }}</a></td>
+					<td class="admin_user_ip">{{ user.ip_joined }}</td>
+					<td class="admin_user_date_joined">{{ user.date_joined }}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	
+	<h2>Tickets</h2>
+	<h3>Milestones</h3>
+	
+	<table class="display_milestones">
+		<thead>
+			<th width="20%">Name</th>
+			<th width="10%">Version</th>
+			<th width="20%">Due</th>
+			<th width="25%">Percent Completed</th>
+			<th width="15%">Actions</th>
+		</thead>
+		<tbody>
+		{% for milestone in milestones %}
+			<tr>
+				<td>{{ milestone.name }}</td>
+				<td>{{ milestone.version }}</td>
+				<td>{{ milestone.due }}</td>
+				<td>
+					<div class="percent_completed">
+    					<div class="completed" style="width:{{ milestone.percent_completed }}%;"></div>
+    					<div class="remaining" style="width:{{ milestone.percent_uncompleted }}%;"></div>
+					</div>
+				</td>
+				<td style="text-align: center"><a href="">Edit</a> | <a href="">Delete</a></td>
+			</tr>
+		{% endfor %}
+		<form method="POST" action="{% url webEval.web_eval__core.grader__controller.admin_page %}">
+			<tr>
+				{{ milestone_form.errors }}
+				<td><input type="text" name="name" value="{{ milestone_form.data.name }}" /></td>
+				<td><input type="text" name="version" value="{{ milestone_form.data.version }}" size="5"/></td>
+				<td><input type="text" name="due" value="{{ milestone_form.data.due }}" id="create_milestone_due" /></td>
+				<td>
+					<div class="percent_completed">
+    					<div class="completed" style="width:0%;"></div>
+    					<div class="remaining" style="width:100%;"></div>
+					</div>
+				</td>
+				<td style="text-align: center">
+					<input type="submit" name="submit" value="Submit" />
+				</td>
+			</tr>
+		</form>
+		</tbody>
+	</table>
+{% endblock %}

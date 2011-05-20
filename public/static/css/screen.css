@@ -1,0 +1,732 @@
+
+/* layout table */
+.wiki_text_block table.layout th, .wiki_text_block table.layout td {
+    width: 50%;
+    vertical-align: top;
+    border: none;
+    padding: 0 .3em 0 .3em;
+    padding-right: 5%;
+    text-align: left;
+}
+
+.wiki_text_block table.layout th {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 13pt;
+    font-weight: normal;
+    background-color: white;
+}
+
+/* layout table with 3 columns */
+.wiki_text_block table.layout3 th, .wiki_text_block table.layout3 td {
+    width: 30%;
+    vertical-align: top;
+    border: none;
+    padding: 1em;
+    text-align: left;
+}
+
+.wiki_text_block table.layout3 th, .wiki_text_block table.layout3 p.title {
+    font-family: Arial, Tahoma, sans-serif;
+    font-size: 1.3em;
+    font-weight: normal;
+    background-color: white;
+}
+
+.wiki_text_block .compact {
+    width: auto;
+}
+
+.wiki_text_block .compact td, .wiki_text_block .compact th {
+    padding: .2em;
+}
+
+/* syntax highlighted code block */
+.code textarea {
+    font-family: "Courier New" , Courier, mono;
+    font-size: 8pt;
+    border: 1px solid #2B91AF;
+    background-color: #fff;
+    width: 99%;
+    overflow: auto;
+    margin: 18px 0px 18px 0px;
+}
+
+/* table of contents */
+.wiki_text_block ul.toc {
+    width: 15em;
+    margin-left: 0px;
+    border: 1px solid #AAAAAA;
+    background-color: #F9F9F9;
+    padding: 0.5em;
+}
+
+.wiki_was_modified {
+    background-color: #ffa;
+    color: black;
+    margin: 1em auto 1em auto;
+    padding: .5em .5em .5em 24px;
+    border: 1px solid olive;
+    background-image: url('../images/icons/notice.gif');
+    background-position: 4px 50%;
+    background-repeat: no-repeat;
+}
+
+.toc li {
+    list-style-type: none;
+    font-size: 11px;
+    line-height: 1.3em;
+}
+
+/* vertical menu */
+.vmenu {
+    float: right;
+    border: 1px solid silver;
+    width: 13em;
+    margin: .5em;
+    padding: .5em;
+    background-color: #f0f0f0;
+    -moz-border-radius-bottomleft:8px;
+    -moz-border-radius-bottomright:8px;
+    -moz-border-radius-topleft:8px;
+    -moz-border-radius-topright:8px;
+}
+
+.vmenu li {
+    margin-left: 1em;
+    list-style-type: none;
+}
+
+.vmenu li.section {
+    margin-left: 0;
+    font-weight: bold;
+}
+
+.vmenu br {
+    display: none;
+}
+
+.vmenu li a {
+    display: block;
+    width: 95%;
+    padding-left: .4em;
+}
+
+.vmenu li a:hover {
+    background-color: #006699;
+    color: white;
+    text-decoration: none;
+}
+
+.vmenu li a:visited {
+}
+
+/* horizontal tabs */
+ul.htabs {
+    padding: 0.9pt 3pt;
+    margin: 1.5em 0 1em 0;
+    border-bottom: 1px solid #778;
+    font-weight: bold;
+}
+
+.htabs li {
+    list-style: none;
+    margin: 0;
+    display: inline;
+}
+
+.htabs li a {
+    padding: 3px 0.5em;
+    border: 1px solid #778;
+    border-bottom: none;
+    background: #BBB;
+    text-decoration: none;
+}
+
+.htabs li a:link { color: #000; }
+.htabs li a:visited { color: #000; }
+
+.htabs li a:hover {
+    color: #000;
+    background: #BBB;
+    border-color: #272;
+}
+
+.htabs li.active a {
+    background: white;
+    border-bottom: 1px solid white;
+    text-decoration: underline;
+}
+
+/* horizontal tabs, level 2 */
+ul.htabs-2 {
+    padding: 0.9pt 3pt;
+    margin: 1.5em 0 1em 0;
+    border-bottom: 1px solid #778;
+    font-weight: bold;
+    font-size: .9em;
+    width: 60%;
+}
+
+.htabs-2 li {
+    list-style: none;
+    margin: 0;
+    display: inline;
+}
+
+.htabs-2 li a {
+    padding: 3px 0.5em;
+    border: 1px solid #778;
+    border-bottom: none;
+    background: #DDD;
+    text-decoration: none;
+}
+
+.htabs-2 li a:link { color: #000; }
+.htabs-2 li a:visited { color: #333; }
+
+.htabs-2 li a:hover {
+    color: #000;
+    background: #AAA;
+    border-color: #272;
+}
+
+.htabs-2 li.active a {
+    background: white;
+    border-bottom: 1px solid white;
+    text-decoration:underline;
+}
+
+/* Job details */
+.job {
+    width: 100%;
+}
+
+.job td, .job th {
+    padding: .1em .3em .1em .3em;
+    margin: 0;
+    vertical-align: middle;
+    height: 2.3em;
+}
+
+.job th {
+    width: 7em;
+    font-weight: bold;
+    background-color: lightgray;
+}
+
+/* job eval tests */
+.job-eval-tests {
+	width: 50%;
+    font-family: monospace;
+}
+
+.job-eval-tests td, .job-eval-tests th {
+    border: 1px solid silver;
+    vertical-align: middle;
+    padding: .1em;
+}
+
+.job-eval-tests tr.odd td {
+    background-color: white;
+}
+
+.job-eval-tests tr.even td {
+    background-color: #ddd;
+}
+
+.job-eval-tests th {
+    font-weight: bold;
+    background-color: white;
+    background-color: lightgray;
+    padding: .1em;
+}
+
+.total_score {
+    font-weight: bold;
+}
+
+/* job eval log */
+.job-eval-log {
+    display: block;
+    font-family: monospace;
+    font-size: 1.1em;
+    white-space: pre;
+}
+
+
+/* Basic table css */
+table {
+    border-collapse: collapse;
+}
+
+table td, table th {
+    border: 1px solid #aaa;
+    padding-left: 0.5ex;
+    padding-right: 0.5ex;
+}
+
+tr.odd td {
+    background: #fff;
+}
+
+tr.even td {
+}
+
+th {
+    background: #ddd;
+}
+
+/* inline task submit form */
+.inlineSubmit ul.form {
+    background-color: #f6f6f6;
+    padding: 5px;
+    margin: 0;
+    -moz-border-radius: 10px;
+}
+
+.inlineSubmit .form li {
+    display: inline;
+    list-style-type: none;
+    margin: 5px;
+    padding: 0;
+}
+
+.inlineSubmit .form input, .inlineSubmit .form label {
+    display: inline;
+}
+
+.inlineSubmit #form_compiler {
+    width: 9em;
+}
+
+.inlineSubmit #form_round {
+    width: 9em;
+}
+
+/* reeval form */
+
+.reeval {
+    float: right;
+}
+
+/* gallery macro */
+.gallery {
+}
+
+.gallery .images a {
+    margin: 5px;
+    display: block;
+    width: 134px;
+    height: 84px;
+    float: left;
+    text-align: center;
+    border: 2px solid white;
+    background-color: #f0f0f0;
+}
+
+.gallery .images img {
+    margin: 2px;
+}
+
+.gallery .pager {
+    display: block;
+    clear: left;
+}
+
+.gallery .images a:hover {
+    border: 2px solid black;
+    background-color: white;
+}
+
+/* task statement example */
+table.example td {
+    font-size: 1em;
+    font-family: monospace;
+    line-height: 1.5em;
+    vertical-align: top;
+    padding: .5em;
+    white-space: nowrap;
+}
+
+/* wiki style sheets */
+p.pre {
+    white-space: pre;
+    font-family: monospace;
+    line-height: 1.5em;
+    margin: 0;
+}
+
+p.pre br {
+    display: none;
+}
+
+table.numbers td, table.numbers th {
+    text-align: right;
+}
+
+/* User badges */
+div.tiny-user {
+    height: 24px;
+    display:inline;
+}
+
+div.tiny-user a {
+    text-decoration: none;
+}
+
+div.tiny-user .username {
+    font-weight:bold;
+}
+
+div.tiny-user img {
+    border:1px solid #D8D6CB;
+    background:#fff;
+    display:inline;
+    vertical-align:middle;
+    margin:3px;
+}
+
+div.normal-user {
+    height: 48px;
+    line-height: 1.5em;
+}
+
+div.normal-user .username {
+    font-weight:bold;
+}
+
+
+div.normal-user img {
+    border:1px solid #D8D6CB;
+    background:#fff;
+    display:block;
+    float:left;
+    margin:7px;
+}
+
+/* monitor */
+table.monitor {
+    width: 95%; /* Fix IE */
+    margin: .5em 0 2em 0;
+}
+
+/* task list */
+.tasks td.score, .tasks th.score {
+    width: 10%;
+    padding-right: 4pt;
+}
+.tasks td.score {
+    font-size: .7em;
+    color: gray;
+}
+.tasks td.task {
+    padding-left: 23px;
+    background-repeat: no-repeat;
+    background-position: 3px center;
+}
+.tasks td.number {
+    Width: 5%;
+}
+.tasks tr.solved td.task {
+    background-image: url('../images/icons/task_solved.gif');
+}
+.tasks tr.tried td.task {
+    background-image: url('../images/icons/task_tried.gif');
+}
+.tasks tr.tried td.score, .tasks tr.solved td.score {
+    color: black;
+    font-size: 1em;
+}
+
+/* rankings */
+td.rank, th.rank {
+    width: 2em;
+}
+td.rating, th.rating {
+    width: 2em;
+}
+
+/* pager (paginator) */
+.pager a, .pager strong {
+    padding: .1em .3em .0em .3em;
+}
+.pager a:hover {
+    background-color: silver;
+}
+.pager .count {
+    font-size: small;
+}
+
+.pager .entries-per-page {
+    float: right;
+    font-size: small;
+    height: 15px;
+}
+
+/* user count */
+.user-count {
+    margin-top: 1em;
+    margin-left: 1.2em;
+    text-align: left;
+    color:#6A6A6B;
+
+}
+
+/* task enumeration */
+.task_enum {
+    font-size: .9em;
+}
+
+/* round registration */
+.round-register, .round-registered, .round-expired {
+    width: 50%;
+    padding: 0 1em;
+    background-color: #fff;
+}
+
+.round-registered {
+    border: 2px solid silver;
+}
+
+.round-register {
+    background-color: #ffa;
+    border: 2px solid red;
+}
+
+.round-expired {
+    border: 2px solid silver;
+}
+
+.round-register a {
+    margin: 0 .5em 0 .5em;
+}
+
+table.registered-users {
+    width: 95%;
+}
+
+/* dataset filtering form */
+
+.dataset-filters {
+    background: #efd;
+    border: 1px solid olive;
+    margin: 3pt;
+    padding: 3pt;
+    font-size: x-small;
+}
+
+ul.filters {
+    height: 150px;
+    overflow: auto;
+}
+
+ul.filters li.filter {
+    width: 40%;
+    float: left;
+    list-style-type: none;
+    vertical-align: middle;
+    margin: .25em 0 .25em 2em;
+    white-space: nowrap;
+}
+
+ul.filters li.filter label {
+    width: 8em;
+    overflow: hidden;
+    float: left;
+}
+
+ul.filters li.filter select.op {
+    width: 7em;
+    text-align: center;
+}
+
+ul.filters li.filter input {
+    width: 14em;
+}
+
+ul.filters li.submit {
+    clear: left;
+}
+
+/* calendar */
+
+.calendar {
+    border: 1px solid #cccccc;
+    background: url(../images/date.png) no-repeat top left;
+    width: 180px;
+    padding-left: 0.3ex;
+    padding-right: 0.3ex;
+    line-height: 1.2em;
+    -moz-border-radius: 7px;
+}
+
+.calendar .date {
+    font-size: 8pt;
+    font-weight: bold;
+    margin-top: 4pt;
+}
+.calendar .header {
+    text-align: center;
+    font-weight: bold;
+    padding-top: 2pt;
+    padding-bottom: 3pt;
+    border-bottom: 1px solid #cccccc;
+}
+
+.calendar a {
+    color: #6a6a6b;
+}
+
+.calendar .header img {
+    vertical-align: middle;
+}
+
+.calendar .event {
+    font-size: 8pt;
+}
+
+/* quote */
+.quote {
+    border: 1px solid #000000;
+    color: #000000;
+    font-size: x-small;
+    padding: 0.25em;
+}
+
+/* comment thread */
+.comments {
+    padding: 1em;
+}
+
+.comment {
+    margin: 1em 0 1em 0;
+    padding: 0.1em;
+}
+
+.comment .timestamp {
+    display: block;
+    font-size: .85em;
+    float: right;
+}
+
+.comment .body {
+    margin: .5em;
+    padding: .5em;
+}
+
+.comment .header {
+    border-bottom: 1px solid #f0f0f0;
+    background-color: #f6f6f6;
+    padding: .2em;
+    -moz-border-radius: 7px;
+}
+
+.comments .comment-author {
+    border: 2px solid green;
+}
+
+.comments .comment-author .header {
+    background-color: #e7ffe7;
+    border-bottom: 1px solid green;
+}
+
+.comments .toolbar {
+    margin: 1em 0 1em 0;
+    padding: .75em;
+    background-color: #f6f6f6;
+    -moz-border-radius: 5px;
+}
+
+.comments .toolbar a {
+    font-weight: bold;
+}
+
+.banner {
+    border: 0pt none;
+    background-color: rgb(210, 244, 219);
+    padding: 0.3em;
+    display: table;
+    width: 95%;
+    margin: 0em auto;
+    text-align: center;
+    line-height: 2em;
+    -moz-border-radius: 7px;
+}
+
+.report {
+    background: url(../images/report.png) no-repeat scroll center left;
+    float: right;
+    padding-left: 2em;
+}
+
+.picture-box {
+    font-size: .85em;
+    padding: 5px;
+    border: 1px solid gray;
+    margin: 0 1em 1em 0;
+    float: left;
+}
+
+.picture-box img {
+    border: 1px solid silver;
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* OKRs */
+
+ul.okr > li:before {
+    content: "O: ";
+    font-weight: bold;
+}
+
+ul.okr > li li:before {
+    content: "KR: ";
+    font-weight: bold;
+}
+
+ul.okr li {
+    list-style: none;
+}
+
+ul.okr .comment {
+    display: block;
+    margin: 0 0 0 2em;
+    color: gray;
+}
+
+/* newsletter preview */
+
+#newsletter_preview {
+    width: 95%;
+    height: 600px;
+    border: none;
+}
+
+/* Round status icons */
+.round-complete, .round-waiting, .round-running {
+    width: 16px;
+    height: 16px;
+    display: block;
+}
+
+.round-complete {
+    width: 14px;
+    height: 11px;
+    background: url("../images/complete.gif");
+}
+
+.round-waiting {
+    background: url("../images/hourglass.png");
+}
+
+.round-running {
+    background: url("../images/run.png");
+}
+
+.submit-warning {
+    color: red;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}

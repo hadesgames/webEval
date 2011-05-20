@@ -1,0 +1,9 @@
+{% extends "webEval_base.html" %}
+{% block title %}
+	Problems by {{ author.name }}
+{% endblock %}
+
+{% block wiki_page %}
+	<h1>Problems by {{ author.name }}</h1>
+	{% include "grader/display_problems.html" %}
+{% endblock %}

@@ -1,0 +1,108 @@
+{% extends "webEval_base.html" %}
+{% load problem_tags %}
+
+{% block title %}
+    Status online
+{% endblock %}
+
+{% block wiki_page %}
+ 
+<div id="monitor-table">
+	<ul class="htabs">
+	{% if problem %} 
+		<li>
+		    <a href="{% url webEval.web_eval__core.grader__controller.display_problem problem_code=problem.code %}">Problem {{ problem.code }}</a>
+		</li>
+		{% if request.user.is_authenticated %}
+		<li {% if user and user == request.user %}class="active"{% endif %}>
+		    <a href="{% url webEval.web_eval__core.grader__controller.status %}?problem={{ problem.code }}&user={{ request.user }}">My submissions</a>
+		</li>
+		{% endif %}
+		<li {% if accepted %}class="active"{% endif %} >
+		    <a href="{% url webEval.web_eval__core.grader__controller.status %}?problem={{ problem.code }}&score_begin=100">Accepted submissions</a>
+		</li>
+		<li {% if not user and not accepted%}class="active"{% endif %}>
+		    <a href="{% url webEval.web_eval__core.grader__controller.status %}?problem={{ problem.code }}">All submissions</a>
+		</li>
+	{% else %}
+		<li {% if not user %} class="active"{% endif %}>
+			<a href="{% url webEval.web_eval__core.grader__controller.status %}">All submissions</a>
+		</li>
+		<li {% if user %} class="active"{% endif %}>
+			<a href="{% url webEval.web_eval__core.grader__controller.status %}?user={{ request.user.username }}">My submissions</a>
+		</li>
+	{% endif %}
+	</ul>
+
+	<h1>Status online</h1>
+	
+{% if page %}
+    {% include "include_pager.html" %}
+    <table class='monitor'>
+        <thead>
+            <tr>
+                <th width="5%">ID</th>
+                <th width="25%">User</th>
+                <th width="13%">Problem</th>
+                <th width="13%">Contest</th>
+                <th width="9%">Size</th>
+                <th width="17%">Date</th>
+                <th width="23%">Message</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for job in page %}
+            {% if job.problem|visible:request.user %}
+            <tr class="even">
+                <td >
+                    <a href="{% url webEval.web_eval__core.grader__controller.display_job job_id=job.id %}">
+                        #{{ job.id }}
+                    </a>
+                </td>
+                <td>
+                    {% with job.user as tiny_user %}
+                        {% include "include_tiny_user.html" %}
+                    {% endwith %}
+                </td>
+                <td >
+                    <a href="{% url webEval.web_eval__core.grader__controller.display_problem problem_code=job.problem.code %}">
+                        {{ job.problem.name }}
+                    </a>
+                </td>
+                <td >
+                    <a href="{% url webEval.web_eval__core.grader__controller.display_contest contest_code=job.contest.code %}">
+                        {{ job.contest.name }}
+                    </a>
+                </td>
+                <td >
+                    <a href="{% url webEval.web_eval__core.grader__controller.display_job_source_code job_id=job.id %}">
+                        {{ job.source_size_in_kbytes|floatformat:2 }} kb
+                    </a>
+                </td>
+                <td >
+                    {{ job.date }}
+                </td>
+                <td >
+                {% if job.contest.ended or job.contest.with_open_eval or request.user.is_superuser %}
+                    <a href="{% url webEval.web_eval__core.grader__controller.display_job job_id=job.id %}">
+                        <span class="job-status-done">
+                            {{ job.message }}
+                        </span>
+                    </a>
+                {% else %}
+                	Completed: secret
+                {% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+    {% include "include_pager.html" %}
+{% else %}
+	<div class="box" "width:500px">
+		There are no matches for this query.
+	</div>
+{% endif %}
+</div>
+{% endblock %}

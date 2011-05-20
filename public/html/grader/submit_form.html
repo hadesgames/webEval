@@ -1,0 +1,62 @@
+{% extends "webEval_base.html" %}
+{% load problem_tags %}
+{% load util_tags %}
+
+{% block title %}
+    Submit
+{% endblock %}
+
+{% block wiki_page %}
+<h1>Submit</h1> 
+ 
+<div id="sidebar2"> 
+<div class="section"> 
+<h3> What happens with my source file? </h3> 
+<ul>
+	<li>
+		Your source file is graded and then the result is shown on the <a href="{% url webEval.web_eval__core.grader__controller.status %}">status page</a> 
+    </li> 
+</ul> 
+</div> 
+</div> 
+ 
+<form enctype="multipart/form-data" action="{% url webEval.web_eval__core.grader__controller.submit %}" method="post" class="submit" id="task_submit"> 
+ 
+<ul class="form"> 
+	{{ form.errors }}
+    <li id="field_task"> 
+        <label for="form_task">Problem</label> 
+        <select name="problem" id="form_task" onchange="displayContestsForProblem()"> 
+            <option value="">[ Choose problem ]</option>
+            {% for problem in problems %}
+            {% if problem|visible:request.user %}
+            <option value="{{ problem.id }}">{{ problem.name }}</option>
+            {% endif %}
+            {% endfor %} 
+        </select> 
+    </li> 
+    <li id="field_round" style="display: none;"> 
+        <div id="field_round_warning"></div> 
+        <label for="form_round">Contest</label> 
+        <select name="contest" id="form_round"> 
+        </select> 
+    </li> 
+    <li id="field_solution"> 
+        <label for="form_solution">File</label>
+        <input type="file" name="solution" id="form_solution" onchange="changeCompiler();"/> 
+    </li> 
+    <li id="field_compiler" style="display: none;"> 
+        <label for="form_compiler">Compiler</label> 
+        <select name="language" id="form_compiler"> 
+        	<option value="">Select compiler</option>
+            {% for extension,compiler in compilers|sorted_dict %}
+            	<option value="{{ extension }}">{{ compiler.0 }} ({{ compiler.1 }})</option>
+            {% endfor %}
+	    </select> 
+    </li> 	
+    <li id="field_submit"> 
+        <input type="submit" class="button" value="Submit" id="form_submit" /> 
+    </li> 
+</ul> 
+</form> 
+{% endblock %}

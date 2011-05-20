@@ -1,0 +1,119 @@
+{% extends "webEval_base.html" %}
+{% block title %}
+    Register
+{% endblock %}
+
+{% block extra_js %}
+	<script type="text/javascript" src="{{ MEDIA_URL }}/js/registration.js"></script>
+{% endblock %}
+
+{% block wiki_page %}
+
+    <h1>Register</h1>
+    <p>If you are already registered you can login <a href="{% url webEval.web_eval__core.auth__controller.login %}">here</a>; if you forgot your password you can reset it <a href="{% url webEval.web_eval__core.auth__controller.register %}">here</a>.</p>
+	<div id="sidebar2" style="float: right;"> 
+		<div class="section"> 
+		    <h3>Why should I register ?</h3> 
+		    <ul> 
+		        <li>&hellip; to submit your source files for problems hosted here</li> 
+		        <li>&hellip; to participate in contests</li> 
+		        <li>&hellip; to meet clever people ;)</li> 
+		    </ul> 
+		</div> 
+		 
+		<div class="section"> 
+		<h3>What happens with my data?</h3> 
+		<ul> 
+		    <li>The email address <strong>will not</strong> be displayed on this website or will not be disclosed to other parties.</li> 
+		    <li>Your full name will appear in the standings...</li> 
+		</ul> 
+		</div> 
+	</div> 
+    <form method="post" action="{% url webEval.web_eval__core.auth__controller.register %}">
+		<fieldset class="register_fieldset"> 
+		    <legend><img src="{{ MEDIA_URL }}/images/icons/key.gif" alt="!" /> webEval user</legend> 
+		    <ul class="form"> 
+		        <li> 
+		            <label for='form_username'>Username</label>
+		            {{ form.errors.username }}
+		            <input type="text" name="username" value="{{ form.data.username }}" id="form_username" onblur="validateUsername();"/> 
+		            <span class="hint" id="form_username_hint">Only letters, digits, _ and . allowed</span> 
+		        </li> 
+		        <li> 
+		            <label for='form_password'>Password</label>
+		            {{ form.errors.password|safe }} 
+		            <input type="password" name="password" id="form_password" /> 
+		            <span class="hint" id="form_password_hint">At least 6 characters</span> 
+		        </li> 
+		        <li> 
+		            <label for='form_password2'>Confirm password</label>
+		            <input type="password" name="password2" id="form_password2" onblur="validatePassword();"/> 
+		        </li> 
+		    </ul> 
+		</fieldset> 
+         
+         
+		<!-- Hack for valid html (autocomplete is not in the spec). --> 
+		<script language="JavaScript" type="text/javascript"> 
+		<!--
+		    document.getElementById("form_password").setAttribute("autocomplete", "off");
+		    document.getElementById("form_password2").setAttribute("autocomplete", "off");
+		-->
+		</script> 
+		 
+		<fieldset class="register_fieldset"> 
+		    <legend>Personal information</legend> 
+		    <ul class="form"> 
+		        <li> 
+		            <label for="form_full_name">First name</label>
+		            {{ form.errors.first_name }} 
+		            <input type="text" name="first_name" value="{{ form.data.first_name }}" id="form_first_name" /> 
+		            <span class="hint">The accounts with fake names will be deleted.</span> 
+		        </li>
+		        <li> 
+		            <label for="form_full_name">Last name</label>
+		            {{ form.errors.last_name }} 
+		            <input type="text" name="last_name" value="{{ form.data.last_name }}" id="form_last_name" />
+		        </li> 
+		        <li> 
+		            <label for="form_email">Email</label>
+		            {{ form.errors.email|safe }}
+		            <input type="text" name="email" value="{{ form.data.email }}" id="form_email" onblur="validateEmail();" /> 
+		            <span class="hint" id="form_email_hint">Needed for sending confirmation code.</span> 
+		        </li>
+			</ul>
+		</fieldset>
+		<fieldset class="register_fieldset">
+			<legend>Location</legend>
+			<ul class="form">
+		    	<li>
+		    		<label for="channel">COUNTRY</label>
+            		{{ form.errors.country }}
+            		<select name="country" id="form_country">
+                	{% for country in COUNTRIES %}
+                    	<option value="{{ country.0 }}"{% ifequal country.0 form.data.country %} selected {% endifequal %}>{{ country.1 }}</option>
+                	{% endfor %}
+                	</select>
+                </li>
+                <li>
+                	<label for="city">CITY</label>
+            		{{ form.errors.city }}
+            		<input type="txt" name="city" id="form_city" value="{{ form.data.city }}">
+            	</li>
+		    </ul> 
+		</fieldset>    
+        <fieldset class="register_fieldset">
+        	<legend>Security code</legend>   
+            <ul class="form">
+            	<li>
+            		<label for="captcha">Write the words below</label>
+            		{{ form.errors.captcha }}
+            		{{ form.captcha }}
+            	</li>
+            </ul>
+        </fieldset>
+            
+        <input type="submit" class="submit get_it" title="Register" value="Register">
+        <div class="clear"></div>
+    </form>
+{% endblock %}

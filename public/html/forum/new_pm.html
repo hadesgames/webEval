@@ -1,0 +1,26 @@
+{% extends "webEval_base.html" %}
+
+{% block title %}
+	New private message
+{% endblock %}
+
+{% block wiki_page %}
+	<form method="post" action="{% url webEval.web_eval__core.user__controller.new_private_message %}" id="form_wikiedit">
+		{% csrf_token %}
+	    <ul class="form">      
+	    	<input type="hidden" value="{{ user.id }}" name="user_to">
+	        <li id="field_title">
+		        <label for="form_title">Title</label>
+		        {{ form.errors.title }}
+		        <input name="title" type="text" value="{{ form.data.title }}" id="form_title">
+		    </li>
+		
+		    <li id="field_content">
+		        <label for="form_content">Content</label>
+		        <script>edToolbar('form_text'); </script>
+		        <textarea id="form_text" name="content" rows="10" cols="50"type="text">{{ form.data.content|safe }}</textarea><br>
+		    </li>
+		</ul>	        
+	    <input name="submit" value="Send" class="button" type="submit" size="30">
+	</form>
+{% endblock %}

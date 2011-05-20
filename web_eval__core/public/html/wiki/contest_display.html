@@ -1,0 +1,88 @@
+{% load util_tags %}
+
+{% if contest.with_rating %}
+{% if request.user.is_authenticated %}
+{% if contest.started %}
+<div class="round-expired">
+	<p>
+		You can't register to <em>{{ contest.name }}</em>. {% if contest.ended %}Contest ended{% else %}Contest already started {% endif %}.
+	</p>
+	<p>
+		<a href="{% url webEval.web_eval__core.grader__controller.display_contest_registered_users contest_code=contest.code %}">{{ contest.registered_users_count }} users registered</a>
+	</p>
+</div> 
+{% else %}
+<div class="round-register">
+	<p>
+		{% if contest|registered:request.user %}
+			You already registered to <em>{{ contest.name }}</em>.
+		{% else %}
+			Register to <em>{{ contest.name }}</em> to change your rating. You can participate without registering, but your rating will not be modified.	
+		{% endif %}
+		<a class="button" href="{% url webEval.web_eval__core.grader__controller.toogle_contest_registration contest_code=contest.code %}">{% if contest|registered:request.user %}Unregister{% else %}Register{% endif %}</a>
+	</p>
+	<p>
+		<a href="{% url webEval.web_eval__core.grader__controller.display_contest_registered_users contest_code=contest.code %}">{{ contest.registered_users_count }} users registered</a>
+	</p>
+</div>
+{% endif %}
+{% endif %}
+{% endif %}
+ 
+<p>
+	Contests {% if contest.started %}started{% else %}starts{% endif %} on
+ 	<strong>{{ contest.start_time }}</strong> and 
+ 	{% if contest.ended %}
+ 		ended on <strong>{{ contest.end_time }}</strong>
+ 	{% else %}
+ 		ends in <strong>{{ contest.end_time|timedelta }}</strong>
+ 	{% endif %} 
+</p>
+{% if contest.started %}
+{% else %}
+<span id = "round-timer-{{ contest.name }}">
+	<script type="text/javascript">newRoundTimer("round-timer-{{ contest.name }}","2010/11/27 16:06:32 +0200","2010/12/05 09:00:00 +0200",4,2,true);</script>
+</span> 
+{% endif %}
+
+{% if contest.with_open_eval %}
+	<p>View the <a href="{% url webEval.web_eval__core.grader__controller.display_contest_standings contest_code=contest.code %}"><strong>standings</strong></a></p>
+{% else %}
+	<p>After round ends you can view the <a href="{% url webEval.web_eval__core.grader__controller.display_contest_standings contest_code=contest.code %}"><strong>standings</strong></a>.</p> 
+{% endif %} 
+<h2>Problems</h2> 
+ 
+<p>This list will be available after contest starts.</p> 
+ 
+{% if contest.started %}
+<div class="pager">
+	<div class="standard-pager">Page: <span class="selected">
+		<strong>1</strong></span> <span class="count">&nbsp;(3 rezultate)</span> 
+	</div>
+</div>
+<table class='tasks sortable'>
+	<thead>
+		<tr>
+			<th class="task">Title</th>
+			<th class="author">Author</th>
+			<th class="source">Source</th>
+			<th class="score">Your score</th>
+		</tr>
+	</thead>
+	<tbody>
+	{% for problem in contest.problems.all %}
+		<tr class="odd">
+			<td class="task"><span style="float:left;"><a href="{% url webEval.web_eval__core.grader__controller.display_problem problem_code=problem.code %}">{{ problem.code }}</a></span></td>
+			<td class="author"><a href="">{{ problem.author.name }}</a></td>
+			<td class="source">{{ problem.resource.name }}</td>
+			<td class="score">N/A</td>
+		</tr>
+	{% endfor %}
+	</tbody>
+</table>
+<div class="pager">
+	<div class="standard-pager">Page: <span class="selected">
+		<strong>1</strong></span> <span class="count">&nbsp;(3 results)</span> 
+	</div>
+</div>
+{% endif %}

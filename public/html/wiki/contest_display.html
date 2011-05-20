@@ -1,0 +1,69 @@
+{% load util_tags %}
+
+<br>
+
+{% if contest.with_rating %}
+{% if request.user.is_authenticated %}
+{% if contest.started %}
+<div class="round-expired">
+	<p>
+		{% if not contest|registered:request.user %}
+			You can't register to <em>{{ contest.name }}</em>. {% if contest.ended %}Contest ended{% else %}Contest already started {% endif %}.
+		{% else %}
+			You are already registered to <em>{{ contest.name }}</em>.
+		{% endif %}
+	</p>
+	<p>
+		<a href="{% url webEval.web_eval__core.grader__controller.display_contest_registered_users contest_code=contest.code %}">{{ contest.registered_users_count }} users registered</a>
+	</p>
+</div> 
+{% else %}
+{% if contest.registration_started %}
+<div class="round-register">
+	{% if contest.registration_ended %}
+		Registration ended. {% if contest|registered:request.user %}You registered for this contest{% endif %}
+	{% else %}	
+	<p>
+		{% if contest|registered:request.user %}
+			You are already registered to <em>{{ contest.name }}</em>.
+		{% else %}
+			Register to <em>{{ contest.name }}</em> to change your rating. You can participate without registering, but your rating will not be modified.	
+		{% endif %}
+		<a class="button" href="{% url webEval.web_eval__core.grader__controller.toogle_contest_registration contest_code=contest.code %}">{% if contest|registered:request.user %}Unregister{% else %}Register{% endif %}</a>
+	</p>
+	<p>
+		<a href="{% url webEval.web_eval__core.grader__controller.display_contest_registered_users contest_code=contest.code %}">{{ contest.registered_users_count }} users registered</a>
+	</p>
+	{% endif %}
+</div>
+{% else %}
+Registration starts in <strong>{{ contest.registration_start_time|timedelta }}.</strong>
+{% endif %}
+{% endif %}
+{% endif %}
+{% endif %}
+ 
+<p>
+	Contest {% if contest.started %}started{% else %}starts{% endif %} on
+ 	<strong>{{ contest.start_time }}</strong> and 
+ 	{% if contest.ended %}
+ 		ended on <strong>{{ contest.end_time }}</strong>
+ 	{% else %}
+ 		ends in <strong>{{ contest.end_time|timedelta }}</strong>
+ 	{% endif %} 
+</p>
+
+{% if contest.with_open_eval %}
+	<p>View the <a href="{% url webEval.web_eval__core.grader__controller.display_contest_standings contest_code=contest.code %}"><strong>standings</strong></a></p>
+{% else %}
+	<p>After round ends you can view the <a href="{% url webEval.web_eval__core.grader__controller.display_contest_standings contest_code=contest.code %}"><strong>standings</strong></a>.</p> 
+{% endif %} 
+<h2>Problems</h2> 
+ 
+{% if contest.started %}
+	{% with contest.problems as problems %}
+		{% include "grader/display_problems.html" %}
+	{% endwith %}
+{% else %}
+	<p>This list will be available after contest starts.</p>
+{% endif %}

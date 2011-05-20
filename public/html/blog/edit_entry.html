@@ -1,0 +1,88 @@
+{% extends "webEval_base.html" %}
+
+{% block title %}
+    Edit {{ form.data.title }}
+{% endblock %}
+
+{% block extra_css %}
+	<link type="text/css" rel="stylesheet" href="{{ MEDIA_URL }}/css/blog.css"/>
+{% endblock %}
+
+{% block extra_js %}
+	<script type="text/javascript">
+		function removeTag (tagId) {
+			$(tagId).remove();
+			$('#new-tag').focus();
+		}
+		
+		function insertTagToInput (value) {
+			$('#new-tag').val(value);
+			autoSearch(value);
+			$('#new-tag').focus();
+		}
+		
+		function autoSearch (value) {
+			$('#results').html( '&nbsp;' ).load('{% url webEval.web_eval__core.blog__controller.get_tags_ajax %}?q='+value);
+		}
+		
+		var tagCount = {{ blog_entry.tags.all.count }};
+		$(document).ready(function() {
+			$('#add-tag').click(function(evt) {
+				val = $('#new-tag').val();
+				if (val != '') {
+					tagCount += 1;
+      				$('#tags').append('\
+      					<span id="tag' + tagCount + 'div">\
+      						<input type="hidden" name="tag' + tagCount + 'input" value="' + val + '">\
+      						<input type="button" class="form_add_tag" onclick="removeTag(\'#tag' + tagCount + 'div\');" id="tag' + tagCount + '" value="' + val + '">\
+      					</span>\
+      				');
+      				$('#new-tag').val('');
+      				$('#results').html('');
+      				$('#new-tag').focus();
+				} else {
+					alert('Empty tag');
+				}
+				
+    		});
+		})
+	</script>
+{% endblock %}
+
+
+{% block wiki_page %}
+	<h1> Edit <a href="{% url webEval.web_eval__core.blog__controller.display_entry username=blog_entry.author.username permalink=blog_entry.permalink %}">{{ blog_entry.title }}</a> </h1>
+    <form accept-charset="utf-8" method="post" action="{% url webEval.web_eval__core.blog__controller.edit_entry username=blog_entry.author.username permalink=blog_entry.permalink %}" id="form_wikiedit">
+        <ul class="form">        
+            <li id="field_title">
+                <label for="form_title">Title</label> <br/>
+                {{ form.errors.title }}
+                <input name="title" type="text" value="{{ form.data.title }}" id="form_title">
+            </li>
+	    
+            <li id="field_content">
+                <label for="form_content">Content</label> <br/>
+                <textarea id="form_text" name="content" rows="20" cols="50"type="text">{{ form.data.content|safe}}</textarea><br>
+            </li>
+        </ul>
+
+		<h3>Tags:</h3>
+		<div id="tags" class="display_tags">
+			{% for tag in blog_entry.tags.all %}
+				<span id="tag{{ forloop.counter }}div">
+      				<input type="hidden" name="tag{{ forloop.counter }}input" value="{{ tag.name }}">
+      				<input type="button" class="form_add_tag" onclick="removeTag('#tag{{ forloop.counter }}div');" id="tag{{ forloop.counter }}" value="{{ tag.name }}">
+      			</span>
+			{% endfor %}
+		</div>
+		
+		<input id="new-tag" type="text" oninput="autoSearch(this.value);">
+		<input id="add-tag" type="button" value="Add tag">
+		<span class="hint">Type in a query string to search tag</span>
+		<div id="results"></div>
+		
+		<br/><br/>
+        <input name="submit" value="Update" class="button" type="submit" size="30">
+        <div class="clear"></div>
+    </form>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% if request.user.is_superuser %}
+<li class="first {% if navigation.other == "create-blog-post" %}active{% endif %}">
+	<a href="{% url webEval.web_eval__core.blog__controller.new_entry %}">
+		New entry
+	</a>
+</li>
+{% endif %}
+
+<li class="first {% if navigation.other == "display-entries" and navigation.author == None %}active{% endif %}">
+	<a href="{% url webEval.web_eval__core.blog__controller.index %}">
+		Dashboard
+	</a>
+</li>
+
+{% if blog_entry %}
+<li class="first {% if navigation.author == blog_entry.author %}active{% endif %}">
+	<a href="{% url webEval.web_eval__core.blog__controller.index username=blog_entry.author %}">
+		Other posts by {{ blog_entry.author.first_name }} {{ blog_entry.author.last_name }}
+	</a>
+</li>
+{% endif %}

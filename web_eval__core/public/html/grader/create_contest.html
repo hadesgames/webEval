@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}
+	Create contest
+{% endblock %}
+    
+{% block content %}
+	<h1> Create contest </h1>
+	<form method="post" action="{% url webEval.web_eval__core.grader__controller.create_contest %}">{% csrf_token %}
+		<label for="title">Code</label><br>
+		{{ form.errors.code }}
+		<input type="txt" class="txt feed" name="code" id="code" value="{{ form.data.code }}" size="16" />
+		<br><br>
+		<label for="type">Type</label><br>
+		{{ form.errors.type }}
+		<select name="type">
+			<option value="O" {% ifequal form.data.type "O" %}selected{% endifequal %}>Olympiad</option>
+			<option value="A" {% ifequal form.data.type "A" %}selected{% endifequal %}>A.C.M.</option>
+			<option value="C" {% ifequal form.data.type "C" %}selected{% endifequal %}>Custom</option>
+		</select>
+		<br> <br>
+		<input type="submit" class="submit get_it" title="get it" value="Create">
+		<div class="clear"></div>
+	</form>
+{% endblock %}

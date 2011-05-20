@@ -1,0 +1,47 @@
+{% load problem_tags %}
+{% if problems.all.count %}
+<div class="pager">
+	<div class="standard-pager">Page: <span class="selected">
+		<strong>1</strong></span> <span class="count">&nbsp;({{ problems.all.count }} results)</span> 
+	</div>
+</div>
+<table class='contest_tasks sortable'>
+	<thead>
+		<tr>
+			<th class="task">Title</th>
+			<th class="author">Author</th>
+			<th class="source">Source</th>
+			<th class="score">Your score</th>
+		</tr>
+	</thead>
+	<tbody>
+	{% for problem in problems.all %}
+	{% if problem|visible:request.user %}
+		<tr class="odd">
+			<td width="25%" class="contest_problem_task"><span style="float:left;"><a href="{% url webEval.web_eval__core.grader__controller.display_problem problem_code=problem.code %}">{{ problem.code }}</a></span></td>
+			<td width="30%" class="contest_problem_author"><a href="{% url webEval.web_eval__core.grader__controller.display_problems_by_author author_code=problem.author.code %}">{{ problem.author.name }}</a></td>
+			<td width="31%" class="contest_problem_source"><a href="{% url webEval.web_eval__core.grader__controller.display_contest contest_code=problem.resource.code %}">{{ problem.resource.name }}</a></td>
+			<td width="14%" class="contest_problem_score" id="problem_{{ problem.id }}_score"></td>
+		</tr>
+	{% endif %}
+	{% endfor %}
+	</tbody>
+</table>
+<div class="pager">
+	<div class="standard-pager">Page: <span class="selected">
+		<strong>1</strong></span> <span class="count">&nbsp;({{ problems.all.count }} results)</span> 
+	</div>
+</div>
+<script type="text/javascript">
+	function getYourScore () {
+		{% for problem in problems.all %}
+		$('#problem_{{ problem.id }}_score').html( '&nbsp;' ).load('{% url webEval.api.views.get_your_score %}?problem_id={{ problem.id }}&contest_id={{ contest.id }}&score_only');
+		{% endfor %}
+	}
+	window.onload = getYourScore();
+</script>
+{% else %}
+<div class="box">
+	No entries here.
+</div>
+{% endif %}

@@ -1,0 +1,59 @@
+{% load forum_extras %}
+
+<table width="100%" class="forum_post" id="post{{ post.id }}">
+	<tr>
+  		<td class="forum_post_author" width="15%">
+  			<a href="{% url webEval.web_eval__core.user__controller.display_user user_name=post.author.username %}">{{ post.author.username }}</a>	
+  		</td>
+  		<td class="forum_post_title_bar">
+  			<div class="display_left"><b>Post subject</b>: {{ post.title }}</div>
+  			<div class="display_right"><b>Posted</b>: {{ post.date }}</div>
+  		</td>
+  	</tr>
+  	<tr>
+  		<td class="forum_post_sidebar">
+  			<div class="forum_post_display_avatar">
+  				<img src="{{ MEDIA_URL }}/images/avatar/{{ post.author.username }}_100px.jpeg">
+  			</div>
+  			<div class="forum_post_display_user_details">
+  				<b>Joined: </b> {{ post.author.date_joined }} <br/>
+  				<b>Posts: </b> {{ post.author.forum_posts }}<br/>
+  				<b>Reputation: </b>{{ post.author.reputation }}<br/>
+  			</div>
+  		</td>
+  		<td class="forum_post_content">
+  			<div class="forum_post_display_content">
+  				{{ post.content|bbcode|safe }}
+  			</div>
+  		</td>
+  	</tr>
+  	<tr>
+  		<td class="forum_post_link_top">
+  			<strong>
+  				<a href="#header">Top</a>
+  			</strong>
+  		</td>
+		<td>
+  			<div class="forum_post_display_panel display_right">
+  			{% if request.user.is_authenticated %}
+  				{% if request.user == post.author or request.user.is_staff or request.user.is_superuser %}
+			  	<span class="menuitem postmenuitem-edit">
+			    	<a href="{% url webEval.web_eval__core.forum__controller.edit_post post_id=post.id %}" class="nav" rel="nofollow">Edit</a> |
+			    </span> 
+			    {% if request.user.is_staff or request.user.is_superuser %}
+			    <span class="menuitem postmenuitem-move">
+			    	<a href="{% url webEval.web_eval__core.forum__controller.move_post post_id=post.id %}" class="nav" rel="nofollow">Move</a> |
+			    </span>
+			    {% endif %}
+			    <span class="menuitem postmenuitem-delete">
+			    	<a href="{% url webEval.web_eval__core.forum__controller.delete_post post_id=post.id %}" class="nav" data-confirm="Are you sure to delete this post?" rel="nofollow">Delete</a> |
+			    </span> 
+			    {% endif %}
+			    <span class="menuitem postmenuitem-replyto">
+			    	<a href="{% url webEval.web_eval__core.forum__controller.reply topic_id=post.topic.id %}?reply_to=968903" class="nav" rel="nofollow">Reply</a> 
+			    </span> 			
+			{% endif %}
+  			</div>
+  		</td>
+  	</tr>
+</table>

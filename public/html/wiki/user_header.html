@@ -1,0 +1,45 @@
+<h1> {{ user.first_name }} {{ user.last_name }} ({{ user.username }})</h1>
+<table class="compact" cellspacing="0">
+	<tr>
+		<td align="center" rowspan="5">
+			<a href="{% url webEval.web_eval__core.user__controller.get_avatar user_name=user.username %}">
+				<img src="{{ MEDIA_URL }}/images/avatar/{{ user.username }}_medium.jpeg" alt="" />
+			</a> 
+			<br /> 
+			<a href="{% url webEval.web_eval__core.grader__controller.status %}?user={{ user.username }}">Browse submissions</a><br /> 
+		</td>
+		<th>Name</th>
+		<td>{{ user.first_name }} {{ user.last_name }}</td>
+	</tr>
+	<tr>
+		<th>Username</th>
+		<td>{{ user.username }}</td>
+	</tr><tr>
+		<th>Rating</th>
+		<td>{{ user.rating }}</td>
+	</tr>
+	<tr>
+		<th>Rank</th>
+		<td>{% if user.is_superuser %}Admin{% else %}{% if user.is_staff %}Staff{% else %}Normal{% endif %}{% endif %}</td>
+	</tr>
+	<tr>
+		<th>Forum</th>
+		<td>
+			<a href="{% url webEval.web_eval__core.user__controller.new_private_message %}?to={{ user.username }}">send private message</a>,
+		</td>
+	</tr>
+</table>
+<ul class="htabs"> 
+	<li {% if not rating and not statistics %}class="active"{% endif %}>
+		<a href="{% url webEval.web_eval__core.user__controller.display_user user_name=user.username %}">Profile</a>
+	</li>
+	<li {% if rating %}class="active"{% endif %}>
+		<a href="{% url webEval.web_eval__core.user__controller.display_user_rating user_name=user.username %}">Rating</a>
+	</li>
+	<li {% if statistics %}class="active"{% endif %}>
+		<a href="{% url webEval.web_eval__core.user__controller.display_user_statistics user_name=user.username %}">Statistics</a>
+	</li>
+	<li>
+		<a href="{% url webEval.web_eval__core.blog__controller.index username=user.username %}">Blog</a>
+	</li>
+</ul>

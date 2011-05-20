@@ -1,0 +1,59 @@
+{% extends "webEval_base.html" %}
+{% load comments %}
+{% load wiki_extras %}
+
+{% block title %}
+    {{ blog_title }}
+{% endblock %}
+
+{% block extra_css %}
+	<link type="text/css" rel="stylesheet" href="{{ MEDIA_URL }}/css/blog.css"/>
+{% endblock %}
+
+{% block wiki_page %}
+{% include "blog/sidebar.html" %}
+
+<div class="blog">
+	<h1>{{ blog_title }} </h1>
+	{% for entry in blog_entries %}
+	<div class="item">
+		<span class="blog_entry_date">
+			{{ entry.date|date:"d M Y" }}
+		</span>
+		<h1 style="padding: 15px 0px 15px 0px;"><a href="{% url webEval.web_eval__core.blog__controller.display_entry username=entry.author.username permalink=entry.permalink %}">{{ entry.title }}</a></h1>
+		
+		<span>			
+			<div class="wiki_text_block blog_entry_content">
+				{{ entry.content|creole|webEval_markup|safe }}
+			</div>
+			<div class="blog_strap">
+				<strong>Tags: </strong>
+				<span id="tags">
+					{% for tag in entry.tags.all %}
+						<a style="padding-right: 3px;" href=""alt="{{ tag.name }}" title="{{ tag.name }}">{{ tag.name }}</a>
+					{% endfor %}
+				</span>
+				<br>
+				
+				<div>
+					Posted on {{ entry.date }} by <a href="{% url webEval.web_eval__core.blog__controller.index username=entry.author.username %}">{{ entry.author.first_name }} {{ entry.author.last_name }}</a>
+				</div>
+				
+				<span>
+				{% if can_edit %}
+					<a href="{% url webEval.web_eval__core.blog__controller.edit_entry username=entry.author.username permalink=entry.permalink %}">Edit</a>
+				{% endif %}
+				{% if can_delete %}
+					| <a href="{% url webEval.web_eval__core.blog__controller.delete_entry username=entry.author.username permalink=entry.permalink %}">Delete</a>
+				{% endif %}
+				</span>
+			</div>
+			<p style="text-align: right;">
+				<img style="vertical-align: middle;" src="{{ MEDIA_URL }}/images/comment.png"/>&nbsp;
+				<a href="{% url webEval.web_eval__core.blog__controller.display_entry username=entry.author.username permalink=entry.permalink %}#comments">Comments ({% get_comment_count for entry as comment_count %}{{ comment_count }})</a>
+			</p>
+			
+		</span>
+	</div>
+    {% endfor %}
+{% endblock %}

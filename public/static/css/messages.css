@@ -1,0 +1,16 @@
+
+.messagebox {
+	background-color: #ffff00;
+	border: 1px solid;
+	height: 40px;
+	padding: 5px 5px 5px 5px;
+	margin: auto;
+	text-align: center;
+	vertical-align: middle;
+	width: 400px;
+}
+
+.flashError {
+	background-color: #C11B17;
+	color: #FFFFFF;
+}

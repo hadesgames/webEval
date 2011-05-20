@@ -1,0 +1,4 @@
+<response>
+	<message>{{ message.0 }}</message>
+	<code>{{ message.1 }}</code>
+</response>

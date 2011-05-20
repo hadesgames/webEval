@@ -1,0 +1,19 @@
+<table style="margin-left:auto;margin-right:auto;" cellspacing="0">
+    <tr>
+        <td><strong>Input/Output file:</strong></td><td>{{ problem.code }}.in, {{ problem.code }}.out</td>
+        <td><strong>Source</strong></td><td><a href="{% url webEval.web_eval__core.grader__controller.display_contest contest_code=problem.resource.code %}">{{ problem.resource }}</a> </td>
+    </tr>
+    <tr>
+        <td><strong>Author</strong></td><td><a href="/cauta-probleme?tag_id[]=165"> {{ problem.author.name }}</a></td>
+        <td><a href="http://infoarena.ro/implica-te/extinde-arhiva/"><strong>Added by</strong></a></td><td>{% with problem.owner as tiny_user %}{% include "include_tiny_user.html" %}{% endwith %}</td>
+    </tr>
+    <tr>
+        <td><strong>Time limit</strong></td><td>{{ problem.time_limit }} ms</td>
+        <td><strong>Memory limit</strong></td><td>{{ problem.memory_limit }} kbytes</td>
+    </tr>
+    <tr>
+        <td><strong>Your score:</strong></td><td>100 points</td>
+        <td><strong>Difficulty</strong></td><td><span class="star-rating"><img src="http://infoarena.ro/static/images/stars/normal-full.png" alt="normal"/><img src="http://infoarena.ro/static/images/stars/normal-empty.png" alt="normal"/><img src="http://infoarena.ro/static/images/stars/normal-empty.png" alt="normal"/><img src="http://infoarena.ro/static/images/stars/normal-empty.png" alt="normal"/><img src="http://infoarena.ro/static/images/stars/normal-empty.png" alt="normal"/><div class='hidden'>1/5</div></span>
+        </td>
+    </tr>
+</table>

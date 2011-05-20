@@ -1,0 +1,20 @@
+{% if results|length %}
+	<table>
+	<tr class='even'>
+		<td colspan="3" class="right">
+		<strong>Found {{ results|length }} tags</strong>
+		</td>
+	</tr>
+	{% for tag in results %}
+	<tr class="{% cycle 'odd' 'even' %}">
+		<td>
+			<div class="tag_search_result" onclick="insertTagToInput('{{ tag.name }}')">{{ tag.name }}</div>
+		</td>
+	</tr>
+	{% endfor %}
+	</table>
+{% else %}
+	<div class="note">
+	Your search yielded no results
+	</div>
+{% endif %}

@@ -1,0 +1,48 @@
+.pop-up {
+  overflow: hidden;
+}
+
+.pop-up-container {
+  width: 10000px;
+  -webkit-transition:all 1.0s ease-in-out;
+	-moz-transition:all 1.0s ease-in-out;
+	-o-transition:all 1.0s ease-in-out;
+	-ms-transition:all 1.0s ease-in-out;	
+	-transition:all 1.0s ease-in-out;
+}
+
+.step {
+  border: 0px;
+  height: 200px;
+  width: 756px;
+  margin-right: 30px;
+  float: left;
+  display: inline-block;
+}
+
+.prevSlideButton {
+  float: left;
+}
+
+.nextSlideButton {
+  float: right;
+}
+
+.prevSlideButton, .nextSlideButton {
+  padding: 5px 15px;
+  border: 2px solid #CCCCCC;
+  background-color: #CCCCCC;
+  border-radius: 4px;
+}
+
+.popup-navigator {
+  margin: 0px auto;
+  margin-top: 30px;
+}
+
+.popup-navigator li {
+  padding: 5px 15px;
+  margin: 0px 5px;
+  border: 2px solid #CCCCCC;
+  display: inline;
+}

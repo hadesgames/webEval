@@ -1,0 +1,9 @@
+{% if message %}
+<span id="message" style="margin: auto">
+	{% if error %}
+    	<div id="flash" class="messagebox flashError">{{ message|safe }}</div>
+	{% else %}
+	    <div class="messagebox ">{{ message|safe }}</div>
+	{% endif %}
+</div>
+{% endif %}

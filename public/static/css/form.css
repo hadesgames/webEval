@@ -1,0 +1,185 @@
+#form_title {
+	width: 96%;
+}
+
+#form_short_title {
+	width: 410px;
+}
+
+#form_code {
+	width: 200px;
+}
+
+#form_contest_type {
+	width: 212px;
+	padding: 3px 6px 3px 6px;
+}
+
+#form_ticket_type, #form_ticket_severity, #form_ticket_status {
+	width: 100px;
+	padding: 3px 6px 3px 6px;
+}
+
+#form_text {
+	padding: .25em .5em;
+	height: 100%;
+	width: 96%;
+}
+
+#form_resource {
+	width: 200px;
+	padding: .2em;
+}
+
+#form_tests_table {
+	width: 430px;
+}
+
+#form_tests_table th{
+	font-weight: bold;
+}
+
+#form_password, #form_password2 {
+	border-width: 1px;
+	padding: 3px 6px 3px 6px;
+}
+
+#form_city {
+	border-width: 1px;
+	padding: 3px 6px 3px 6px;
+}
+
+#form_country {
+	width: 170px;
+	padding: 3px 6px 3px 6px;
+}
+
+
+.form_test_id {
+	text-align: center;
+}
+
+.form_test_input_size {
+	text-align: center;
+}
+
+.form_test_output_size {
+	text-align: center;
+}
+
+.form_test_feedback {
+	text-align: center;
+}
+
+.form {
+	padding: 0px 0px 0px 0px;
+}
+
+.alternate-login {
+	vertical-align: middle;
+}
+
+.alternate-login-fb {
+	padding-bottom: 20px;
+}
+
+ul.form label {
+	display: block;
+	padding: 5px 0px 2px 0px;
+}
+
+.form_select {
+	width: 150px;
+}
+
+.register_fieldset, .login_fieldset {
+	width: 60%;
+	margin: 10px;
+}
+
+.inlineSubmit ul.form {
+    background-color: #f6f6f6;
+    padding: 5px;
+    margin: 0;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+}
+
+.inlineSubmit .form li {
+    display: inline;
+    list-style-type: none;
+    margin: 5px;
+    padding: 0;
+}
+
+.inlineSubmit .form input, .inlineSubmit .form label {
+    display: inline;
+}
+
+.inlineSubmit #form_compiler {
+    width: 9em;
+}
+
+.inlineSubmit #form_solution {
+    width: 13em;
+}
+
+.inlineSubmit #form_round {
+    width: 9em;
+}
+
+#form_round, #form_task {
+	width: 15em;
+}
+
+#form_available_problems {
+	width: 200px;
+	height: 300px;
+}
+
+
+#form_selected_problems {
+	width: 200px;
+	height: 300px;
+}
+
+#field_available_problems label {
+	display: block;
+}
+
+#field_selected_problems label {
+	display: block;
+}
+
+#field_available_problems {
+	display: inline-block;
+}
+
+#field_selected_problems {
+	display: inline-block;
+}
+
+.select_arrows {
+	display: inline-block;
+}
+
+.selector_chooser {
+	padding: 0px;
+}
+
+.selector_add {
+	background: url(../images/selector-add.gif) top center no-repeat;
+    margin-bottom: 2px;
+}
+
+.selector_remove {
+	background: url(../images/selector-remove.gif) top center no-repeat;
+}
+
+.selector_add, .selector_remove {
+	width: 16px;
+	height: 16px;
+	display: block;
+	text-indent: -3000px;
+	overflow: hidden;
+}

@@ -1,0 +1,39 @@
+{% load forum_extras %}
+
+<table width="100%" class="forum_post" id="post{{ post.id }}">
+	<tr>
+  		<td class="forum_post_user_to" width="15%">
+  			<a href="{% url webEval.web_eval__core.user__controller.display_user user_name=post.user_to.username %}">{{ post.user_to.username }}</a>	
+  		</td>
+  		<td class="forum_post_title_bar">
+  			<div class="display_left"><b>Post subject</b>: {{ post.title }}</div>
+  			<div class="display_right"><b>Posted</b>: {{ post.date }}</div>
+  		</td>
+  	</tr>
+  	<tr>
+  		<td class="forum_post_sidebar">
+  			<div class="forum_post_display_avatar">
+  				<img src="{{ MEDIA_URL }}/images/avatar/{{ post.user_to.username }}_100px.jpeg">
+  			</div>
+  			<div class="forum_post_display_user_details">
+  				<b>Joined: </b> {{ post.user_to.date_joined }} <br/>
+  				<b>Posts: </b> {{ post.user_to.forum_posts }}<br/>
+  				<b>Reputation: </b>{{ post.user_to.reputation }}<br/>
+  			</div>
+  		</td>
+  		<td class="forum_post_content">
+  			<div class="forum_post_display_content">
+  				{{ post.content|bbcode|safe }}
+  			</div>
+  		</td>
+  	</tr>
+  	<tr>
+  		<td class="forum_post_link_top">
+  			<strong>
+  				<a href="#header">Top</a>
+  			</strong>
+  		</td>
+		<td>
+  		</td>
+  	</tr>
+</table>

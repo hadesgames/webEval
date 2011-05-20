@@ -1,0 +1,17 @@
+<response>
+	<message>{{ message.0|safe }}</message>
+	<code>{{ message.1 }}</code>
+	<updated>{{ updated }}</updated>
+	<job>
+		<id>{{ job.id }}</id>
+		<problem>{{ job.problem.code }}</problem>
+		<user>{{ job.user.username }}</user>
+		<contest>{{ job.contest.code }}</contest>
+		<type>{{ job.type }}</type>
+		<language>{{ job.language }}</language>
+		<time_limit>{{ job.problem.time_limit }}</time_limit>
+		<memory_limit>{{ job.problem.memory_limit }}</memory_limit>
+	</job>
+</response>
+# The source file
+{{ job.source_code|safe }}

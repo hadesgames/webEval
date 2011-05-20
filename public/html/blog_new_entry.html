@@ -1,0 +1,26 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+    "http://www.w3.org/TR/html4/strict.dtd"
+    >
+<html lang="en">
+<head>
+    <title>Create new blog entry</title>
+</head>
+<body>
+    <form method="post" action="{% url webEval.web_eval__core.blog__controller.new_entry %}">
+        <label for="title">Title</label><br>
+        {{ form.errors.title }}
+        <input type="txt" class="txt feed" name="title" id="title" value="{{ form.data.title }}" size="64" />
+        <br><br>
+        <label for="content">Content</label><br>
+        {{ form.errors.content }}
+        <textarea rows="24" cols="64" class="txt feed" name="content" id="content">{{ form.data.content }}
+        </textarea>
+        <br><br>
+        <label for="tags">Tags</label><br>
+        <input type="txt" class="txt feed" name="tags" id="tags" value="{{ tags }}" size="64" />
+        <br><br>
+        <input type="submit" class="submit get_it" title="get it" value="POST">
+        <div class="clear"></div>
+    </form>
+</body>
+</html>

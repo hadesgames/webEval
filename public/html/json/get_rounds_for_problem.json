@@ -1,0 +1,1 @@
+{"rounds":[{% for contest in contests %}{"id":"{{ contest.id }}","title":"{{ contest.name }}"}{% endfor %}],"default":"1"}

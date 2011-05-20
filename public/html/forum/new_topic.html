@@ -1,0 +1,37 @@
+{% extends "webEval_base.html" %}
+
+{% block title %}
+    Forum
+{% endblock %}
+
+{% block extra_css %}
+	<link type="text/css" rel="stylesheet" href="{{ MEDIA_URL }}/css/forum_style.css"> 
+{% endblock %}
+
+{% block extra_js %}
+	<script type="text/javascript" src="{{ MEDIA_URL }}/js/ed.js"></script>  
+{% endblock %}
+ 
+{% block wiki_page %}
+	{% include "forum/include_stack.html" %}
+	<div class="forum_history_clear"></div>
+	<form method="post" action="{% url webEval.web_eval__core.forum__controller.new_topic board_id=board.id %}" id="form_wikiedit">
+	    {% csrf_token %}
+	    <ul class="form">      
+	        <li id="field_title">
+		        <label for="form_title">Title</label>
+		        {{ form.errors.title }}
+		        <input name="title" type="text" value="{{ form.data.title }}" id="form_title">
+		    </li>
+		
+		    <li id="field_content">
+		        <label for="form_content">Content</label>
+		        <script>edToolbar('form_text'); </script>
+		        <textarea id="form_text" name="content" rows="10" cols="50"type="text">{{ form.data.content|safe }}</textarea><br>
+		    </li>
+		</ul>	        
+	    <input name="submit" value="Create" class="button" type="submit" size="30">
+	</form>
+	<div class="forum_history_clear"></div>
+	{% include "forum/include_stack.html" %}
+{% endblock %}

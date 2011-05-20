@@ -1,0 +1,15 @@
+{% extends "webEval_base.html" %}
+
+{% block title %}
+	Create eval
+{% endblock %}
+
+{% block wiki_page %}
+ 	<form method="post" action="{% url webEval.api.views.create_eval %}">
+        {% csrf_token %}
+		<ul class="form">
+			{{ form.as_ul }}
+		</ul>
+		<input name="submit" value="Create" class="button" type="submit" size="30">
+	</form>
+{% endblock %}
