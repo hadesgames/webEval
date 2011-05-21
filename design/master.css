@@ -1,6 +1,226 @@
-color: #F2F2F2;
-
-.layout {
-  margin: 0px auto;
-  width: 940px;
+body {
+  color: #F2F2F2;
+  background: url("paper_3.gif") repeat;
 }
+
+#page {
+  margin: 0px auto;
+  width: 1300px;
+}
+#body_wrapper {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+#content {
+  width: 960px;
+  height:  600px;
+  float: left;
+  background-color: purple;
+  border-radius: 20px;
+}
+
+#right_bar {
+  margin-left: 30px;
+  margin-top: 0px;
+  width: 280px;
+  height: 500px;
+  float: right;
+  background-color: yellow;
+  border-radius :20px;
+}
+
+#page footer {
+  clear: both;
+  margin-top: 30px;
+  height: 133px;
+  background-color: brown;
+  border-radius: 20px;
+}
+
+.float_breaker {
+  clear: both;
+  height: 20px;
+  margin : 0px;
+  padding : 0px;
+  visibility: hidden;
+}
+
+
+/* Header */
+
+#page header {
+  height: 133px;
+  border-radius: 20px;
+  box-shadow: 5px 5px 5px #ccc; 
+  border-style: solid;
+  border-color: #ccc;
+  border-width: 2px;
+  background-color: white;
+  
+}
+
+#logo {
+  display: inline-block;
+  margin-top: 30px;
+}
+
+#header_options {
+  float: right;
+}
+/* Header - search bar */
+
+#search_bar {
+  margin-top: 15px;
+  padding: 5px;
+  width: 200px;
+  display: block;
+  float: right;
+  margin-right:25px;
+}
+
+.search_bar {
+  background-color: black;
+  height: 30px;
+  padding-top:8px;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  background: #111;
+  
+  background: -webkit-gradient(linear,left top,left bottom,from(#444),to(#111)) ;
+  background: -moz-linear-gradient(top,#444,#111);
+  background: -o-linear-gradient(#444, #111);
+}
+
+.search_bar_text {
+  margin-left: 10px;
+  margin-right: 0px;
+  padding-right: 0px;
+  color: black;
+  background-color: #ccc;
+  display: inline-block;
+  width:80%;
+  border-width: 0px;
+  height: 18px;
+  background-color: #777;
+  border-top-left-radius: 10px;
+  color: #bbb ;
+}
+
+.search_bar_glass {
+  margin-left: 0px;
+  padding-left: 0px;
+  background: #777 url("glass.png") no-repeat;
+  background-size: 20px 20px;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  position: relative;
+  right: 5px;
+  cursor: pointer;
+  vertical-align: bottom;
+  border-bottom-right-radius: 10px;
+  
+}
+
+/* Header - user menu */
+  
+#user_options {
+  margin-right: 30px;
+  margin-left: 30px;
+  display: block;
+  padding-top: 10px;
+  float: right;
+  clear: right;
+}
+
+#user_options ul {
+  list-style-type: none;
+}
+
+#user_options li {
+  display: inline-block;
+}
+
+#user_options a {
+  text-decoration: none;
+  display: block;
+  height: 20px;
+  /* fallback */
+  background: #111;
+  
+  background: -webkit-gradient(linear,left top,left bottom,from(#444),to(#111)) ;
+  background: -moz-linear-gradient(top,#444,#111);
+  background: -o-linear-gradient(#2F2727, #1a82f7);
+  
+  border-radius: 6px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  vertical-align: baseline;
+  text-align: center;
+  padding: 6px 10px 3px 10px;
+  margin-left: 10px;
+}
+
+#user_options a:visited, a:link, a:active {
+  color: #BABABA
+}
+
+#user_options a:hover {
+  background: black;
+  color: white;
+}
+
+#page nav {
+  margin-top: 30px;
+  height: 40px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 20px;
+  box-shadow: 5px 5px 5px #ccc; 
+  border-style: solid;
+  border-color: #ccc;
+  border-width: 2px;
+  background-color: white;
+}
+
+#page nav ul {
+  list-style-type: none;
+  padding: 0px;
+  margin: 0px;
+  margin-left: 20px;
+}
+#page nav li {
+  display: inline-block;
+}
+#page nav li a {
+  text-decoration: none;
+  display: block;
+  height: 20px;
+  width: auto;
+  /* fallback */
+  background: #111;
+  background: -webkit-gradient(linear,left top,left bottom,from(#444),to(#111)) ;
+  background: -moz-linear-gradient(top,#444,#111);
+  background: -o-linear-gradient(#2F2727, #1a82f7);
+  
+  border-radius: 6px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 0px;
+  padding-top: 5px;
+  margin-left: 30px;
+  margin-top: 7px;
+}
+
+#page nav li a:visited, nav li a:link, nav li a:active {
+  color: #BABABA
+}
+
+#page nav li a:hover {
+  background: black;
+  color: white;
+}
+
+
