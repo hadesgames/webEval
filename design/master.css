@@ -12,32 +12,6 @@ body {
   margin-bottom: 30px;
 }
 
-#content {
-  width: 960px;
-  height:  600px;
-  float: left;
-  background-color: purple;
-  border-radius: 20px;
-}
-
-#right_bar {
-  margin-left: 30px;
-  margin-top: 0px;
-  width: 280px;
-  height: 500px;
-  float: right;
-  background-color: yellow;
-  border-radius :20px;
-}
-
-#page footer {
-  clear: both;
-  margin-top: 30px;
-  height: 133px;
-  background-color: brown;
-  border-radius: 20px;
-}
-
 .float_breaker {
   clear: both;
   height: 20px;
@@ -170,6 +144,8 @@ body {
   color: white;
 }
 
+/* Navigation Bar */
+
 #page nav {
   margin-top: 30px;
   height: 40px;
@@ -222,5 +198,56 @@ body {
   background: black;
   color: white;
 }
+/* Content */
+#content {
+  width: 930px;
+  height:  600px;
+  float: left;
+  border-radius: 20px;
+  box-shadow: 5px 5px 5px #ccc; 
+  border-style: solid;
+  border-color: #ccc;
+  border-width: 2px;
+  background-color: white;
+  color: black;
+  
+  padding :25px;
+}
 
 
+/* Right_bar */
+
+#right_bar {
+  margin-left: 30px;
+  margin-top: 0px;
+  width: 240px;
+  height: 500px;
+  float: right;
+  border-radius: 20px;
+  box-shadow: 5px 5px 5px #ccc; 
+  border-style: solid;
+  border-color: #ccc;
+  border-width: 2px;
+  background-color: white;
+  color: black;
+  
+  padding :20px;
+}
+
+
+/* Footer */
+
+#page footer {
+  clear: both;
+  margin-top: 30px;
+  height: 100px;
+  border-radius: 20px;
+  box-shadow: 5px 5px 5px #ccc; 
+  border-style: solid;
+  border-color: #ccc;
+  border-width: 2px;
+  background-color: white;
+  color: black;
+  
+  padding :20px;
+}
