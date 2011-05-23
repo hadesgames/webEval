@@ -584,14 +584,14 @@ class UserLoginForm(forms.Form):
     
 
 class UserRegisterForm(forms.ModelForm):
-    captcha = ReCaptchaField()
+    #captcha = ReCaptchaField()
     class Meta:
         model = UserProfile
         exclude = ('avatar', 'wiki_page', 'last_login', 'date_joined', 'rating', 'reputation', 'forum_posts', 'developer')
 
     
 class UserEditAccountForm(forms.ModelForm):
-    captcha = ReCaptchaField()
+    #captcha = ReCaptchaField()
     class Meta:
         model = UserProfile
         exclude = ('wiki_page', 'last_login', 'date_joined', 'rating', 'reputation', 'forum_posts', 'username', 'developer')

@@ -2,6 +2,8 @@ import os
 from settings import *
 
 def get_ip_from_request (request):
+    # quick fix
+    return '127.0.0.1'
     return request.META['REMOTE_ADDR']
     
     
