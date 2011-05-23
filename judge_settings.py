@@ -36,6 +36,6 @@ REGISTRATION_END_TIME = datetime.timedelta(minutes=10)
 
 
 TICKET_TYPES = ['bug', 'feature']
-TICKET_SEVERITIES = ['normal', 'critical', 'low']
+TICKET_SEVERITIES = ['high', 'normal', 'critical', 'low']
 TICKET_STATES = ['open', 'todo', 'in progress', 'on hold', 'completed', 'invalid', 'duplicate', 'wontfix']
 TICKET_COMMENT_EDIT_TIMESTAMP = datetime.timedelta(minutes=150)
