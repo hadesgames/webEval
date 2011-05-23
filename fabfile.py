@@ -4,11 +4,11 @@ def production():
 
 def reboot_apache():
     "Reboot Apache2 server."
-    sudo("/etc/init.d/httpd reload")
+    run("sudo /etc/init.d/httpd reload")
 
 def git_reset():
     "Resets the repository to specified version."
-    run("cd ~/work/webEvak/; git reset --hard")
+    run("cd ~/work/webEval/; git reset --hard")
 
 def git_pull():
     "Updates the repository."
