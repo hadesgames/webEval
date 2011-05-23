@@ -54,6 +54,7 @@ class Command(BaseCommand):
             default_contest__wiki_first_revision.wiki_page = default_contest__wiki_page
             default_contest__wiki_first_revision.markup_type = 'C'
             default_contest__wiki_first_revision.security = 'Protected'
+            default_contest__wiki_first_revision.author = user
             default_contest__wiki_first_revision.title = 'Default'
             default_contest__wiki_first_revision.content = """
                 == %s ==
