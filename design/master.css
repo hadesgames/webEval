@@ -23,15 +23,33 @@ body {
 
 /* Header */
 
-#page header {
-  height: 133px;
-  border-radius: 20px;
+header {
+  height: 50px;
+  width: auto;
+  margin: 0px;
+  padding: 0px;
   box-shadow: 5px 5px 5px #ccc; 
   border-style: solid;
   border-color: #ccc;
   border-width: 2px;
-  background-color: white;
-  
+  position: relative;
+  background-color: black;
+  top: -10px;
+  left: -10px;
+  display: block; 
+}
+#top_bar_inner
+{
+  display: block;
+  background-color: black;
+  width: 1330px;
+  height: 100%;
+  margin: auto;
+}
+#top_bar_outter
+{
+  width: 100%;
+  display: block;
 }
 
 #logo {
