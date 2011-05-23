@@ -184,6 +184,7 @@ class Migration(SchemaMigration):
             ('score', self.gf('django.db.models.fields.IntegerField')()),
             ('language', self.gf('django.db.models.fields.CharField')(default='cpp', max_length=4)),
             ('source_size', self.gf('django.db.models.fields.IntegerField')(default=0)),
+            ('private', self.gf('django.db.models.fields.BooleanField')(default=False)),
         ))
         db.send_create_signal('web_eval__core', ['Job'])
 
@@ -223,6 +224,24 @@ class Migration(SchemaMigration):
         ))
         db.send_create_signal('web_eval__core', ['RatingCache'])
 
+        # Adding model 'ScoreCache'
+        db.create_table('web_eval__core_scorecache', (
+            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('contest', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['web_eval__core.Contest'])),
+            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['web_eval__core.UserProfile'])),
+            ('score', self.gf('django.db.models.fields.IntegerField')(default=0)),
+        ))
+        db.send_create_signal('web_eval__core', ['ScoreCache'])
+
+        # Adding model 'ScoreProblemCache'
+        db.create_table('web_eval__core_scoreproblemcache', (
+            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('problem', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['web_eval__core.Problem'])),
+            ('cache', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['web_eval__core.ScoreCache'])),
+            ('score', self.gf('django.db.models.fields.IntegerField')(default=0)),
+        ))
+        db.send_create_signal('web_eval__core', ['ScoreProblemCache'])
+
         # Adding model 'UserProfile'
         db.create_table('web_eval__core_userprofile', (
             ('user_ptr', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['auth.User'], unique=True, primary_key=True)),
@@ -234,6 +253,7 @@ class Migration(SchemaMigration):
             ('twitter_user', self.gf('django.db.models.fields.CharField')(max_length=64, null=True, blank=True)),
             ('reputation', self.gf('django.db.models.fields.IntegerField')(default=0)),
             ('forum_posts', self.gf('django.db.models.fields.IntegerField')(default=0)),
+            ('developer', self.gf('django.db.models.fields.BooleanField')(default=False)),
         ))
         db.send_create_signal('web_eval__core', ['UserProfile'])
 
@@ -284,18 +304,40 @@ class Migration(SchemaMigration):
         ))
         db.send_create_signal('web_eval__core', ['WikiAttachment'])
 
+        # Adding model 'TicketMilestone'
+        db.create_table('web_eval__core_ticketmilestone', (
+            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('name', self.gf('django.db.models.fields.CharField')(unique=True, max_length=64)),
+            ('version', self.gf('django.db.models.fields.FloatField')(unique=True)),
+            ('due', self.gf('django.db.models.fields.DateField')()),
+        ))
+        db.send_create_signal('web_eval__core', ['TicketMilestone'])
+
         # Adding model 'Ticket'
         db.create_table('web_eval__core_ticket', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('date_posted', self.gf('django.db.models.fields.DateTimeField')()),
-            ('author', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['web_eval__core.UserProfile'])),
             ('title', self.gf('django.db.models.fields.CharField')(max_length=64)),
             ('content', self.gf('django.db.models.fields.TextField')()),
             ('type', self.gf('django.db.models.fields.CharField')(max_length=16)),
             ('status', self.gf('django.db.models.fields.CharField')(max_length=16)),
             ('severity', self.gf('django.db.models.fields.CharField')(max_length=16)),
+            ('milestone', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['web_eval__core.TicketMilestone'], null=True, blank=True)),
+            ('author', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['web_eval__core.UserProfile'])),
+            ('assignee', self.gf('django.db.models.fields.related.ForeignKey')(default=None, related_name='assignee', null=True, blank=True, to=orm['web_eval__core.UserProfile'])),
         ))
         db.send_create_signal('web_eval__core', ['Ticket'])
+
+        # Adding model 'TicketComment'
+        db.create_table('web_eval__core_ticketcomment', (
+            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('date_posted', self.gf('django.db.models.fields.DateTimeField')()),
+            ('author', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['web_eval__core.UserProfile'])),
+            ('content', self.gf('django.db.models.fields.TextField')()),
+            ('ticket', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['web_eval__core.Ticket'])),
+            ('autogenerated', self.gf('django.db.models.fields.BooleanField')(default=False)),
+        ))
+        db.send_create_signal('web_eval__core', ['TicketComment'])
 
         # Adding model 'FacebookSession'
         db.create_table('web_eval__core_facebooksession', (
@@ -382,6 +424,12 @@ class Migration(SchemaMigration):
         # Deleting model 'RatingCache'
         db.delete_table('web_eval__core_ratingcache')
 
+        # Deleting model 'ScoreCache'
+        db.delete_table('web_eval__core_scorecache')
+
+        # Deleting model 'ScoreProblemCache'
+        db.delete_table('web_eval__core_scoreproblemcache')
+
         # Deleting model 'UserProfile'
         db.delete_table('web_eval__core_userprofile')
 
@@ -397,8 +445,14 @@ class Migration(SchemaMigration):
         # Deleting model 'WikiAttachment'
         db.delete_table('web_eval__core_wikiattachment')
 
+        # Deleting model 'TicketMilestone'
+        db.delete_table('web_eval__core_ticketmilestone')
+
         # Deleting model 'Ticket'
         db.delete_table('web_eval__core_ticket')
+
+        # Deleting model 'TicketComment'
+        db.delete_table('web_eval__core_ticketcomment')
 
         # Deleting model 'FacebookSession'
         db.delete_table('web_eval__core_facebooksession')
@@ -548,6 +602,7 @@ class Migration(SchemaMigration):
             'language': ('django.db.models.fields.CharField', [], {'default': "'cpp'", 'max_length': '4'}),
             'message': ('django.db.models.fields.CharField', [], {'max_length': '32'}),
             'percent_completed': ('django.db.models.fields.IntegerField', [], {}),
+            'private': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'problem': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['web_eval__core.Problem']"}),
             'processing': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'score': ('django.db.models.fields.IntegerField', [], {}),
@@ -588,6 +643,20 @@ class Migration(SchemaMigration):
             'rating': ('django.db.models.fields.IntegerField', [], {}),
             'user': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['web_eval__core.UserProfile']"})
         },
+        'web_eval__core.scorecache': {
+            'Meta': {'object_name': 'ScoreCache'},
+            'contest': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['web_eval__core.Contest']"}),
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'score': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['web_eval__core.UserProfile']"})
+        },
+        'web_eval__core.scoreproblemcache': {
+            'Meta': {'object_name': 'ScoreProblemCache'},
+            'cache': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['web_eval__core.ScoreCache']"}),
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'problem': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['web_eval__core.Problem']"}),
+            'score': ('django.db.models.fields.IntegerField', [], {'default': '0'})
+        },
         'web_eval__core.tag': {
             'Meta': {'object_name': 'Tag'},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
@@ -606,19 +675,38 @@ class Migration(SchemaMigration):
         },
         'web_eval__core.ticket': {
             'Meta': {'object_name': 'Ticket'},
+            'assignee': ('django.db.models.fields.related.ForeignKey', [], {'default': 'None', 'related_name': "'assignee'", 'null': 'True', 'blank': 'True', 'to': "orm['web_eval__core.UserProfile']"}),
             'author': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['web_eval__core.UserProfile']"}),
             'content': ('django.db.models.fields.TextField', [], {}),
             'date_posted': ('django.db.models.fields.DateTimeField', [], {}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'milestone': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['web_eval__core.TicketMilestone']", 'null': 'True', 'blank': 'True'}),
             'severity': ('django.db.models.fields.CharField', [], {'max_length': '16'}),
             'status': ('django.db.models.fields.CharField', [], {'max_length': '16'}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '64'}),
             'type': ('django.db.models.fields.CharField', [], {'max_length': '16'})
         },
+        'web_eval__core.ticketcomment': {
+            'Meta': {'object_name': 'TicketComment'},
+            'author': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['web_eval__core.UserProfile']"}),
+            'autogenerated': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'content': ('django.db.models.fields.TextField', [], {}),
+            'date_posted': ('django.db.models.fields.DateTimeField', [], {}),
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'ticket': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['web_eval__core.Ticket']"})
+        },
+        'web_eval__core.ticketmilestone': {
+            'Meta': {'object_name': 'TicketMilestone'},
+            'due': ('django.db.models.fields.DateField', [], {}),
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '64'}),
+            'version': ('django.db.models.fields.FloatField', [], {'unique': 'True'})
+        },
         'web_eval__core.userprofile': {
             'Meta': {'object_name': 'UserProfile', '_ormbases': ['auth.User']},
             'avatar': ('django.db.models.fields.files.ImageField', [], {'max_length': '100'}),
             'city': ('django.db.models.fields.CharField', [], {'max_length': '32'}),
+            'developer': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'facebook_uid': ('django.db.models.fields.CharField', [], {'max_length': '16', 'null': 'True', 'blank': 'True'}),
             'forum_posts': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
             'rating': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
