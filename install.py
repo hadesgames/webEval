@@ -2,6 +2,7 @@
 
 import os
 import shutil
+import sys
 
 if os.path.isdir('install') is False:
 	print "I can't find directory install, quiting"
@@ -16,21 +17,28 @@ except:
 	print "Cannot find setuptools, please install python-setuptools"
 	exit(0)
 
+def install (short_name, name):
+    print "Okay, i will try to install %s" % name
+    shutil.copy('%s.makefile' % short_name, 'Makefile')
+    if os.system("make") != 0:
+    	exit(0)
+    else:
+    	print "Succesfully installed %s" % name
+		
 def install_package(short_name, name):
-	for i in xrange(3):
-		print "Cannot find %s, do you want me to install it ? [Y/n]" % name,
-		input = raw_input()
-		if input.lower().find('y') != -1:
-			print "Okay, i will try to install %s" % name
-			shutil.copy('%s.makefile' % short_name, 'Makefile')
-			if os.system("make") != 0:
-				exit(0)
-			else:
-				print "Succesfully installed %s" % name
-			break
-		elif input.lower().find('n') != -1:
-			print "Okay, skipping"
-			break
+    if len(sys.argv) > 1 and sys.argv[1] == '-y':
+        install(short_name, name)
+    else:
+      for i in xrange(3):
+    	  print "Cannot find %s, do you want me to install it ? [Y/n]" % name,
+          input = raw_input()
+          if input.lower().find('y') != -1:
+              install(short_name)
+              break
+          elif input.lower().find('n') != -1:
+              print "Okay, skipping"
+              break
+  			
 try:
 	import django
 	print "Django found, continuing"
