@@ -8,7 +8,7 @@ def reboot_apache():
 
 def git_reset():
     "Resets the repository to specified version."
-    run("cd ~/work/webEvak/; git reset --hard")
+    run("cd ~/work/webEval/; git reset --hard")
 
 def git_pull():
     "Updates the repository."
