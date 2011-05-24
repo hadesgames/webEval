@@ -1,10 +1,14 @@
 body {
   color: #F2F2F2;
   background: url("paper_3.gif") repeat;
+  overflow: scroll;
+  padding: 0px;
+  margin: 0px;
 }
 
 #page {
   margin: 0px auto;
+  margin-top: 70px;
   width: 1300px;
 }
 #body_wrapper {
@@ -23,33 +27,27 @@ body {
 
 /* Header */
 
-header {
-  height: 50px;
-  width: auto;
-  margin: 0px;
-  padding: 0px;
-  box-shadow: 5px 5px 5px #ccc; 
-  border-style: solid;
-  border-color: #ccc;
-  border-width: 2px;
-  position: relative;
-  background-color: black;
-  top: -10px;
-  left: -10px;
-  display: block; 
-}
-#top_bar_inner
-{
+header{
   display: block;
-  background-color: black;
-  width: 1330px;
+  height: 40px;
+  width:100%;
+  background: -webkit-gradient(linear,left top,left bottom,from(#666),to(#111)) ;
+  background: -moz-linear-gradient(top,#666,#111);
+  background: -o-linear-gradient(#666, #111);
+  position: absolute;
+  top: 0px;
+
+}
+#inner_header{
+  width: 1300px;
+  display: block;
   height: 100%;
-  margin: auto;
-}
-#top_bar_outter
-{
-  width: 100%;
-  display: block;
+  margin: 0px auto;
+  padding: 0px;
+  border: 0px;
+  background: -webkit-gradient(linear,left top,left bottom,from(#666),to(#111)) ;
+  background: -moz-linear-gradient(top,#666,#111);
+  background: -o-linear-gradient(#666, #111); 
 }
 
 #logo {
@@ -61,27 +59,24 @@ header {
   float: right;
 }
 /* Header - search bar */
-
-#search_bar {
-  margin-top: 15px;
-  padding: 5px;
-  width: 200px;
-  display: block;
-  float: right;
-  margin-right:25px;
+#search_bar{
+  width:200px;
+  display: inline-block;
 }
-
-.search_bar {
+.search_bar_box {
   background-color: black;
-  height: 30px;
-  padding-top:8px;
-  border-radius: 4px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-  background: #111;
+  height: 100%;
+  width: 100%;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  /*border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);*/
+  background: transparent;
+/*  background: #111;
   
   background: -webkit-gradient(linear,left top,left bottom,from(#444),to(#111)) ;
   background: -moz-linear-gradient(top,#444,#111);
-  background: -o-linear-gradient(#444, #111);
+  background: -o-linear-gradient(#444, #111);*/
 }
 
 .search_bar_text {
@@ -118,16 +113,17 @@ header {
 /* Header - user menu */
   
 #user_options {
-  margin-right: 30px;
+  padding: 0px;
+  margin: 0px;
+  margin-right: 5px;
   margin-left: 30px;
   display: block;
-  padding-top: 10px;
   float: right;
-  clear: right;
 }
 
 #user_options ul {
   list-style-type: none;
+  margin: 0px;
 }
 
 #user_options li {
@@ -139,17 +135,16 @@ header {
   display: block;
   height: 20px;
   /* fallback */
-  background: #111;
-  
+  background: transparent;  
+  /*
   background: -webkit-gradient(linear,left top,left bottom,from(#444),to(#111)) ;
   background: -moz-linear-gradient(top,#444,#111);
-  background: -o-linear-gradient(#2F2727, #1a82f7);
+  background: -o-linear-gradient(#2F2727, #1a82f7);*/
   
   border-radius: 6px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
   vertical-align: baseline;
   text-align: center;
-  padding: 6px 10px 3px 10px;
+  padding: 6px 10px 15px 10px;
   margin-left: 10px;
 }
 
@@ -163,56 +158,44 @@ header {
 }
 
 /* Navigation Bar */
-
-#page nav {
-  margin-top: 30px;
-  height: 40px;
-  padding-left: 10px;
-  padding-right: 10px;
-  border-radius: 20px;
-  box-shadow: 5px 5px 5px #ccc; 
-  border-style: solid;
-  border-color: #ccc;
-  border-width: 2px;
-  background-color: white;
+nav {
+  display:inline-block;
+  background-color: transparent;  
+  margin-left: 30px;
 }
 
-#page nav ul {
+nav ul {
   list-style-type: none;
   padding: 0px;
   margin: 0px;
   margin-left: 20px;
 }
-#page nav li {
+nav li {
   display: inline-block;
 }
-#page nav li a {
+nav li a {
   text-decoration: none;
   display: block;
-  height: 20px;
+  height: 19px;
   width: auto;
   /* fallback */
-  background: #111;
+/*  background: #111;
   background: -webkit-gradient(linear,left top,left bottom,from(#444),to(#111)) ;
   background: -moz-linear-gradient(top,#444,#111);
-  background: -o-linear-gradient(#2F2727, #1a82f7);
-  
+  background: -o-linear-gradient(#2F2727, #1a82f7);*/
   border-radius: 6px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  vertical-align: baseline;
   text-align: center;
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-bottom: 0px;
-  padding-top: 5px;
+  padding: 6px 10px 15px 10px;
   margin-left: 30px;
-  margin-top: 7px;
+  margin-top: 0px;
 }
 
-#page nav li a:visited, nav li a:link, nav li a:active {
+nav li a:visited, nav li a:link, nav li a:active {
   color: #BABABA
 }
 
-#page nav li a:hover {
+nav li a:hover {
   background: black;
   color: white;
 }
