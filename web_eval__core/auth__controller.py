@@ -42,11 +42,6 @@ CONNECTION = httplib.HTTPSConnection(SERVER)
 @login_required
 def successful_login (request):
     return HttpResponseRedirect(reverse('webEval.web_eval__core.blog__controller.index'))
-    #user = user_auth(request)
-    #message = "Hello %s" % user.first_name
-    #return render_to_response('auth/successful_login.html',
-    #                          {'message' : message},
-    #                          context_instance=RequestContext(request))
     
     
 def login (request):
@@ -80,37 +75,8 @@ def login (request):
                               context_instance=RequestContext(request)
                              )
     
-""" 
-def facebook_login (request):
-    
-    fb = Facebook(API_KEY, SECRET_KEY)
-
-    # Use the data from the cookie if present
-    if 'session_key' in request.session and 'uid' in request.session:
-        fb.session_key = request.session['session_key']
-        fb.uid = request.session['uid']
-    else:
-        
-        try:
-            fb.auth_token = request.GET['auth_token']
-        except KeyError:
-            # Send user to the Facebook to login
-            return HttpResponseRedirect(fb.get_login_url())
-
-        # getSession sets the session_key and uid
-        # Store these in the cookie so we don't have to get them again
-        fb.auth.getSession()
-        request.session['session_key'] = fb.session_key
-        request.session['uid'] = fb.uid
-    return HttpResponse(str(fb.uid))
-"""
-
 def facebook_login (request):
     error = None
-
-    #if request.user.is_authenticated():
-    #    print request.user
-    #    return redirect_to_index("You are already logged in.")
 
     if request.GET:
         if 'code' in request.GET:
@@ -186,6 +152,18 @@ def twitter_return(request):
                               context_instance=RequestContext(request))
 
 
+def register_remote_form (request):
+    form = UserRegisterForm()
+    return render_to_response('auth/register_popup.html',
+                              {
+                               'form' : form,
+                               'COUNTRIES' : COUNTRIES,
+                               'navigation' : {
+                                    'main' : 'judge',
+                                    'other' : 'register',
+                               }
+                              },
+                              context_instance = RequestContext(request))
     
 def register (request):
     messages = []

@@ -91,18 +91,17 @@
     </form>
   </div>
 
-  <a id="prevSlide" class="prevSlideButton" href="#">Prev</a>
-  <a id="nextSlide" class="nextSlideButton" href="#">Next</a>
-
+  <a id="prevSlideButton" class="prevSlideButton" href="javascript: prevSlide();">Prev</a>
+  <a id="nextSlideButton" class="nextSlideButton" href="javascript: nextSlide();">Next</a>
 </div>
 
   <div class="clear"></div>
 
   <ul class="popup-navigator">
-    <li class="changeStep" id="stepMoveTo1">User</li>
-    <li class="changeStep" id="stepMoveTo2">Personal Information</li>
-    <li class="changeStep" id="stepMoveTo3">Location</li>
-    <li class="changeStep" id="stepMoveTo4">Security code</li>
-    <li class="changeStep" id="stepMoveTo5">Confirm</li>
+    <li class="changeStep" id="stepMoveTo1" onclick="changeStep(1);">User</li>
+    <li class="changeStep" id="stepMoveTo2" onclick="changeStep(2);">Personal Information</li>
+    <li class="changeStep" id="stepMoveTo3" onclick="changeStep(3);">Location</li>
+    <li class="changeStep" id="stepMoveTo4" onclick="changeStep(4);">Security code</li>
+    <li class="changeStep" id="stepMoveTo5" onclick="changeStep(5);">Confirm</li>
   </ul>
 

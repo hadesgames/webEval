@@ -9,64 +9,62 @@ $('#login').click(function (evt) {
   $('#nextSlide').hide();
 });
 
-var currentStep = 1;
+currentStep = 1;
 
 function showHideButtons () {
+  console.log("okay");
+  console.log(currentStep);
   if (currentStep <= 1) {
-    $("#prevSlide").hide();
+    $("#prevSlideButton").hide();
     currentStep = 1;
   } else {
-    $("#prevSlide").show();
+    $("#prevSlideButton").show();
   }
   
   if (currentStep >= 5) {
-    $("#nextSlide").hide();
+    $("#nextSlideButton").hide();
     currentStep = 5;
   } else {
-    $("#nextSlide").show();
+    $("#nextSlideButton").show();
   }
-}
+};
 
 $('#register').click(function (evt) {
-  $('#form-register').dialog(
-    {
-			  width: 800,
-			  height: 450,
-			  modal: true,
-			  resizable: false,
-	  }
-	);
-	
-	//$('fieldset').hide();
-  //$('#step1').show();
-  
+  console.log("okay");
+  $('#form-register').dialog({
+        width: 800,
+        height: 450,
+        modal: true,
+        resizable: false,
+    }
+  );
+  $('#form-register').load('/api/register_form/');
   showHideButtons ();
 });
 
-$('#nextSlide').click(function (evt) {
-  console.log("okay");
+
+function nextSlide () {
+  console.log("next");
   var newMargin = -800 * currentStep;
   currentStep += 1;
   $('.pop-up-container').css("margin-left", newMargin + "px");
-  showHideButtons();  
-});
+  showHideButtons();
+}
 
-$('#prevSlide').click(function (evt) {
+function prevSlide () {
+  console.log("prev");
   currentStep -= 1;
   var newMargin = -800 * (currentStep - 1);
   $('.pop-up-container').css("margin-left", newMargin + "px");
   showHideButtons();  
-});
+}
 
-$('.changeStep').click(function (evt) {
-  var st = evt.currentTarget.id.split('stepMoveTo')[1];
+function changeStep(st) {
+  //var st = evt.currentTarget.id.split('stepMoveTo')[1];
   currentStep = parseInt(st);
   var newMargin = -800 * (currentStep - 1);
   console.log(newMargin);
   $('.pop-up-container').css("margin-left", newMargin + "px");
-});
-/*
-$('input').live('keydown', function(evt) {
-  
-  evt.preventDefault();
-});*/
+  showHideButtons();
+}
+

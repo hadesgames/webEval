@@ -33,6 +33,7 @@
   border: 2px solid #CCCCCC;
   background-color: #CCCCCC;
   border-radius: 4px;
+  display: none;
 }
 
 .popup-navigator {
