@@ -1,10 +1,16 @@
-def production():
-    config.fab_hosts = ['webEval.no-ip.org']
-    config.repos = (('webEval','origin','master'))
+from fabric.api import env, run, sudo, local
 
-def reboot_apache():
+def production():
+	env.hosts = ['webEval@webEval.no-ip.org']
+	env.user = 'webEval'
+
+def reboot_nginx():
     "Reboot Apache2 server."
-    run("sudo /etc/init.d/httpd reload")
+    sudo("/etc/init.d/nginx restart", pty=True)
+
+def reboot_fastcgi():
+	"Reboot FastCGI server."
+	run("~/work/webEval/webEvald")
 
 def git_reset():
     "Resets the repository to specified version."
@@ -26,4 +32,5 @@ def deploy():
     git_commit()
     git_push()
     git_pull()
-    reboot_apache()
+    reboot_nginx()
+    reboot_fastcgi
