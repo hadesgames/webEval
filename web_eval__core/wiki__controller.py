@@ -274,7 +274,10 @@ def display_attachment (request, page_url, hash):
         return redirect_to_index("You don't have enough permissions to view this attachment.")
     
     filename = os.path.join(ATTACHMENTS_DIR, "attachment%d-%s" % (attachment.id, attachment.name))
-    wrapper = FileWrapper(file(filename))
+    try:
+      wrapper = FileWrapper(file(filename))
+    except IOError:
+      raise Http404
     response = HttpResponse(wrapper, content_type='text/plain')
     response['Content-Length'] = os.path.getsize(filename)
     response['Content-Disposition'] = 'attachment; filename="%s"' % attachment.name.replace('"', '')
