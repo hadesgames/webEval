@@ -16,7 +16,12 @@ def git_pull():
     "Updates the repository."
     run("cd ~/work/webEval/; git pull")
 
+def db_migrate():
+    "Migrates the database."
+    run("cd ~/work/webEval/; ./manage.py migrate")
+
 def deploy():
     git_pull()
+    db_migrate()
     reboot_apache()
     reboot_nginx()
