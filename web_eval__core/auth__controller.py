@@ -45,9 +45,6 @@ def successful_login (request):
     
     
 def login (request):
-    
-    print request.user
-    
     if request.method == 'POST':
         form = UserLoginForm(request.POST)
         username = request.POST['username']
@@ -164,6 +161,17 @@ def register_remote_form (request):
                                }
                               },
                               context_instance = RequestContext(request))
+                              
+                              
+def login_remote_form (request):
+    form = UserLoginForm()
+    return render_to_response('auth/login_popup.html',
+                              {
+                                    'form' : form,
+                                    'settings' : settings,
+                              },
+                              context_instance = RequestContext(request)
+                             )
     
 def register (request):
     messages = []

@@ -5,6 +5,8 @@ $('#login').click(function (evt) {
 			  modal: true,
 	  }
 	);
+	
+  $('#form-login').load('/api/login_form/');
 	$('#prevSlide').hide();
   $('#nextSlide').hide();
 });

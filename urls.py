@@ -104,6 +104,7 @@ urlpatterns = patterns('',
     (r'^api/get_rounds_for_problem', 'webEval.web_eval__core.grader__controller.get_rounds_for_problem'),
     (r'^api/search_tags/$', 'webEval.web_eval__core.blog__controller.get_tags_ajax'),
     (r'^api/register_form/$', 'webEval.web_eval__core.auth__controller.register_remote_form'),
+    (r'^api/login_form/$', 'webEval.web_eval__core.auth__controller.login_remote_form'),
     
     (r'^ranks/$', 'webEval.web_eval__core.grader__controller.ranks'),
     
