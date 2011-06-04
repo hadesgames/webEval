@@ -1,6 +1,6 @@
 $('document').ready(function() {
-  $('#sliding-menu-button').click(function() {
-    console.log("click");
-    $("#sliding-menu-panel").toggle("slow");
+  $('#header_user').click(function(evt) {
+    $('#header_user_dropdown').toggle('slow');
+    evt.preventDefault();
   });
 })
