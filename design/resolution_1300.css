@@ -1,0 +1,11 @@
+#header_nav li a{
+  margin-left: 10px;
+}
+ 
+#user_options {
+ float: left;
+}
+ 
+#inner_header {
+ width: 100%;
+}

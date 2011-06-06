@@ -1,6 +1,343 @@
-color: #F2F2F2;
+/* Main html tags */
 
-.layout {
-  margin: 0px auto;
-  width: 940px;
+* {
+  font-family: Helvetica, Verdana, Arial, sans-serif;
+  font-size: 13px;
 }
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+  color: #1E81C3;
+}
+
+p {
+  font-size: 13px;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { 
+  display: block;
+}
+
+body {
+  margin: 0px;
+  background: url("paper_3.gif") repeat;
+}
+
+label {
+  display: block;
+  font-size: 11px;
+  color: #696969;
+  margin: 2px;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0px;
+}
+
+li {
+}
+
+textarea {
+  padding: 5px 10px;
+  border: 1px solid #B8B8B8;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  margin: 2px;
+}
+
+input[type="text"] {
+  display: inline;
+  float: none;
+  padding: 5px 10px;
+  border: 1px solid #B8B8B8;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  margin: 2px;
+}
+
+/* Main containers */
+
+#page_wrapper {
+  color: #F2F2F2;
+  padding: 0px;
+  margin: 0px auto;
+  margin-top: 100px;
+  width: 980px;
+}
+
+.float_breaker {
+  clear: both;
+  height: 20px;
+  margin : 0px;
+  padding : 0px;
+  visibility: hidden;
+}
+/*
+@font-face {  
+ font-family: ubuntuTitle ;  
+ src: url(Ubuntu-Title.ttf) format("ttf");  
+}*/
+
+@font-face {  
+ font-family: arista ;  
+ src: url(file:///Users/toni/work/webEval/design/Arista.ttf) format('truetype');  
+}
+
+/* Header */
+
+header{
+  display: block;
+  height: 40px;
+  width: 100%;
+  background: -webkit-gradient(linear,left top,left bottom,from(#666),to(#111)) ;
+  background: -moz-linear-gradient(top,#666,#111);
+  background: -o-linear-gradient(#666, #111);
+  position: fixed;
+  top: 0px;
+}
+
+#inner_header{
+  width: 980px;
+  display: block;
+  height: 100%;
+  margin: 0px auto;
+  padding: 0px;
+  border: 0px;
+  background: -webkit-gradient(linear,left top,left bottom,from(#666),to(#111)) ;
+  background: -moz-linear-gradient(top,#666,#111);
+  background: -o-linear-gradient(#666, #111); 
+}
+
+#header_options {
+  float: right;
+}
+
+/* Header - logo */
+
+#logo {
+  color: #F5F5F5;
+  height: 100%;
+  display: inline-block;
+  float: left;
+  margin-left: 10px;
+  margin-right: 15px;
+  font-size: 30px;
+  font-family: verdana, arial, sans-serif;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Header - search bar */
+#search_bar{
+  width:230px;
+  display: inline-block;
+  float: left;
+}
+
+.search_bar_box {
+  background-color: black;
+  height: 100%;
+  width: 100%;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  /*border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);*/
+  background: transparent;
+/*  background: #111;
+  
+  background: -webkit-gradient(linear,left top,left bottom,from(#444),to(#111)) ;
+  background: -moz-linear-gradient(top,#444,#111);
+  background: -o-linear-gradient(#444, #111);*/
+}
+
+#search_bar .search_bar_text {
+  margin: 0px 0px 0px 10px;
+  padding: 6px 25px 4px 5px;
+  color: black;
+  background-color: #ccc;
+  display: inline-block;
+  width: 180px;
+  border-width: 0px;
+  height: 16px;
+  background-color: #777;
+/*
+  border-radius: 0px;
+  border-top-left-radius: 10px;
+  */
+  border-radius: 4px;
+  color: #bbb ;
+  border: 0px;
+}
+
+.search_bar_glass {
+  margin-left: 0px;
+  padding-left: 0px;
+  background: #777 url("glass.png") no-repeat;
+  background-size: 20px 20px;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  position: relative;
+  right: 5px;
+  cursor: pointer;
+  vertical-align: bottom;
+  border-bottom-right-radius: 10px;
+  
+}
+
+/* Navigation Bar */
+#header_nav {
+  display:inline-block;
+  background-color: transparent;  
+  float: left;
+}
+
+#header_nav ul {
+  list-style-type: none;
+  padding: 0px;
+  margin: 0px;
+}
+
+#header_nav li {
+  display: inline-block;
+}
+
+#header_nav li a {
+  text-decoration: none;
+  display: block;
+  height: 19px;
+  width: auto;
+  color: #BABABA;
+  font-size: 13px;
+  /* fallback */
+/*  background: #111;
+  background: -webkit-gradient(linear,left top,left bottom,from(#444),to(#111)) ;
+  background: -moz-linear-gradient(top,#444,#111);
+  background: -o-linear-gradient(#2F2727, #1a82f7);*/
+  border-radius: 6px;
+  vertical-align: baseline;
+  text-align: center;
+  padding: 10px;
+  margin: 0px;
+}
+
+#header_nav li.selected, #header_nav li.selected a {
+  background: #000000;
+  color: #FFFFFF;
+}
+
+#header_nav li a:visited, header_nav li a:link, header_nav li a:active {
+  color: #BABABA;
+}
+
+#header_nav li a:hover {
+  color: white;
+}
+
+/* Header - User Actions  */
+#header_user {
+  float: right;
+  margin-right: 50px;
+}
+
+#header_user:hover {
+  background: #000000;
+  cursor: pointer;
+}
+
+#header_user img {
+  display: block;
+  float: left;
+  margin: 10px;
+  width: 20px;
+  height: 20px;
+}
+
+#header_user span {
+  margin: 10px 10px 10px 0px;
+  display: block;
+  float: left;
+  color: #FFF;
+}
+
+#header_user_dropdown {
+  display: none;
+  position: absolute;
+  top: 27px;
+  border-radius: 0px 0px 4px 4px;
+  -webkit-border-radius: 0px 0px 4px 4px;
+  -moz-border-radius: 0px 0px 4px 4px;
+  width: auto;
+  margin-left: -20px;
+}
+
+#header_user_dropdown li {
+  background: #000000;
+  color: #BABABA;
+  display: block;
+  float: none;
+  width: 110px;
+  padding: 10px;
+  padding-left: 30px;
+}
+
+#header_user_dropdown li.last {
+  border-radius: 0px 0px 4px 4px;
+  -webkit-border-radius: 0px 0px 4px 4px;
+  -moz-border-radius: 0px 0px 4px 4px;
+}
+
+#header_user_dropdown a {
+  color: #BABABA;
+}
+
+#heaver_user_dropdown a:hover {
+  background: #BABABA;
+  color: #FFFFFF;
+}
+
+/* Content */
+#content {
+  width: 650px;
+  float: left;
+  border-radius: 20px;
+  box-shadow: 5px 5px 5px #ccc; 
+  border-style: solid;
+  border-color: #ccc;
+  border-width: 2px;
+  background-color: white;
+  color: black;
+  padding: 0px;
+}
+
+#content_wrapper {
+  margin: 25px;
+}
+
+
+/* Sidebar */
+
+#sidebar {
+  margin-left: 30px;
+  margin-top: 0px;
+  width: 280px;
+  height: 100%;
+  float: right;
+  border-radius: 20px;
+  box-shadow: 5px 5px 5px #ccc; 
+  border-style: solid;
+  border-color: #ccc;
+  border-width: 2px;
+  background-color: white;
+  color: black;
+  
+  padding: 20px 0px;
+}
+
+#sidebar_wrapper {
+  margin: 25px 10px;
+}
+
+
