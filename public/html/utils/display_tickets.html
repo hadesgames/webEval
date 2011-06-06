@@ -27,7 +27,7 @@
 			<tr class="ticket_severity_{{ ticket.severity }}">
 				<td id="ticket_id_td"><a href="{% url webEval.web_eval__core.utils__controller.display_ticket ticket_id=ticket.id %}">#{{ ticket.id }}</a></td>
 				<td id="ticket_title_td"><a href="{% url webEval.web_eval__core.utils__controller.display_ticket ticket_id=ticket.id %}">{{ ticket.title }}</a></td>
-				<td><a href="{% url webEval.web_eval__core.user__controller.display_user user_name=ticket.author.username %}">{{ ticket.author.username }}</a></td>
+				<td>{% if ticket.assignee %}<a href="{% url webEval.web_eval__core.user__controller.display_user user_name=ticket.assignee.username %}">{{ ticket.assignee.username }}</a>{% else %}-{% endif %}</td>
 				<td>{{ ticket.status }}</td>
 				<td>{{ ticket.type }}</td>
 				<td>{{ ticket.severity }}</td>
@@ -48,6 +48,7 @@
 		<thead>
 			<th id="ticket_id_th">Id</th>
 			<th>Title</th>
+  		<th id="ticket_type_td">Assignee</th>
 			<th id="ticket_type_td">Status</th>
 			<th id="ticket_type_td">Type</th>
 			<th id="ticket_type_td">Severity</th>
@@ -59,6 +60,8 @@
 			<tr class="ticket_severity_{{ ticket.severity }}">
 				<td id="ticket_id_td"><a href="{% url webEval.web_eval__core.utils__controller.display_ticket ticket_id=ticket.id %}">#{{ ticket.id }}</a></td>
 				<td id="ticket_title_td"><a href="{% url webEval.web_eval__core.utils__controller.display_ticket ticket_id=ticket.id %}">{{ ticket.title }}</a></td>
+				<td>{% if ticket.assignee %}<a href="{% url webEval.web_eval__core.user__controller.display_user user_name=ticket.assignee.username %}">{{ ticket.assignee.username }}</a>{% else %}-{% endif %}</td>
+
 				<td>{{ ticket.status }}</td>
 				<td>{{ ticket.type }}</td>
 				<td>{{ ticket.severity }}</td>
