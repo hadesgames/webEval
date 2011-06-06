@@ -16,7 +16,7 @@
 	</ul>
 	
 	<h1>Edit user: <a href="{% url webEval.web_eval__core.user__controller.display_user user_name=user.username %}">{{ user.username }}</a></h1>
-<form enctype="multipart/form-data" action="{% url webEval.web_eval__core.user__controller.edit_user_account user_name=user.username %}" method="post" class="profile clear" onsubmit="return checkForm();"> 
+<form enctype="multipart/form-data" action="{% url webEval.web_eval__core.user__controller.edit_user_account user_name=user.username %}" method="post" onsubmit="return checkForm();"> 
  
 <fieldset> 
     <legend><img src="{{ MEDIA_URL }}/images/icons/key.gif" alt="!" /> Security info </legend> 
