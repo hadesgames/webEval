@@ -179,35 +179,21 @@ def register (request):
         form = UserRegisterForm(request.POST)#, remote_ip=get_ip_from_request(request))
         
         if form.is_valid():
-            if request.POST['password'] == request.POST['password2'] and len(request.POST['password']) >= 6:
-                username = form.save(commit = False)
-                if email_is_valid(username.email) and not User.objects.filter(email=username.email) and username.valid_username():
-                    username.is_active= 0
-                    username.date_joined = datetime.datetime.now()
-                    username.username = request.POST['username']
-                    username.email = request.POST['email']
-                    username.first_name = request.POST['first_name']
-                    username.last_name = request.POST['last_name']
-                    username.set_password(request.POST['password'])
-                    username.save()
-                    username.wiki_page = create_user_wiki_page(username, request)
-                    username.save()
-                    copy_initial_avatar(username)
-                    send_validation_key(username, key = UserValidationKey())
-                    
-                    return HttpResponseRedirect(reverse('webEval.web_eval__core.auth__controller.successful_register'))
-                    
-                elif not email_is_valid(username.email):
-                    form.errors['email'] = 'Please enter a valid email.'
-                elif not username.valid_username():
-                    form.errors['username'] = 'Username is not valid'
-                else:
-                    form.errors['email'] = 'There is another account with this email address. Please enter other email address.'
-                    
-            elif request.POST['password'] != request.POST['password2']:
-                form.errors['password'] = 'Passwords didn\'t match.'
-            else:
-                form.errors['password'] = 'Password too short. Must be at least 6 characters'
+            username = form.save(commit = False)                                                                   
+            username.is_active= 0                                                                                  
+            username.date_joined = datetime.datetime.now()                                                         
+            username.username = request.POST['username']                                                           
+            username.email = request.POST['email']                                                                 
+            username.first_name = request.POST['first_name']                                                       
+            username.last_name = request.POST['last_name']                                                         
+            username.set_password(request.POST['password'])                                                        
+            username.save()                                                                                        
+            username.wiki_page = create_user_wiki_page(username, request)                                          
+            username.save()                                                                                        
+            copy_initial_avatar(username)                                                                          
+            send_validation_key(username, key = UserValidationKey())                                               
+                                                                                                                   
+            return HttpResponseRedirect(reverse('webEval.web_eval__core.auth__controller.successful_register'))    
     else:    
         form = UserRegisterForm()
         
