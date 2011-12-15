@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>webEval</title>
+    <link rel="stylesheet" href="master.css" type="text/css" media="screen" title="master css" charset="utf-8" />
+    <script src="http://code.jquery.com/jquery-1.6.1.min.js" type="text/javascript" language="javascript" charset="utf-8" > </script>
+    <script src="application.js" type="text/javascript" language="javascript" charset="utf-8" > </script>
+    <script src="auth_menu.js" type="text/javascript" language="javascript" charset="utf-8" > </script>
+  </head>
+  <body>
+    <header>
+      <div id="inner_header" >
+        <a href="#" id="logo">
+          webEval
+        </a>
+        <section id="search_bar">
+          <form action="#">
+            <div class="search_bar_box">
+              <input type="text" class="search_bar_text" placeholder="Search" />
+              <span class="search_bar_glass"></span>
+            </div>
+          </form>
+        </section>
+        <nav id="header_nav">
+          <ul>
+            <li><a href=#>Home</a></li>
+            <li><a href=#>Problems</a></li>
+            <li><a href=#>Contests</a></li>
+            <li><a href=#>Status</a></li>
+            <li><a href=#>Blog</a></li>
+          </ul>
+        </nav>
+        <section id="user_options">
+          <ul>
+            <li><a href="#">Login</a></li>
+            <li><a href="#">Register</a></li>
+          </ul>
+        </section>
+      </div>
+    </header>
+    <section id="page_wrapper">
+      <section id="content">
+        <section id="content_wrapper">
+          <article>
+              <h1>Lorem ipsum </h1>
+              <p>Lorem ipsum dolor sit amet, adipiscing sed accumsan cum, morbi at, est class, condimentum pede dui etiam ultrices condimentum pellentesque, eros dictumst non. Urna sit integer malesuada, morbi condimentum et vel justo erat ipsum, sapien risus justo cursus fringilla sit. Quis venenatis nulla ac odio ut est, consectetuer lorem metus nonummy, ipsum lacus in ligula iaculis ultricies in. Vivamus donec phasellus dolor purus, nec placerat nonummy dolor tristique, montes vel fringilla eu id quis lectus, amet dolor, purus cras. Faucibus vitae cursus lacus non. Penatibus mi nec venenatis, at mollis metus in quis ultricies, morbi quam vitae sed quam dolor, ante ultricies scelerisque risus scelerisque nisl, tellus amet purus dapibus amet. Elementum mi lectus vehicula et, at suspendisse, facilisis feugiat etiam. Suscipit venenatis, vestibulum posuere sed vestibulum. Ante vehicula pede. Eius sem, ut mollis, dolor sed ac ipsum duis semper vehicula. Montes praesent dui at tortor viverra turpis, amet nonummy eget tellus, diam sit parturient fermentum mauris sapien, lacus velit sit arcu imperdiet parturient. Euismod semper sem ullamcorper lacinia eget purus.</p>
+              <p>Vel cum posuere in, wisi nisl in, orci lacinia nisl arcu sed. Pulvinar urna orci gravida imperdiet vitae, aliquet aliquam placerat, nec proin. Id vitae nulla ipsum arcu, metus nascetur in consectetuer libero at. Aliquam eget nibh ac rutrum et, mattis nulla, ut metus gravida ut elementum, consectetuer mi lobortis nunc a elit, ligula lacus velit. Nonummy ornare justo nulla, tempus aliquam elit est justo diam, cras sed neque justo et, parturient cras, vel dolor mauris et non adipiscing lectus. Dui maecenas varius dictum odio inceptos, aliquam cras, libero gravida purus, sit integer, dui curabitur. Ipsum vitae lectus rutrum bibendum amet, leo aenean non condimentum morbi, minim iaculis dolor integer facilisis elit, mauris sit quam sit, erat praesent ipsum sed nec in ornare.</p>
+          </article>
+          <h1>Form</h1>
+          <form method="POST" action="#">
+            <ul class="form">
+              <li class="row">
+                <label for="title">Title</label>
+                <input type="text" name="title" id="form_title" placeholder="title" />
+              </li>
+              
+              <li class="row">
+                <label for="contest_code">Content</label>
+                <textarea name="content" id="form_content" placeholder="Write here about this contest..."></textarea>
+              </li>
+            </ul>
+          </form>
+      </section>
+      </section>
+      <section id="sidebar">
+        <section id="sidebar_wrapper">
+          <p>Lorem ipsum dolor sit amet, adipiscing sed accumsan cum, morbi at, est class, condimentum pede dui etiam ultrices condimentum pellentesque, eros dictumst non. Urna sit integer malesuada, morbi condimentum et vel justo erat ipsum, sapien risus justo cursus fringilla sit. Quis venenatis nulla ac odio ut est, consectetuer lorem metus nonummy, ipsum lacus in ligula iaculis ultricies in. Vivamus donec phasellus dolor purus, nec placerat nonummy dolor tristique, montes vel fringilla eu id quis lectus, amet dolor, purus cras. Faucibus vitae cursus lacus non. Penatibus mi nec venenatis, at mollis metus in quis ultricies, morbi quam vitae sed quam dolor, ante ultricies scelerisque risus scelerisque nisl, tellus amet purus dapibus amet. Elementum mi lectus vehicula et, at suspendisse, facilisis feugiat etiam. Suscipit venenatis, vestibulum posuere sed vestibulum. Ante vehicula pede. Eius sem, ut mollis, dolor sed ac ipsum duis semper vehicula. Montes praesent dui at tortor viverra turpis, amet nonummy eget tellus, diam sit parturient fermentum mauris sapien, lacus velit sit arcu imperdiet parturient. Euismod semper sem ullamcorper lacinia eget purus.</p>
+        </section>
+      </section>
+     
+      <a href="#" id="sliding-menu-button">
+        Show menu
+      </a>
+      
+      <section id="sliding-menu-panel">
+        <nav>
+          <ul>
+            <li><a href=#>Home</a></li>
+            <li><a href=#>Problems</a></li>
+            <li><a href=#>Contests</a></li>
+            <li><a href=#>Status</a></li>
+            <li><a href=#>Blog</a></li>
+            <li><a href=#>Login</a></li>
+            <li><a href=#>Register</a></li>
+          </ul>
+        </nav>
+      </section>
+      <hr class="float_breaker">
+      <footer>
+      </footer>
+    </section>
+  </body>
+</html>
